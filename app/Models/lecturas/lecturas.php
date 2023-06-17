@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models\lecturas;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class lecturas extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'study_id',
+        'medico_id',
+        'estudio',
+        'informe',
+        'fechaestudio'
+    ];
+}
