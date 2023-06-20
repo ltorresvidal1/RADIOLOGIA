@@ -6,10 +6,6 @@ RUN curl -sS https://getcomposer.org/installer​ | php -- \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
 
-
-#Install Extensions
-RUN set -ex \ && apk --no-cache add \ postgresql-dev
-
 RUN docker-php-ext-install pdo pdo_pgsql
 
 WORKDIR /app
