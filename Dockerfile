@@ -8,10 +8,9 @@ COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
 
 
 #Install Extensions
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
-RUN docker-php-ext-install pdo pdo_pgsql pgsql zip exif pcntl
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
-RUN docker-php-ext-install gd
+RUN set -ex \ && apk --no-cache add \ postgresql-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql
 
 WORKDIR /app
 COPY . .
