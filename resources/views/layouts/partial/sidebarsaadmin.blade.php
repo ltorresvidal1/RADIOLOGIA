@@ -7,7 +7,7 @@
             @php
 				$currentUrl = (Request::path() != '/') ? '/'. Request::path() : '/';
 
-				function renderSubMenu($value, $currentUrl) {
+				function renderSubMenuadm($value, $currentUrl) {
 					$subMenu = '';
 					$GLOBALS['sub_level'] += 1 ;
 					$GLOBALS['active'][$GLOBALS['sub_level']] = '';
@@ -23,7 +23,7 @@
 
 						if (!empty($menu['children'])) {
 							$subSubMenu .= '<div class="menu-submenu">';
-							$subSubMenu .= renderSubMenu($menu['children'], $currentUrl);
+							$subSubMenu .= renderSubMenuadm($menu['children'], $currentUrl);
 							$subSubMenu .= '</div>';
 						}
 
@@ -60,7 +60,7 @@
 					if (!empty($menu['children'])) {
 						$GLOBALS['sub_level'] = 0;
 						$menuSubMenu .= '<div class="menu-submenu">';
-						$menuSubMenu .= renderSubMenu($menu['children'], $currentUrl);
+						$menuSubMenu .= renderSubMenuadm($menu['children'], $currentUrl);
 						$menuSubMenu .= '</div>';
 					}
 					$active = (!empty($menu['url']) && $currentUrl == $menu['url']) ? 'active' : '';
