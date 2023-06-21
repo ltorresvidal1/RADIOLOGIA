@@ -12,9 +12,10 @@ WORKDIR /app
 COPY . .
 RUN rm -rf /app/vendor
 RUN rm -rf /app/composer.lock
-RUN docker-php-ext-install pdo pdo_pgsql
+
 RUN composer install
 RUN composer require laravel/octane spiral/roadrunner
+RUN docker-php-ext-install pdo pdo_pgsql
 COPY .env.example .env
 RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
