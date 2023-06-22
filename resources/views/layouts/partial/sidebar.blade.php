@@ -6,151 +6,77 @@
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
         <!-- BEGIN menu -->
         <div class="menu">
-            @php
-				$currentUrl = (Request::path() != '/') ? '/'. Request::path() : '/';
-
-				function renderSubMenu($value, $currentUrl) {
-					$subMenu = '';
-					$GLOBALS['sub_level'] += 1 ;
-					$GLOBALS['active'][$GLOBALS['sub_level']] = '';
-					$currentLevel = $GLOBALS['sub_level'];
-					foreach ($value as $key => $menu) {
-						$GLOBALS['childparent_level'] = '';
-
-						$subSubMenu = '';
-						$hasSub = (!empty($menu['children'])) ? 'has-sub' : '';
-						$menuUrl = (!empty($menu['url'])) ? $menu['url'] : '';
-					    $menuCaret = (!empty($hasSub)) ? '<span class="menu-caret"><b class="caret"></b></span>' : '';
-						$menuText = (!empty($menu['text'])) ? '<span class="menu-text">'. $menu['text'] .'</span>' : '';
-
-						if (!empty($menu['children'])) {
-							$subSubMenu .= '<div class="menu-submenu">';
-							$subSubMenu .= renderSubMenu($menu['children'], $currentUrl);
-							$subSubMenu .= '</div>';
-						}
-
-						$active = ($currentUrl == $menuUrl) ? 'active' : '';
-						if ($active) {
-							$GLOBALS['parent_active'] = true;
-							$GLOBALS['active'][$GLOBALS['sub_level'] - 1] = true;
-						}
-						if (!empty($GLOBALS['active'][$currentLevel])) {
-							$active = 'active';
-						}
-
-						$subMenu .= '
-							<div class="menu-item '. $hasSub .' '. $active .'">
-								<a href="'. $menuUrl .'" class="menu-link">'. $menuText . $menuCaret .'</a>
-								'. $subSubMenu .'
+			@php    
+			if(auth()->user()->perfile_id==1) {
+			echo '<div class="menu-header"><span class="menu-text">Super-Administrador</span></div>';
+			echo '<div class="menu-item  ">
+					<a href="/principal" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-laptop"></i></span>
+						<span class="menu-text">Tablero de Control</span>
+					</a>
+				</div>';
+			echo '<div class="menu-item  active">
+					<a href="/clientes" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-building"></i></span>
+						<span class="menu-text">Clientes</span>
+					</a>
+				</div>';
+			echo '<div class="menu-item has-sub ">
+					<a href="" class="menu-link">
+						<span class="menu-icon"><i class="fa fa-user"></i></span>
+						<span class="menu-text">Seguridad</span>
+						<span class="menu-caret"><b class="caret"></b></span>
+					</a>
+					<div class="menu-submenu">
+							<div class="menu-item  ">
+								<a href="/sa_usuarios" class="menu-link"><span class="menu-text">Usuarios</span></a>		
 							</div>
-						';
-					}
-					return $subMenu;
-				}
-     
-				if(auth()->user()->perfile_id==1) {
-
-					foreach (config('sidebarsaadmin.menu') as $key => $menu) {
-						$GLOBALS['parent_active'] = '';
-
-						$hasSub = (!empty($menu['children'])) ? 'has-sub' : '';
-						$menuUrl = (!empty($menu['url'])) ? $menu['url'] : '';
-						$menuVariable = (!empty($menu['variable'])) ? $menu['variable'] : '';
-						$menuLabel = (!empty($menu['label'])) ? '<span class="menu-icon-label">'. $menu['label'] .'</span>' : '';
-						$menuIcon = (!empty($menu['icon'])) ? '<span class="menu-icon"><i class="'. $menu['icon'] .'"></i>'. $menuLabel .'</span>' : '';
-						$menuText = (!empty($menu['text'])) ? '<span class="menu-text">'. $menu['text'] .'</span>' : '';
-						$menuCaret = (!empty($hasSub)) ? '<span class="menu-caret"><b class="caret"></b></span>' : '';
-						$menuSubMenu = '';
-
-						if (!empty($menu['children'])) {
-							$GLOBALS['sub_level'] = 0;
-							$menuSubMenu .= '<div class="menu-submenu">';
-							$menuSubMenu .= renderSubMenu($menu['children'], $currentUrl);
-							$menuSubMenu .= '</div>';
-						}
-						$active = (!empty($menu['url']) && $currentUrl == $menu['url']) ? 'active' : '';
-						$active = (empty($active) && !empty($GLOBALS['parent_active'])) ? 'active' : $active;
-
-						if (!empty($menu['is_header'])) {
-							echo '<div class="menu-header">'. $menuText .'</div>';
-						} else if (!empty($menu['is_divider'])) {
-							echo '<div class="menu-divider"></div>';
-						} else {
-							echo '
-								<div class="menu-item '. $hasSub .' '. $active .'">
-									<a href="'. $menuUrl .'" class="menu-link">
-										'. $menuIcon .'
-										'. $menuText .'
-										'. $menuCaret .'
+					</div>
+				</div>';
+				
+			}
+			if(auth()->user()->perfile_id==2) {
+			
+            echo '<div class="menu-header"><span class="menu-text">Administrador</span></div>
+								<div class="menu-item">
+									<a href="/medicos" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-user-md"></i></span>
+										<span class="menu-text">Radiologos</span>	
 									</a>
-									'. $menuSubMenu .'
 								</div>
-							';
-						}
-					}
-				}
-				if(auth()->user()->perfile_id==2) {
-					$id=auth()->user()->id;
-
-					$cliente=auth()->user()::where('users.id','=',$id)
-					->join('usuariosclientes', 'usuariosclientes.user_id', '=', 'users.id')
-					->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-					->select('clientes.ruta as nombre')->first();
-
-					foreach (config('sidebar.menu') as $key => $menu) {
-						$GLOBALS['parent_active'] = '';
-
-						$hasSub = (!empty($menu['children'])) ? 'has-sub' : '';
-						$menuUrl = (!empty($menu['url'])) ? $menu['url'] : '';
-						$menuVariable = (!empty($menu['variable'])) ? $menu['variable'] : '';
-						$menuLabel = (!empty($menu['label'])) ? '<span class="menu-icon-label">'. $menu['label'] .'</span>' : '';
-						$menuIcon = (!empty($menu['icon'])) ? '<span class="menu-icon"><i class="'. $menu['icon'] .'"></i>'. $menuLabel .'</span>' : '';
-						$menuText = (!empty($menu['text'])) ? '<span class="menu-text">'. $menu['text'] .'</span>' : '';
-						$menuCaret = (!empty($hasSub)) ? '<span class="menu-caret"><b class="caret"></b></span>' : '';
-						$menuSubMenu = '';
-
-						if (!empty($menu['children'])) {
-							$GLOBALS['sub_level'] = 0;
-							$menuSubMenu .= '<div class="menu-submenu">';
-							$menuSubMenu .= renderSubMenu($menu['children'], $currentUrl);
-							$menuSubMenu .= '</div>';
-						}
-						$active = (!empty($menu['url']) && $currentUrl == $menu['url']) ? 'active' : '';
-						$active = (empty($active) && !empty($GLOBALS['parent_active'])) ? 'active' : $active;
-
-						if (!empty($menu['is_header'])) {
-							echo '<div class="menu-header">'. $menuText .'</div>';
-						} else if (!empty($menu['is_divider'])) {
-							echo '<div class="menu-divider"></div>';
-						} else {
-// route(''.$menuUrl.'', ''.$cliente->nombre.'')
-							if (!empty($menu['variable'])) {
-							echo '
-								<div class="menu-item '. $hasSub .' '. $active .'">
-									<a href="'.$menuUrl .  '" class="menu-link">
-										'. $menuIcon .'
-										'. $menuText .'
-										'. $menuCaret .'
+								<div class="menu-item">
+									<a href="/usuarios" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-users"></i></span>
+										<span class="menu-text">Usuarios</span>	
 									</a>
-									'. $menuSubMenu .'
 								</div>
-							';
-							}else{
-								echo '
-								<div class="menu-item '. $hasSub .' '. $active .'">
-									<a href="'.$menuUrl.  '" class="menu-link">
-										'. $menuIcon .'
-										'. $menuText .'
-										'. $menuCaret .'
+								<div class="menu-item  ">
+									<a href="/plantillas" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-list-alt"></i></span>
+										<span class="menu-text">Plantillas</span>
 									</a>
-									'. $menuSubMenu .'
 								</div>
-							';	
-							}
-						}
-					}
-				}
 
+							<div class="menu-header"><span class="menu-text">Asistencial</span></div>
+								<div class="menu-item  ">
+									<a href="/principal" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-laptop"></i></span>
+										<span class="menu-text">Tablero de Control</span>		
+									</a>
+								</div>
+								<div class="menu-item  ">
+									<a href="/estudios" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-tasks"></i></span>
+										<span class="menu-text">Estudios</span>
+									</a>
+								</div>
+								<div class="menu-item  ">
+									<a href="/informes" class="menu-link">
+										<span class="menu-icon"><i class="fa fa-caret-right"></i></span>
+										<span class="menu-text">Informes</span>	
+									</a>
+								</div>';
+			}
 			@endphp
         </div>
         <!-- END menu -->

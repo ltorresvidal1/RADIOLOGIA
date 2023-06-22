@@ -8,7 +8,7 @@
          @include('layouts.partial.header')
              
         
-         @includeWhen(empty($sidebarHide), 'layouts.partial.sidebar')
+     @includeWhen(empty($sidebarHide), 'layouts.partial.sidebar')
    
          @include('layouts.partial.tablero')
          @include('layouts.partial.scripts')
