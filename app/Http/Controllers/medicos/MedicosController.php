@@ -60,9 +60,10 @@ class MedicosController extends Controller
 
         $user = Auth::user();
         $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
+        $codigounico = \Ramsey\Uuid\Uuid::uuid4()->toString();
 
         Medicos::create([
+            'id' => $codigounico,
             'documento' => $request->documento,
             'nombre' => Str::upper($request->nombre),
             'registromedico' => Str::upper($request->registro),
@@ -76,6 +77,7 @@ class MedicosController extends Controller
         $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
 
         User::create([
+            'id' => $codigounico,
             'documento' => $request->documento,
             'nombre' => Str::upper($request->nombre),
             'usuario' => Str::upper($request->usuario),

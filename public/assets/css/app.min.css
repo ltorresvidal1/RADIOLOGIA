@@ -32409,3 +32409,235 @@ body .note-modal-backdrop {
 .app.app-without-sidebar .app-content {
     margin-left: 0
 }
+
+.app-top-nav {
+    --bs-app-top-nav-bg: #FFFFFF;
+    --bs-app-top-nav-box-shadow: 0 6px 6px rgba(var(--bs-theme-rgb), 0.1);
+    --bs-app-top-nav-menu-link-color: #4d6593;
+    --bs-app-top-nav-menu-link-hover-color: #212837;
+    --bs-app-top-nav-menu-link-active-color: var(--bs-theme);
+    --bs-app-top-nav-menu-submenu-bg: #FFFFFF;
+    --bs-app-top-nav-menu-icon-label-bg: linear-gradient(to bottom, #FF9500, #d63384);
+    --bs-app-top-nav-menu-icon-label-font-weight: 600;
+    --bs-app-top-nav-menu-icon-label-color: #FFFFFF;
+    --bs-app-top-nav-mobile-submenu-padding-start: 2rem;
+    background: var(--bs-app-top-nav-bg);
+    left: 0;
+    right: 0;
+    z-index: 1020;
+    box-shadow: var(--bs-app-top-nav-box-shadow)
+}
+
+@media (min-width:992px) {
+    .app-top-nav {
+        top: 3.75rem;
+        position: fixed;
+        height: 2.875rem
+    }
+}
+
+@media (max-width:991.98px) {
+    .app-top-nav {
+        display: none
+    }
+}
+
+@media (min-width:992px) {
+    .app-top-nav .menu {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center
+    }
+}
+
+@media (max-width:991.98px) {
+    .app-top-nav .menu {
+        display: block;
+        margin: 0 !important;
+        padding: .75rem 0
+    }
+}
+
+.app-top-nav .menu .menu-item {
+    position: relative
+}
+
+.app-top-nav .menu .menu-item .menu-link {
+    text-decoration: none;
+    position: relative;
+    padding: .75rem 1rem;
+    color: var(--bs-app-top-nav-menu-link-color);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    white-space: nowrap
+}
+
+@media (max-width:991.98px) {
+    .app-top-nav .menu .menu-item .menu-link {
+        padding-top: .5rem;
+        padding-bottom: .5rem
+    }
+}
+
+.app-top-nav .menu .menu-item .menu-link .menu-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: var(--bs-app-sidebar-menu-icon-font-size);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .75rem
+}
+
+.app-top-nav .menu .menu-item .menu-link .menu-icon .menu-icon-label {
+    position: absolute;
+    top: -.3125rem;
+    font-size: .5625rem;
+    height: auto;
+    font-weight: var(--bs-app-top-nav-menu-icon-label-font-weight);
+    background: var(--bs-app-top-nav-menu-icon-label-bg);
+    color: var(--bs-app-top-nav-menu-icon-label-color);
+    padding: .0625rem 0 .125rem;
+    line-height: 1;
+    min-width: .875rem;
+    min-height: .875rem;
+    border-radius: .875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -.3125rem
+}
+
+.app-top-nav .menu .menu-item .menu-link .menu-caret {
+    margin: -.3125rem 0;
+    opacity: .5;
+    margin-left: .75rem
+}
+
+.app-top-nav .menu .menu-item .menu-link .menu-text {
+    flex: 1
+}
+
+.app-top-nav .menu .menu-item .menu-link:focus,
+.app-top-nav .menu .menu-item .menu-link:hover {
+    color: var(--bs-app-top-nav-menu-link-hover-color)
+}
+
+.app-top-nav .menu .menu-item .menu-submenu {
+    background: var(--bs-app-top-nav-menu-submenu-bg);
+    display: none;
+    padding: .5rem 0;
+    min-width: 12.5rem
+}
+
+@media (min-width:992px) {
+    .app-top-nav .menu .menu-item .menu-submenu {
+        position: absolute;
+        max-height: calc(100vh - 6.625rem);
+        box-shadow: var(--bs-app-top-nav-box-shadow);
+        left: 0
+    }
+}
+
+@media (max-width:991.98px) {
+    .app-top-nav .menu .menu-item .menu-submenu {
+        padding-top: 0;
+        padding-bottom: .5rem;
+        padding-left: var(--bs-app-top-nav-mobile-submenu-padding-start)
+    }
+}
+
+.app-top-nav .menu .menu-item .menu-submenu .menu-item {
+    position: relative
+}
+
+.app-top-nav .menu .menu-item .menu-submenu .menu-item .menu-link {
+    padding: .25rem 1rem
+}
+
+.app-top-nav .menu .menu-item.active>.menu-link {
+    color: var(--bs-app-top-nav-menu-link-active-color);
+    font-weight: 600
+}
+
+.app-top-nav .menu .menu-item.menu-control {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    z-index: 10
+}
+
+@media (max-width:575.98px) {
+    .app-top-nav .menu .menu-item.menu-control {
+        display: none !important
+    }
+}
+
+.app-top-nav .menu .menu-item.menu-control>.menu-link {
+    padding: 0;
+    text-align: center;
+    width: 2.875rem;
+    height: 2.875rem;
+    background: var(--bs-app-top-nav-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bs-app-top-nav-menu-link-color)
+}
+
+.app-top-nav .menu .menu-item.menu-control>.menu-link i {
+    float: none;
+    margin: 0;
+    font-size: 1.125rem;
+    display: block;
+    line-height: 2.5rem;
+    width: auto
+}
+
+.app-top-nav .menu .menu-item.menu-control>.menu-link:focus,
+.app-top-nav .menu .menu-item.menu-control>.menu-link:hover {
+    color: var(--bs-app-top-nav-menu-link-hover-color)
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-start {
+    left: -3.75rem
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-start>.menu-link {
+    box-shadow: 12px 0 10px -10px rgba(0, 0, 0, .5)
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-start.show {
+    left: 0;
+    animation: topMenuControlSlideInLeft .2s
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-end {
+    right: -3.75rem
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-end>.menu-link {
+    box-shadow: -12px 0 10px -10px rgba(0, 0, 0, .5)
+}
+
+.app-top-nav .menu .menu-item.menu-control.menu-control-end.show {
+    right: 0;
+    animation: topMenuControlSlideInRight .2s
+}
+
+@media (min-width:992px) {
+    .app-top-nav .menu>.menu-item.has-sub:hover>.menu-submenu {
+        display: block
+    }
+}
+
+[data-bs-theme=dark] .app-top-nav {
+    --bs-app-top-nav-bg: #273349;
+    --bs-app-top-nav-box-shadow: none;
+    --bs-app-top-nav-menu-link-color: #869ac0;
+    --bs-app-top-nav-menu-link-hover-color: #FFFFFF;
+    --bs-app-top-nav-menu-link-active-color: #FFFFFF;
+    --bs-app-top-nav-menu-submenu-bg: #273349
+}

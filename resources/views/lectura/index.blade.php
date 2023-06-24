@@ -208,9 +208,11 @@
                                 <br>
                                    <fieldset id="previewField" class="">
                             
-                                <audio id="preview" class="audio-player" controls="" style="width: 100%"></audio> 
+                                 <audio id="preview" class="audio-player" src="/audios/{{$idestudio}}/audio.ogg" controls="" style="width: 100%"></audio> 
 
-                                   
+
+
+
                                 </fieldset> 
 
                                 
@@ -648,9 +650,25 @@ if (navigator.mediaDevices) {
                     clearInterval(startTimer);
                     hr = min = sec = ms = "0" + 0;
                     putValue();
+                    
+                    $.ajax({
+
+                    url: "/update_audio/"+$('#codigo_Estudio').val(),
+                    type: 'GET',
+                    data: {
+                        _token: $("input[name=_token]").val(),
+                        //idestudio: $('#codigo_Estudio').val()
+                    },
+                    success: function (respuesta) {
+                    }
+                    });
+
+
+
+
                 }
                 else {
-                    alert('error during upload');
+                    alert('error durante la carga');
                 }
             });
 

@@ -6,68 +6,256 @@
 @endpush
 
 
+@extends('layouts.plantillaEstudios', [
+  'appTopNav' => true,
+  'appClass' => 'app-sidebar-minified'
+])
 
-
-@extends('layouts.plantillaPrincipal')
 @section('title','RADIOLOGIA')
-@section('tituloformulario','Estudios Realizados')
+@section('tituloformulario','Estudios')
 
 
 
 @section('content')
 
-<div class="row">		
-    <div class="form-group col-6 m-0">		
-        
-        <div class="btn-group">
-        
-            <span class="btn btn-secondary border-0 bg-gradient-secondary">Sin Lectura</span>
-            <span class="btn btn-primary border-0  bg-gradient-info">Con Lectura</span>
-            </div>    
-    </div>								                                                    
-    <div class="form-group col-3 m-0">
-        <label class="form-label" for="fechainicial">Fecha Inicial</label>
-        <input type="date" class="form-control  @error('fechainicial') is-invalid @enderror" value="{{$FechaInicial->format('Y-m-d')}}"  id="fechainicial" name="fechainicial"/>
-        @error('fechainicial')
-            <br>
-            <small>*{{$message}}</small>
-            <br>
-        @enderror
-    </div>
-    <div class="form-group col-3 m-0">
-        <label class="form-label" for="fechafinal">Fecha Final</label>
-        <input type="date"   @error('fechafinal') class="form-control is-invalid" @enderror
-        class="form-control"  id="fechafinal" name="fechafinal"  value="{{$FechaFinal->format('Y-m-d')}}"/>
-        @error('fechafinal')
-        <br>
-        <small>*{{$message}}</small>
-        <br>
-    @enderror
-    </div>   
+
+
+<div class="card">
+    <ul class="nav nav-tabs nav-tabs-v2 px-4" role="tablist">
+    <li class="nav-item me-3" role="presentation"><a href="#tab1" class="nav-link px-2 active" data-bs-toggle="tab" aria-selected="true" role="tab">Todos</a></li>
+    <li class="nav-item me-3" role="presentation"><a href="#tab2" class="nav-link px-2" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Por Trascribir</a></li>
+    <li class="nav-item me-3" role="presentation"><a href="#tab3" class="nav-link px-2" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">En Proceso</a></li>
+    <li class="nav-item me-3" role="presentation"><a href="#tab4" class="nav-link px-2" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Por Validar</a></li>
+    <li class="nav-item me-3" role="presentation"><a href="#tab5" class="nav-link px-2" data-bs-toggle="tab" aria-selected="false" role="tab" tabindex="-1">Completados</a></li>
+    <li class="nav-item me-3" role="presentation"><a href="#tab6" class="nav-link px-2" data-bs-toggle="tab" aria-selected="false" tabindex="-1" role="tab">Anulados</a></li>
+    </ul>
+        <div class="tab-content p-4">
+            <div class="tab-pane fade active show" id="tab1" role="tabpanel">
+
+
+                <div class="row">		
+                    <div class="form-group col-11 m-0">		
+                    </div>									                                                    
+                    <div class="form-group col-1 m-0">
+                        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
+                            <i class="fa fa-cog"></i> Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">            
+                    <table id="datatableDefault" class="table text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>Id Estudio</th>
+                                <th>Fecha Estudio</th> 
+                                <th><h6>Paciente</h6> <small>Nombre, identificación, sexo</small></th>
+                                <th>Modalidad</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>                                                     
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>       
+                </div>
+                <div class="input-group mb-4">
+                 
+                </div>
+
+
+
+            </div>
+
+            <div class="tab-pane fade show" id="tab2" role="tabpanel">
+              
+                <div class="row">		
+                    <div class="form-group col-5 m-0">		
+                    </div>	
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechainicial">Fecha Inicial</label>
+                        <input type="date" class="form-control  @error('fechainicial') is-invalid @enderror" value="{{$FechaInicial->format('Y-m-d')}}"  id="fechainicial" name="fechainicial"/>
+                        @error('fechainicial')
+                            <br>
+                            <small>*{{$message}}</small>
+                            <br>
+                        @enderror
+                    </div>
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechafinal">Fecha Final</label>
+                        <input type="date"   @error('fechafinal') class="form-control is-invalid" @enderror
+                        class="form-control"  id="fechafinal" name="fechafinal"  value="{{$FechaFinal->format('Y-m-d')}}"/>
+                        @error('fechafinal')
+                        <br>
+                        <small>*{{$message}}</small>
+                        <br>
+                    @enderror
+                    </div>   
+                   
+                   								                                                    
+                    <div class="form-group col-1 m-0">
+                        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
+                            <i class="fa fa-cog"></i> Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">            
+                    <table id="tabletab2" class="table text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>Id Estudio</th>
+                                <th>Fecha Estudio</th> 
+                                <th></th>
+                                <th><h6>Paciente</h6> <small>Nombre, identificación, sexo</small></th>
+                                <th>Sexo</th>
+                                <th>Modalidad</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>                                                     
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>       
+                </div>
+            </div>
+
+            <div class="tab-pane fade show" id="tab3" role="tabpanel">
+              
+                <div class="row">		
+                    <div class="form-group col-5 m-0">		
+                    </div>	
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechainicial3">Fecha Inicial</label>
+                        <input type="date" class="form-control  @error('fechainicial3') is-invalid @enderror" value="{{$FechaInicial->format('Y-m-d')}}"  id="fechainicial3" name="fechainicial3"/>
+                        @error('fechainicial3')
+                            <br>
+                            <small>*{{$message}}</small>
+                            <br>
+                        @enderror
+                    </div>
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechafinal3">Fecha Final</label>
+                        <input type="date"   @error('fechafinal3') class="form-control is-invalid" @enderror
+                        class="form-control"  id="fechafinal3" name="fechafinal3"  value="{{$FechaFinal->format('Y-m-d')}}"/>
+                        @error('fechafinal3')
+                        <br>
+                        <small>*{{$message}}</small>
+                        <br>
+                    @enderror
+                    </div>   
+                   
+                   								                                                    
+                    <div class="form-group col-1 m-0">
+                        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
+                            <i class="fa fa-cog"></i> Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">            
+                    <table id="tabletab3" class="table text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>Id Estudio</th>
+                                <th>Fecha Estudio</th> 
+                                <th></th>
+                                <th><h6>Paciente</h6> <small>Nombre, identificación, sexo</small></th>
+                                <th>Sexo</th>
+                                <th>Modalidad</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>                                                     
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>       
+                </div>
+            </div>
+
+            
+
+            <div class="tab-pane fade show" id="tab4" role="tabpanel">
+              
+                <div class="row">		
+                    <div class="form-group col-5 m-0">		
+                    </div>	
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechainicial4">Fecha Inicial</label>
+                        <input type="date" class="form-control  @error('fechainicial4') is-invalid @enderror" value="{{$FechaInicial->format('Y-m-d')}}"  id="fechainicial4" name="fechainicial4"/>
+                        @error('fechainicial4')
+                            <br>
+                            <small>*{{$message}}</small>
+                            <br>
+                        @enderror
+                    </div>
+                    <div class="form-group col-3 m-0">
+                        <label class="form-label" for="fechafinal4">Fecha Final</label>
+                        <input type="date"   @error('fechafinal4') class="form-control is-invalid" @enderror
+                        class="form-control"  id="fechafinal4" name="fechafinal4"  value="{{$FechaFinal->format('Y-m-d')}}"/>
+                        @error('fechafinal4')
+                        <br>
+                        <small>*{{$message}}</small>
+                        <br>
+                    @enderror
+                    </div>   
+                   
+                   								                                                    
+                    <div class="form-group col-1 m-0">
+                        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
+                            <i class="fa fa-cog"></i> Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">            
+                    <table id="tabletab4" class="table text-nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>Id Estudio</th>
+                                <th>Fecha Estudio</th> 
+                                <th></th>
+                                <th><h6>Paciente</h6> <small>Nombre, identificación, sexo</small></th>
+                                <th>Sexo</th>
+                                <th>Modalidad</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>                                                     
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>       
+                </div>
+            </div>
+
+        </div>
 </div>
-<br>
 
-    <div class="row">            
-        <table id="datatableDefault" class="table text-nowrap w-100">
-            <thead>
-                <tr>
-                    <th>Id Estudio</th>
-                    <th>Identificacion</th>
-                    <th>Nombre</th>
-                    <th>Fecha Estudio</th>                   
-                    <th>Acciones</th>                                                     
-                </tr>
-            </thead>
-            <tbody>
 
-            </tbody>
-        </table>       
+
+
+
+<div class="modal fade" id="modalSm">
+    <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title">Opciones</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
-                                
-
-
-
-
+    <div class="modal-body">
+    ...
+    </div>
+    </div>
+    </div>
+    </div>
+    
                                     
 @endsection
 
@@ -88,303 +276,299 @@
 <script src="/assets/js/plugins/summernote/js/summernote-es-ES.min.js"></script>
 
 <script>
- 
-    var fechainicial = $("#fechainicial").val();
+
+    const institucion = @json($institucion->ruta);
+
+
+  /********************************************************************************/
+
+  var fechainicial = $("#fechainicial").val();
     fechainicial = fechainicial.replaceAll('-', '');
 
     var fechafinal = $("#fechafinal").val();
     fechafinal = fechafinal.replaceAll('-', '');
   
-    const institucion = @json($institucion->ruta);
-
-    $('#datatableDefault').DataTable({
-      
+    $('#tabletab2').DataTable({
+        language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
       dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
       responsive: true,
       paging:false,
       autoWidth: false,
-      ajax:"{{route('datatable.estudiosclientes',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal,
+      ajax:"{{route('datatable.estudiosportranscribir',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal,
       order: [[0, 'desc']],
-      "columnDefs": [
-    { "visible": false, "targets": 0 }
-  ],
-      columns:[
       
+      "columnDefs": [
+            { "visible": false, "targets": 0 },
+            { "visible": false, "targets": 2 },
+            { "visible": false, "targets": 4 },
+           {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(row.sexo=="*"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:red;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-minus-circle"></i> - Sin Diligenciar</small>';
+                    }
+                    if(row.sexo=="M"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:green;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-male"></i> - Masculino</small>';
+                    }
+                    if(row.sexo=="F"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:pink;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-female"></i> - Femenino</small>';
+                    }
+            },
+            "targets": 3
+        },
+        {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(data=="0"){
+                return '<span class="badge bg-info text-white rounded-sm fs-12px fw-500">Baja</span>';
+                 }
+                 if(data=="1"){
+                return '<span class="badge bg-warning text-white rounded-sm fs-12px fw-500">Media</span>';
+                 }
+                 if(data=="2"){
+                return '<span class="badge bg-danger text-white rounded-sm fs-12px fw-500">Alta</span>';
+                 }
+            },
+            "targets": 6
+        }
+        ],
+        columns:[
          {data:'study_pk',orderable:false},
+         {data:'fecha',orderable:false},
          {data:'pat_id',orderable:false},
          {data:'nombre',orderable:false},
-         {data:'fecha',orderable:false},
+         {data:'sexo',orderable:false},
+         {data:'modalidad',orderable:false},
+         {data:'prioridad',orderable:false},
          {data:'action',orderable:false},
-          ],
+          ]
+          ,
       info:false,
       buttons: [ {title: 'Estudios', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
       exportOptions: {columns: [1,2,3] }}],
-      "language": {
-    "processing": "Procesando...",
-    "lengthMenu": "Mostrar _MENU_ registros",
-    "zeroRecords": "No se encontraron resultados",
-    "emptyTable": "Ningún dato disponible en esta tabla",
-    "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-    "search": "Buscar:",
-    "infoThousands": ",",
-    "loadingRecords": "Cargando...",
-    "paginate": {
-        "first": "Primero",
-        "last": "Último",
-        "next": "Siguiente",
-        "previous": "Anterior"
-    },
-    "aria": {
-        "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-        "sortDescending": ": Activar para ordenar la columna de manera descendente"
-    },
-    "buttons": {
-        "copy": "Copiar",
-        "colvis": "Visibilidad",
-        "collection": "Colección",
-        "colvisRestore": "Restaurar visibilidad",
-        "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-        "copySuccess": {
-            "1": "Copiada 1 fila al portapapeles",
-            "_": "Copiadas %ds fila al portapapeles"
-        },
-        "copyTitle": "Copiar al portapapeles",
-        "csv": "CSV",
-        "excel": "Excel",
-        "pageLength": {
-            "-1": "Mostrar todas las filas",
-            "_": "Mostrar %d filas"
-        },
-        "pdf": "PDF",
-        "print": "Imprimir",
-        "renameState": "Cambiar nombre",
-        "updateState": "Actualizar",
-        "createState": "Crear Estado",
-        "removeAllStates": "Remover Estados",
-        "removeState": "Remover",
-        "savedStates": "Estados Guardados",
-        "stateRestore": "Estado %d"
-    },
-    "autoFill": {
-        "cancel": "Cancelar",
-        "fill": "Rellene todas las celdas con <i>%d<\/i>",
-        "fillHorizontal": "Rellenar celdas horizontalmente",
-        "fillVertical": "Rellenar celdas verticalmentemente"
-    },
-    "decimal": ",",
-    "searchBuilder": {
-        "add": "Añadir condición",
-        "button": {
-            "0": "Constructor de búsqueda",
-            "_": "Constructor de búsqueda (%d)"
-        },
-        "clearAll": "Borrar todo",
-        "condition": "Condición",
-        "conditions": {
-            "date": {
-                "after": "Despues",
-                "before": "Antes",
-                "between": "Entre",
-                "empty": "Vacío",
-                "equals": "Igual a",
-                "notBetween": "No entre",
-                "notEmpty": "No Vacio",
-                "not": "Diferente de"
-            },
-            "number": {
-                "between": "Entre",
-                "empty": "Vacio",
-                "equals": "Igual a",
-                "gt": "Mayor a",
-                "gte": "Mayor o igual a",
-                "lt": "Menor que",
-                "lte": "Menor o igual que",
-                "notBetween": "No entre",
-                "notEmpty": "No vacío",
-                "not": "Diferente de"
-            },
-            "string": {
-                "contains": "Contiene",
-                "empty": "Vacío",
-                "endsWith": "Termina en",
-                "equals": "Igual a",
-                "notEmpty": "No Vacio",
-                "startsWith": "Empieza con",
-                "not": "Diferente de",
-                "notContains": "No Contiene",
-                "notStartsWith": "No empieza con",
-                "notEndsWith": "No termina con"
-            },
-            "array": {
-                "not": "Diferente de",
-                "equals": "Igual",
-                "empty": "Vacío",
-                "contains": "Contiene",
-                "notEmpty": "No Vacío",
-                "without": "Sin"
-            }
-        },
-        "data": "Data",
-        "deleteTitle": "Eliminar regla de filtrado",
-        "leftTitle": "Criterios anulados",
-        "logicAnd": "Y",
-        "logicOr": "O",
-        "rightTitle": "Criterios de sangría",
-        "title": {
-            "0": "Constructor de búsqueda",
-            "_": "Constructor de búsqueda (%d)"
-        },
-        "value": "Valor"
-    },
-    "searchPanes": {
-        "clearMessage": "Borrar todo",
-        "collapse": {
-            "0": "Paneles de búsqueda",
-            "_": "Paneles de búsqueda (%d)"
-        },
-        "count": "{total}",
-        "countFiltered": "{shown} ({total})",
-        "emptyPanes": "Sin paneles de búsqueda",
-        "loadMessage": "Cargando paneles de búsqueda",
-        "title": "Filtros Activos - %d",
-        "showMessage": "Mostrar Todo",
-        "collapseMessage": "Colapsar Todo"
-    },
-    "select": {
-        "cells": {
-            "1": "1 celda seleccionada",
-            "_": "%d celdas seleccionadas"
-        },
-        "columns": {
-            "1": "1 columna seleccionada",
-            "_": "%d columnas seleccionadas"
-        },
-        "rows": {
-            "1": "1 fila seleccionada",
-            "_": "%d filas seleccionadas"
-        }
-    },
-    "thousands": ".",
-    "datetime": {
-        "previous": "Anterior",
-        "next": "Proximo",
-        "hours": "Horas",
-        "minutes": "Minutos",
-        "seconds": "Segundos",
-        "unknown": "-",
-        "amPm": [
-            "AM",
-            "PM"
-        ],
-        "months": {
-            "0": "Enero",
-            "1": "Febrero",
-            "10": "Noviembre",
-            "11": "Diciembre",
-            "2": "Marzo",
-            "3": "Abril",
-            "4": "Mayo",
-            "5": "Junio",
-            "6": "Julio",
-            "7": "Agosto",
-            "8": "Septiembre",
-            "9": "Octubre"
-        },
-        "weekdays": [
-            "Dom",
-            "Lun",
-            "Mar",
-            "Mie",
-            "Jue",
-            "Vie",
-            "Sab"
-        ]
-    },
-    "editor": {
-        "close": "Cerrar",
-        "create": {
-            "button": "Nuevo",
-            "title": "Crear Nuevo Registro",
-            "submit": "Crear"
-        },
-        "edit": {
-            "button": "Editar",
-            "title": "Editar Registro",
-            "submit": "Actualizar"
-        },
-        "remove": {
-            "button": "Eliminar",
-            "title": "Eliminar Registro",
-            "submit": "Eliminar",
-            "confirm": {
-                "_": "¿Está seguro que desea eliminar %d filas?",
-                "1": "¿Está seguro que desea eliminar 1 fila?"
-            }
-        },
-        "error": {
-            "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-        },
-        "multi": {
-            "title": "Múltiples Valores",
-            "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-            "restore": "Deshacer Cambios",
-            "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-        }
-    },
-    "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-    "stateRestore": {
-        "creationModal": {
-            "button": "Crear",
-            "name": "Nombre:",
-            "order": "Clasificación",
-            "paging": "Paginación",
-            "search": "Busqueda",
-            "select": "Seleccionar",
-            "columns": {
-                "search": "Búsqueda de Columna",
-                "visible": "Visibilidad de Columna"
-            },
-            "title": "Crear Nuevo Estado",
-            "toggleLabel": "Incluir:"
-        },
-        "emptyError": "El nombre no puede estar vacio",
-        "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-        "removeError": "Error al eliminar el registro",
-        "removeJoiner": "y",
-        "removeSubmit": "Eliminar",
-        "renameButton": "Cambiar Nombre",
-        "renameLabel": "Nuevo nombre para %s",
-        "duplicateError": "Ya existe un Estado con este nombre.",
-        "emptyStates": "No hay Estados guardados",
-        "removeTitle": "Remover Estado",
-        "renameTitle": "Cambiar Nombre Estado"
-    }
-} 
+     
     });  
   
   
   
-  function actualizador(){
-  
+  function actualizador2(){
+
     var fechainicial = $("#fechainicial").val();
     fechainicial = fechainicial.replaceAll('-', '');
-
     var fechafinal = $("#fechafinal").val();
     fechafinal = fechafinal.replaceAll('-', '');
   
     const institucion = @json($institucion->ruta);
 
-    $('#datatableDefault').DataTable().ajax.url("{{route('datatable.estudiosclientes',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal).load();
-
+    $('#tabletab2').DataTable().ajax.url("{{route('datatable.estudiosportranscribir',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal).load();
 
   }
   
-  $("#fechainicial").change(function () {actualizador(); });
-  $("#fechafinal").change(function () {actualizador(); });
+  $("#fechainicial").change(function () {actualizador2(); });
+  $("#fechafinal").change(function () {actualizador2(); });
 
+  /********************************************************************************/
+ 
+
+  var fechainicial3 = $("#fechainicial3").val();
+    fechainicial3 = fechainicial3.replaceAll('-', '');
+
+    var fechafinal3 = $("#fechafinal3").val();
+    fechafinal3 = fechafinal3.replaceAll('-', '');
+
+
+    $('#tabletab3').DataTable({
+        language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
+      dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
+      responsive: true,
+      paging:false,
+      autoWidth: false,
+      ajax:"{{route('datatable.estudiosenproceso',['','',''])}}"+"/"+institucion+"/"+fechainicial3+"/"+fechafinal3,
+      order: [[0, 'desc']],
+      
+      "columnDefs": [
+            { "visible": false, "targets": 0 },
+            { "visible": false, "targets": 2 },
+            { "visible": false, "targets": 4 },
+           {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(row.sexo=="*"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:red;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-minus-circle"></i> - Sin Diligenciar</small>';
+                    }
+                    if(row.sexo=="M"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:green;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-male"></i> - Masculino</small>';
+                    }
+                    if(row.sexo=="F"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:pink;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-female"></i> - Femenino</small>';
+                    }
+            },
+            "targets": 3
+        },
+        {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(data=="0"){
+                return '<span class="badge bg-info text-white rounded-sm fs-12px fw-500">Baja</span>';
+                 }
+                 if(data=="1"){
+                return '<span class="badge bg-warning text-white rounded-sm fs-12px fw-500">Media</span>';
+                 }
+                 if(data=="2"){
+                return '<span class="badge bg-danger text-white rounded-sm fs-12px fw-500">Alta</span>';
+                 }
+            },
+            "targets": 6
+        }
+        ],
+        columns:[
+         {data:'study_pk',orderable:false},
+         {data:'fecha',orderable:false},
+         {data:'pat_id',orderable:false},
+         {data:'nombre',orderable:false},
+         {data:'sexo',orderable:false},
+         {data:'modalidad',orderable:false},
+         {data:'prioridad',orderable:false},
+         {data:'action',orderable:false},
+          ]
+          ,
+      info:false,
+      buttons: [ {title: 'Estudios', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
+      exportOptions: {columns: [1,2,3] }}],
+     
+    });  
   
+  
+  
+  function actualizador3(){
 
+    var fechainicial3 = $("#fechainicial3").val();
+    fechainicial3 = fechainicial3.replaceAll('-', '');
+    var fechafinal3 = $("#fechafinal3").val();
+    fechafinal3 = fechafinal3.replaceAll('-', '');
+  
+    const institucion = @json($institucion->ruta);
+
+    $('#tabletab3').DataTable().ajax.url("{{route('datatable.estudiosenproceso',['','',''])}}"+"/"+institucion+"/"+fechainicial3+"/"+fechafinal3).load();
+
+  }
+  
+  $("#fechainicial3").change(function () {actualizador3(); });
+  $("#fechafinal3").change(function () {actualizador3(); });
+
+
+  /********************************************************************************/
+ 
+
+  var fechainicial4 = $("#fechainicial4").val();
+  fechainicial4 = fechainicial4.replaceAll('-', '');
+
+    var fechafinal4 = $("#fechafinal4").val();
+    fechafinal4 = fechafinal4.replaceAll('-', '');
+
+
+    $('#tabletab4').DataTable({
+        language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
+      dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
+      responsive: true,
+      paging:false,
+      autoWidth: false,
+      ajax:"{{route('datatable.estudiosporvalidar',['','',''])}}"+"/"+institucion+"/"+fechainicial3+"/"+fechafinal3,
+      order: [[0, 'desc']],
+      
+      "columnDefs": [
+            { "visible": false, "targets": 0 },
+            { "visible": false, "targets": 2 },
+            { "visible": false, "targets": 4 },
+           {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(row.sexo=="*"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:red;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-minus-circle"></i> - Sin Diligenciar</small>';
+                    }
+                    if(row.sexo=="M"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:green;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-male"></i> - Masculino</small>';
+                    }
+                    if(row.sexo=="F"){
+                return '<h6 style="font-weight: bold;">'+data+'</h6> '+
+                       '<small style="font-weight: bold;">'+row.pat_id+'</small> <br>'+
+                       '<small style="color:pink;font-weight: bold;"><i class="fas fa-lg fa-fw me-2 fa-female"></i> - Femenino</small>';
+                    }
+            },
+            "targets": 3
+        },
+        {
+       className: '',
+              "render": function ( data, type, row, meta ) {
+                if(data=="0"){
+                return '<span class="badge bg-info text-white rounded-sm fs-12px fw-500">Baja</span>';
+                 }
+                 if(data=="1"){
+                return '<span class="badge bg-warning text-white rounded-sm fs-12px fw-500">Media</span>';
+                 }
+                 if(data=="2"){
+                return '<span class="badge bg-danger text-white rounded-sm fs-12px fw-500">Alta</span>';
+                 }
+            },
+            "targets": 6
+        }
+        ],
+        columns:[
+         {data:'study_pk',orderable:false},
+         {data:'fecha',orderable:false},
+         {data:'pat_id',orderable:false},
+         {data:'nombre',orderable:false},
+         {data:'sexo',orderable:false},
+         {data:'modalidad',orderable:false},
+         {data:'prioridad',orderable:false},
+         {data:'action',orderable:false},
+          ]
+          ,
+      info:false,
+      buttons: [ {title: 'Estudios', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
+      exportOptions: {columns: [1,2,3] }}],
+     
+    });  
+  
+  
+  
+  function actualizador4(){
+
+    var fechainicial4 = $("#fechainicial4").val();
+    fechainicial4 = fechainicial4.replaceAll('-', '');
+    var fechafinal4 = $("#fechafinal4").val();
+    fechafinal4 = fechafinal4.replaceAll('-', '');
+  
+    const institucion = @json($institucion->ruta);
+
+    $('#tabletab4').DataTable().ajax.url("{{route('datatable.estudiosporvalidar',['','',''])}}"+"/"+institucion+"/"+fechainicial4+"/"+fechafinal4).load();
+
+  }
+  
+  $("#fechainicial4").change(function () {actualizador4(); });
+  $("#fechafinal4").change(function () {actualizador4(); });
 
 
 

@@ -11,6 +11,7 @@ class Medicos extends Model
     use HasFactory;
     use HasUuids;
     protected $fillable = [
+        'id',
         'documento',
         'nombre',
         'registromedico',

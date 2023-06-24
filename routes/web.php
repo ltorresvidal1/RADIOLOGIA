@@ -104,17 +104,28 @@ Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->nam
 
 
 Route::get('/estudios', [estudiosController::class, 'index'])->name('estudios.index');
-Route::get('/datatable/estudiosclientes/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosclientes'])->name('datatable.estudiosclientes');
+Route::get('/update_audio/{idestudio}', [estudiosController::class, 'update_audio'])->name('estudios.audio');
+
+Route::get('/datatable/estudiosportranscribir/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosportranscribir'])->name('datatable.estudiosportranscribir');
+Route::get('/datatable/estudiosenproceso/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosenproceso'])->name('datatable.estudiosenproceso');
+Route::get('/datatable/estudiosporvalidar/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosporvalidar'])->name('datatable.estudiosporvalidar');
+Route::get('/datatable/estudioscompetados/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudioscompetados'])->name('datatable.estudioscompetados');
+
 Route::get('/datatable/estudiosclientes/{institucion}/{idestudio}', [DatatableController::class, 'lecturasestudiosclientes'])->name('datatable.lecturasestudiosclientes');
+
+
+
 
 
 Route::get('/estudio/{idestudio}', [lecturasController::class, 'index'])->name('lectura.index');
 Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
 
+
 Route::post('/lectura', [lecturasController::class, 'store'])->name('lectura.store');
 Route::get('/lectura', [lecturasController::class, 'update'])->name('lectura.update');
 Route::delete('/lectura/{idlectura}', [lecturasController::class, 'destroy'])->name('lectura.destroy');
-Route::get('/DescargarPdfAgrupado', [lecturasController::class, 'DescargarPdfAgrupado'])->name('DescargarPdfAgrupado');
+
+Route::get('/descargarlectura/{idestudio}', [lecturasController::class, 'descargarlectura'])->name('descargarlectura');
 
 //oute::get('/paiweb', [lecturasController::class, 'Apiweb'])->name('paiweb');
 //Route::put('/lectura',[lecturasController::class,'update'])->name('lectura.update');

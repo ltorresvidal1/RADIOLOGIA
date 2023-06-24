@@ -216,6 +216,9 @@ datatableLecturas.ajax.reload(null,false);
     window.open("estudio/"+idestudio);
   }
 
+  function ImprimirLecturas(idestudio){
+    window.open("descargarlectura/"+idestudio);
+  }
 
    
    // window.location.href = "<?php echo URL::to('lectura/20'); ?>";

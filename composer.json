@@ -21,6 +21,7 @@
         "php-flasher/flasher-sweetalert-laravel": "^1.7",
         "php-flasher/flasher-toastr-laravel": "^1.7",
         "psr/simple-cache": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^10.1"
     },
     "require-dev": {

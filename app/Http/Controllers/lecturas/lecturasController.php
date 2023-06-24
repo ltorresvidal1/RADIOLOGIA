@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Requests\lecturas\Storelecturas;
 use App\Http\Requests\lecturas\Storelecturas2;
 use App\Models\usuariosclientes\Usuariosclientes;
@@ -80,16 +81,24 @@ class lecturasController extends Controller
     $FechaActual = Carbon::now()->setTimezone('America/Bogota');
     $idestudio = $request->estudio;
 
-    lecturas::create([
-      'study_id' => $request->idestudio,
-      'medico_id' => 1,
-      'estudio' => $request->estudio,
-      'informe' => $request->informe,
-      'fechaestudio' => $request->fechaestudio,
-    ]);
+    $user = Auth::user();
 
-    notify()->success('', 'Lectura Guardada');
-    return redirect()->back();
+    if ($user->perfile_id == "3") {
+
+
+      lecturas::create([
+        'study_id' => $request->idestudio,
+        'medico_id' =>  $user->id,
+        'estudio' => $request->estudio,
+        'informe' => $request->informe,
+        'fechaestudio' => $request->fechaestudio,
+      ]);
+      notify()->success('', 'Lectura Guardada');
+      return redirect()->back();
+    } else {
+      notify()->error('', 'Usted No Es Radiologo');
+      return redirect()->back();
+    }
   }
 
 
@@ -124,21 +133,44 @@ class lecturasController extends Controller
 
   }
 
-  public function DescargarPdfAgrupado()
+  public function descargarlectura(string $idestudio)
   {
-    $idestudio = '1663';
+    // $idestudio = '1661';
 
     $user = Auth::user();
+
+
     $cliente = Usuariosclientes::where('user_id', '=', $user->id)
       ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
       ->select('clientes.*')
       ->first();
 
+    $datospaciente = series::where('institution', '=', "$cliente->ruta")
+      ->where('study.pk', '=', "$idestudio")
+      ->join('study', 'study.pk', '=', 'series.study_fk')
+      ->join('patient', 'patient.pk', '=', 'study.patient_fk')
+      ->join('patient_id', 'patient_id.pk', '=', 'patient.patient_id_fk')
+      ->join('person_name', 'person_name.pk', '=', 'patient.pat_name_fk')
+      ->selectRaw("concat(family_name,' ',given_name,' ',middle_name,' ',name_prefix) as nombrepaciente,
+      patient_id.pat_id as documento,
+      case when pat_sex='M' then 'Masculino' when pat_sex='F' then 'Femenimo'  ELSE 'Sin Diligenciar' END  sexo,
+      case when pat_birthdate='*' then 0  ELSE date_part('year',age( CAST (pat_birthdate AS date ))) end as edad_a,
+      case when pat_birthdate='*' then 0  ELSE date_part('month',age( CAST (pat_birthdate AS date ))) end as edad_m,
+      case when pat_birthdate='*' then 0  ELSE date_part('day',age( CAST (pat_birthdate AS date ))) end as edad_d,
+      concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5))  as fechaestudio
+      ")->first();
 
 
-    $lecturas = lecturas::where('study_id', '=', "$idestudio")->first();
+    $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate('http://200.116.234.203:86/viewer.html?patientID=15682394&studyUID=1.2.392.200036.9125.2.6082130796278.6538842092.265247&serverName=DCM4CHEE'));
+
+
+
+    $lecturas = lecturas::where('study_id', '=', "$idestudio")
+      ->join('medicos', 'medicos.id', 'lecturas.medico_id')
+      ->selectRaw('lecturas.estudio estudio ,lecturas.informe informe,medicos.nombre radiologo,medicos.firma as firma,medicos.registromedico registro')
+      ->first();
     $pdf = app('dompdf.wrapper');
-    $pdf->loadView('lectura.descargarPdfAgrupado', ['lecturas' => $lecturas, 'clientes' => $cliente]);
+    $pdf->loadView('lectura.imprimir', ['clientes' => $cliente, 'datospaciente' => $datospaciente, 'lecturas' => $lecturas,  'qrcode' => $qrcode]);
 
     return $pdf->stream();
   }

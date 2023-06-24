@@ -16,11 +16,6 @@ $target_file = $target_dir . "audio";
 if (file_exists($target_file  . $ext)) {
 
     unlink($target_file  . $ext);
-    /* $i = 1;
-    while (file_exists($target_file . "_" . $i  . $ext))
-        $i++;
-    $target_file = $target_file . "_" . $i;
-    */
 }
 
 $target_file = $target_file . $ext;
