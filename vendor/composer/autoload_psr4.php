@@ -112,5 +112,6 @@ return array(
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'Barryvdh\\DomPDF\\' => array($vendorDir . '/barryvdh/laravel-dompdf/src'),
     'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
+    'Aranyasen\\' => array($vendorDir . '/aranyasen/hl7/src'),
     'App\\' => array($baseDir . '/app'),
 );

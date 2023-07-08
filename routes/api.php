@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HL7\HL7Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+//Route::post('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
+
+
+Route::post('login', [HL7Controller::class, 'login'])->name('login');

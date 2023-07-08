@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '23aeed0b65261c8f72d811cf2b9321b227911801',
+        'reference' => 'd366eef58012fa1a8fc752b29a03bf87a4265cec',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'aranyasen/hl7' => array(
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
+            'reference' => 'b0713e6e3388185fcee37aef09dfe20c20e22fc2',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../aranyasen/hl7',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'bacon/bacon-qr-code' => array(
             'pretty_version' => '2.0.8',
             'version' => '2.0.8.0',
@@ -436,7 +445,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '23aeed0b65261c8f72d811cf2b9321b227911801',
+            'reference' => 'd366eef58012fa1a8fc752b29a03bf87a4265cec',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

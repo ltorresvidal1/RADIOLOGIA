@@ -25,11 +25,11 @@ class PrincipalController extends Controller
 
 
     $user = Auth::user();
-
+    $valeresmeses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
     if ($user->perfile_id <> '1') {
-      $valeresmeses = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 
       $institucion = Usuariosclientes::where('user_id', '=', $user->id)
         ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')

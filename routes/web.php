@@ -2,18 +2,19 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HL7\HL7Controller;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\imagen\ImagenController;
-use App\Http\Controllers\clientes\ClientesController;
-use App\Http\Controllers\estudios\estudiosController;
-use App\Http\Controllers\usuarios\UsuariosController;
-use App\Http\Controllers\principal\PrincipalController;
-use App\Http\Controllers\sa_usuarios\Sa_usuariosController;
-use App\Http\Controllers\datatable\DatatableController;
-use App\Http\Controllers\lecturas\lecturasController;
 use App\Http\Controllers\medicos\MedicosController;
 use App\Http\Controllers\zip\DescargarCdController;
+use App\Http\Controllers\clientes\ClientesController;
+use App\Http\Controllers\estudios\estudiosController;
+use App\Http\Controllers\lecturas\lecturasController;
+use App\Http\Controllers\usuarios\UsuariosController;
+use App\Http\Controllers\datatable\DatatableController;
+use App\Http\Controllers\principal\PrincipalController;
+use App\Http\Controllers\sa_usuarios\Sa_usuariosController;
 
 
 /*
@@ -131,6 +132,9 @@ Route::get('/descargarlectura/{idestudio}', [lecturasController::class, 'descarg
 //Route::put('/lectura',[lecturasController::class,'update'])->name('lectura.update');
 
 Route::get('/descargar_cd', [DescargarCdController::class, "downloadZip"]);
+
+
+Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
 
 //Route::put('/lectura/{lectura}',[lecturasController::class,'update'])->name('lectura.update');
 
