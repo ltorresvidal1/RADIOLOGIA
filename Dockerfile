@@ -10,11 +10,8 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     autoconf \
     g++ \
     make \
+    supervisor\
     postgresql-dev
-
-RUN apt-get update \
-    && apt-get install -y \
-        supervisor
         
 
 
