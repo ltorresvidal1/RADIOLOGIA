@@ -31,5 +31,7 @@ RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0"]
+
 
 EXPOSE 8000
