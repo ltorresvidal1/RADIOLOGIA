@@ -31,5 +31,5 @@ RUN php artisan view:clear
 RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
 CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
-ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
+
 EXPOSE 8000
