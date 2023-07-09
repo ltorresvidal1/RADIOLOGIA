@@ -15,6 +15,7 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
 RUN apt-get update \
     && apt-get install -y \
         supervisor
+        
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 WORKDIR /app
