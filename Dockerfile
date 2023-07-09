@@ -30,6 +30,7 @@ RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
 CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
 
+EXPOSE 8000
 
 # Instalar Supervisor
 RUN apk add --no-cache supervisor
@@ -41,5 +42,4 @@ COPY supervisord.conf /etc/supervisor.conf
 
 # Agregar comandos para ejecutar Supervisor
 #CMD supervisord -n -c /etc/supervisor/supervisord.conf
-CMD ["supervisord", "-c", "/etc/supervisor.conf"]
-EXPOSE 8000
+#CMD ["supervisord", "-c", "/etc/supervisor.conf"]
