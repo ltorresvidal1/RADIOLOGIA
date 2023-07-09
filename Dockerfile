@@ -24,6 +24,8 @@ RUN composer install
 RUN composer require laravel/octane spiral/roadrunner
 RUN docker-php-ext-install pdo pdo_pgsql
 COPY .env.example .env
+COPY supervisord.conf /etc/supervisord.conf
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
 RUN php artisan view:clear
