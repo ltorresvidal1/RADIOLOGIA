@@ -16,7 +16,7 @@ RUN apt-get update \
     && apt-get install -y \
         supervisor
         
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 
 WORKDIR /app
 COPY . .
