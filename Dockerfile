@@ -10,7 +10,6 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     autoconf \
     g++ \
     make \
-    supervisor \
     postgresql-dev
         
 
@@ -29,9 +28,15 @@ RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
-
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0"]
+CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
 
 
+# Instalar Supervisor
+RUN apk add --no-cache supervisor
+
+# Copiar archivo de configuración de Supervisor
+COPY supervisor.conf /etc/supervisor.conf
+
+# Agregar comandos para ejecutar Supervisor
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
 EXPOSE 8000
