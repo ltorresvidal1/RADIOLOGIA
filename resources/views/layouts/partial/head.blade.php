@@ -9,5 +9,6 @@
         <link href="/assets/js/plugins/select2/select2.min.css"  rel="stylesheet" />
         @notifyCss
         @stack('css')
-
+        @vite('resources/js/app.js')
+        
     </head>

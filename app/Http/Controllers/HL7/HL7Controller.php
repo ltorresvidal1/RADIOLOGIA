@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Events\MessageSent;
 
 class HL7Controller extends Controller
 {
@@ -39,6 +40,7 @@ class HL7Controller extends Controller
         } else {
             $user = User::where('usuario', $request['usuario'])->first();
             // $token = $user->createToken('auth_token')->plainTextToken;
+            event(new MessageSent("Entre"));
             return response()->json(['message' => "ok", 'status' => 1]);
         }
 
@@ -52,15 +54,13 @@ class HL7Controller extends Controller
 
 
 
-
-
-
-
-
-
+    public function enviosocket()
+    {
+        event(new MessageSent("Entre"));
+        dd("url procesada");
+    }
     public function envioMWL()
     {
-
 
         //$ip = '192.168.1.73';
         $ip = '172.190.68.187';
@@ -75,11 +75,12 @@ NTE|1|26715|COOSALUD ENTIDAD PROMOTORA DE SALUD S.A';
 
         $message = new Message($hl7String);
         $message->toString(true);
-        //$PID = $message->getSegmentsByName('PID');
-        // $OBR = $message->getSegmentsByName('OBR');
         $OBR2 =  $message->getFirstSegmentInstance('OBR');
 
-        dd($OBR2->getField(4)[0]);
+
+
+        // event(new MessageSent($message->toString(true)));
+        // dd($OBR2->getField(4)[0]);
         /*
          MSH|^~\&|MESA_OF|XYZ_RADIOLOGY|MESA_IM|XYZ_IMAGE_MANAGER|201605111512||ORM^O01|100112|P|2.3.1|||||| ||
 PID|||M4001^^^ADT1||KING^MARTIN||19450804|M||WH|820 JORIE BLVD^^CHICAGO^IL^60523|||||||20-98-4000|||||||||||||||||||||

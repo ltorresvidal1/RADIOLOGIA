@@ -33,7 +33,7 @@ DB_USERNAME=pacs
 DB_PASSWORD=pacs
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login.');
+Route::get('/', [LoginController::class, 'index'])->name('login1');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
@@ -134,7 +134,10 @@ Route::get('/descargarlectura/{idestudio}', [lecturasController::class, 'descarg
 Route::get('/descargar_cd', [DescargarCdController::class, "downloadZip"]);
 
 
-Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
+//Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
+
+
+Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
 
 //Route::put('/lectura/{lectura}',[lecturasController::class,'update'])->name('lectura.update');
 

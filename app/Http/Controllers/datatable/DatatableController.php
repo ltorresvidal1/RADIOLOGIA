@@ -26,7 +26,7 @@ class DatatableController extends Controller
       ->join('person_name', 'person_name.pk', '=', 'patient.pk')
       ->selectRaw("series.modality as modalidad,study.pk as study_pk,patient.pk ,patient_id.pat_id,
       concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5)) as fecha,
-      concat(person_name.family_name ,' ',person_name.given_name ,' ' ,person_name.middle_name,' ' , person_name.name_prefix) as nombre,
+      replace (alphabetic_name,'^',' ') as nombre,
       pat_sex as  sexo,case when  study.prioridad is null then 0 else study.prioridad end as prioridad")
       ->distinct()->get();
 
@@ -57,7 +57,7 @@ class DatatableController extends Controller
       ->join('person_name', 'person_name.pk', '=', 'patient.pk')
       ->selectRaw("series.modality as modalidad,study.pk as study_pk,patient.pk ,patient_id.pat_id,
     concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5)) as fecha,
-    concat(person_name.family_name ,' ',person_name.given_name ,' ' ,person_name.middle_name,' ' , person_name.name_prefix) as nombre,
+    replace (alphabetic_name,'^',' ')  as nombre,
     pat_sex as  sexo,case when  study.prioridad is null then 0 else study.prioridad end as prioridad")
       ->distinct()->get();
 
@@ -84,7 +84,7 @@ class DatatableController extends Controller
       ->join('lecturas', 'lecturas.study_id', '=', 'study.pk')
       ->selectRaw("series.modality as modalidad,study.pk as study_pk,patient.pk ,patient_id.pat_id,
     concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5)) as fecha,
-    concat(person_name.family_name ,' ',person_name.given_name ,' ' ,person_name.middle_name,' ' , person_name.name_prefix) as nombre,
+    replace (alphabetic_name,'^',' ')  as nombre,
     pat_sex as  sexo,case when  study.prioridad is null then 0 else study.prioridad end as prioridad")
       ->distinct()->get();
 
@@ -124,7 +124,7 @@ class DatatableController extends Controller
       /// ->leftjoin('lecturas', 'lecturas.study_id', '=', 'study.pk')
       ->selectRaw("series.modality as modalidad,study.pk as study_pk,patient.pk ,patient_id.pat_id,
       concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5)) as fecha,
-      concat(person_name.family_name ,' ',person_name.given_name ,' ' ,person_name.middle_name,' ' , person_name.name_prefix) as nombre,
+      replace (alphabetic_name,'^',' ')  as nombre,
       pat_sex as  sexo,case when  study.prioridad is null then 0 else study.prioridad end as prioridad")
       ->distinct()->get();
     //

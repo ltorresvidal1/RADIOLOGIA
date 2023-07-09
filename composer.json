@@ -11,6 +11,7 @@
         "php": "^8.1",
         "aranyasen/hl7": "^3.1",
         "barryvdh/laravel-dompdf": "^2.0",
+        "beyondcode/laravel-websockets": "^1.14",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^10.13.5",
@@ -22,6 +23,7 @@
         "php-flasher/flasher-sweetalert-laravel": "^1.7",
         "php-flasher/flasher-toastr-laravel": "^1.7",
         "psr/simple-cache": "^2.0",
+        "pusher/pusher-php-server": "^7.2",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "yajra/laravel-datatables-oracle": "^10.1"
     },

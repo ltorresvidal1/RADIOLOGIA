@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('study', function (Blueprint $table) {
-            $table->integer('conaudio')->default(0)->after('fechaestudio');
+            $table->integer('conaudio')->default(0);
             $table->timestamps();
         });
     }

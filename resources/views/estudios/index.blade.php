@@ -3,6 +3,8 @@
         <link href="/assets/js/plugins/datatables/css/responsive.bootstrap4.min.css" rel="stylesheet">
         <link href="/assets/js/plugins/datatables/css/buttons.bootstrap4.min.css" rel="stylesheet">
 		<link href="/assets/js/plugins/summernote/css/summernote-lite.css" rel="stylesheet" />
+        
+        
 @endpush
 
 
@@ -572,6 +574,41 @@
 
 
 
-  </script>
+
+
+
+
+</script>
+
+<script type="module">
+
+      
+ // import Echo from 'laravel-echo';
+ // import Echo from 'laravel-echo/dist/echo';
+ // import Echo from './path/to/laravel-echo/dist/echo';
+/*
+window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001', // Puerto predeterminado de Laravel Websockets
+    auth: {
+        headers: {
+            'Authorization': 'Bearer ' + Vg0qJd8MYNZn7k0q76N,
+        },
+    },
+});
+
+window.Echo.private('luis')
+    .listen('MessageSent', (e) => {
+        console.log(e.message);
+    });*/
+   // App\Events\MessageSent
+  Echo.channel('luis')
+    .listen('MessageSent',(e) => {
+
+    console.log(e);
+    });
+
+
+</script>
 
 @endpush

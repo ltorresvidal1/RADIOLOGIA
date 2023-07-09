@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-//Route::post('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
+Route::post('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
 
 
-Route::post('login', [HL7Controller::class, 'login'])->name('login');
+Route::post('/apilogin', [HL7Controller::class, 'login'])->name('apilogin');
