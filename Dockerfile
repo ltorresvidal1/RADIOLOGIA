@@ -30,7 +30,7 @@ RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
 
 RUN npm install
-RUN npm run dev
+#RUN npm run dev
 
 #CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
 
