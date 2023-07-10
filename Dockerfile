@@ -10,8 +10,8 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     autoconf \
     g++ \
     make \
-    postgresql-dev
-        
+    postgresql-dev \
+    npm # Add npm installation
 
 
 WORKDIR /app
