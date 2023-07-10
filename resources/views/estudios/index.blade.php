@@ -602,6 +602,7 @@ window.Echo.private('luis')
         console.log(e.message);
     });*/
    // App\Events\MessageSent
+   console.log("entre");
   Echo.channel('luis')
     .listen('MessageSent',(e) => {
 
