@@ -12,7 +12,6 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     make \
     postgresql-dev \
     npm \
-    nodejs
 
 
 WORKDIR /app
@@ -30,6 +29,8 @@ RUN php artisan view:clear
 RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
 
+RUN npm install
+RUN npm run dev
 
 #CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
 
