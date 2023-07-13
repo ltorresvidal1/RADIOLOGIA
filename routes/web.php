@@ -14,6 +14,12 @@ use App\Http\Controllers\lecturas\lecturasController;
 use App\Http\Controllers\usuarios\UsuariosController;
 use App\Http\Controllers\datatable\DatatableController;
 use App\Http\Controllers\principal\PrincipalController;
+use App\Http\Controllers\ris\ris_motivosbloqueosController;
+use App\Http\Controllers\ris\ris_motivoscancelacionesController;
+use App\Http\Controllers\ris\ris_pacientesController;
+use App\Http\Controllers\ris\ris_plantillasController;
+use App\Http\Controllers\ris\ris_salasController;
+use App\Http\Controllers\ris\ris_sedesController;
 use App\Http\Controllers\sa_usuarios\Sa_usuariosController;
 
 
@@ -60,17 +66,12 @@ Route::put('usuarios/{usuario}', [UsuariosController::class, 'update'])->name('u
 Route::put('restablecerusuario/{usuario}', [UsuariosController::class, 'restablecer'])->name('usuarios.restablecer');
 Route::delete('usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 
-/*Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
-Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
-*/
-
 Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
 Route::get('/clientes/create', [ClientesController::class, 'create'])->name('clientes.create');
 Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
 Route::get('clientes/{cliente}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
 Route::put('clientes/{cliente}', [ClientesController::class, 'update'])->name('clientes.update');
 Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
-
 
 Route::get('/medicos', [MedicosController::class, 'index'])->name('medicos.index');
 Route::get('/medicos/create', [MedicosController::class, 'create'])->name('medicos.create');
@@ -80,27 +81,6 @@ Route::put('medicos/{medico}', [MedicosController::class, 'update'])->name('medi
 
 Route::put('restablecermedico/{medico}', [MedicosController::class, 'restablecer'])->name('medicos.restablecer');
 Route::delete('medicos/{medico}', [MedicosController::class, 'destroy'])->name('medicos.destroy');
-/*
-Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
-Route::get('/clientes/create', [ClientesController::class, 'create'])->name('clientes.create');
-Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
-Route::get('clientes/{cliente}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
-Route::put('clientes/{cliente}', [ClientesController::class, 'update'])->name('clientes.update');
-Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
-
-Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
-Route::get('/clientes/create', [ClientesController::class, 'create'])->name('clientes.create');
-Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
-Route::get('clientes/{cliente}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
-Route::put('clientes/{cliente}', [ClientesController::class, 'update'])->name('clientes.update');
-Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
-
-*/
-
-
-
-
-
 
 
 
@@ -111,7 +91,6 @@ Route::get('/datatable/estudiosportranscribir/{institucion}/{fechainicial}/{fech
 Route::get('/datatable/estudiosenproceso/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosenproceso'])->name('datatable.estudiosenproceso');
 Route::get('/datatable/estudiosporvalidar/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosporvalidar'])->name('datatable.estudiosporvalidar');
 Route::get('/datatable/estudioscompetados/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudioscompetados'])->name('datatable.estudioscompetados');
-
 Route::get('/datatable/estudiosclientes/{institucion}/{idestudio}', [DatatableController::class, 'lecturasestudiosclientes'])->name('datatable.lecturasestudiosclientes');
 
 
@@ -120,26 +99,104 @@ Route::get('/datatable/estudiosclientes/{institucion}/{idestudio}', [DatatableCo
 
 Route::get('/estudio/{idestudio}', [lecturasController::class, 'index'])->name('lectura.index');
 Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
-
-
 Route::post('/lectura', [lecturasController::class, 'store'])->name('lectura.store');
 Route::get('/lectura', [lecturasController::class, 'update'])->name('lectura.update');
 Route::delete('/lectura/{idlectura}', [lecturasController::class, 'destroy'])->name('lectura.destroy');
 
 Route::get('/descargarlectura/{idestudio}', [lecturasController::class, 'descargarlectura'])->name('descargarlectura');
 
-//oute::get('/paiweb', [lecturasController::class, 'Apiweb'])->name('paiweb');
-//Route::put('/lectura',[lecturasController::class,'update'])->name('lectura.update');
 
 Route::get('/descargar_cd', [DescargarCdController::class, "downloadZip"]);
 
 
+
+Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
 //Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
 
 
-Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
+/*
+
+
+Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
+Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
+
+
+Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
+Route::get('/clientes/create', [ClientesController::class, 'create'])->name('clientes.create');
+Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
+Route::get('clientes/{cliente}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
+Route::put('clientes/{cliente}', [ClientesController::class, 'update'])->name('clientes.update');
+Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
+
+Route::get('/clientes', [ClientesController::class, 'index'])->name('clientes.index');
+Route::get('/clientes/create', [ClientesController::class, 'create'])->name('clientes.create');
+Route::post('/clientes', [ClientesController::class, 'store'])->name('clientes.store');
+Route::get('clientes/{cliente}/edit', [ClientesController::class, 'edit'])->name('clientes.edit');
+Route::put('clientes/{cliente}', [ClientesController::class, 'update'])->name('clientes.update');
+Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->name('clientes.destroy');
+
+*/
+
+
+
+
+
+
+
 
 //Route::put('/lectura/{lectura}',[lecturasController::class,'update'])->name('lectura.update');
 
 //Route::delete('/lectura/{lectura}',[lecturasController::class,'destroy'])->name('lectura.destroy');
 //Route::post('/datatable/estudiosclientes',[DatatableController::class,'estudiosclientes'])->name('datatable.estudiosclientes');
+
+
+
+
+
+Route::get('/sedes', [ris_sedesController::class, 'index'])->name('rissedes.index');
+Route::get('/sedes/create', [ris_sedesController::class, 'create'])->name('rissedes.create');
+Route::post('/sedes', [ris_sedesController::class, 'store'])->name('rissedes.store');
+Route::get('sedes/{sede}/edit', [ris_sedesController::class, 'edit'])->name('rissedes.edit');
+Route::put('sedes/{sede}', [ris_sedesController::class, 'update'])->name('rissedes.update');
+Route::delete('sedes/{sede}', [ris_sedesController::class, 'destroy'])->name('rissedes.destroy');
+
+
+Route::get('/salas', [ris_salasController::class, 'index'])->name('rissalas.index');
+Route::get('/salas/create', [ris_salasController::class, 'create'])->name('rissalas.create');
+Route::post('/salas', [ris_salasController::class, 'store'])->name('rissalas.store');
+Route::get('salas/{sala}/edit', [ris_salasController::class, 'edit'])->name('rissalas.edit');
+Route::put('salas/{sala}', [ris_salasController::class, 'update'])->name('rissalas.update');
+Route::delete('salas/{sala}', [ris_salasController::class, 'destroy'])->name('rissalas.destroy');
+
+
+Route::get('/motivoscancelaciones', [ris_motivoscancelacionesController::class, 'index'])->name('rismotivoscancelaciones.index');
+Route::get('/motivoscancelaciones/create', [ris_motivoscancelacionesController::class, 'create'])->name('rismotivoscancelaciones.create');
+Route::post('/motivoscancelaciones', [ris_motivoscancelacionesController::class, 'store'])->name('rismotivoscancelaciones.store');
+Route::get('motivoscancelaciones/{motivocancelacion}/edit', [ris_motivoscancelacionesController::class, 'edit'])->name('rismotivoscancelaciones.edit');
+Route::put('motivoscancelaciones/{motivocancelacion}', [ris_motivoscancelacionesController::class, 'update'])->name('rismotivoscancelaciones.update');
+Route::delete('motivoscancelaciones/{motivocancelacion}', [ris_motivoscancelacionesController::class, 'destroy'])->name('rismotivoscancelaciones.destroy');
+
+
+
+Route::get('/motivosbloqueos', [ris_motivosbloqueosController::class, 'index'])->name('rismotivosbloqueos.index');
+Route::get('/motivosbloqueos/create', [ris_motivosbloqueosController::class, 'create'])->name('rismotivosbloqueos.create');
+Route::post('/motivosbloqueos', [ris_motivosbloqueosController::class, 'store'])->name('rismotivosbloqueos.store');
+Route::get('motivosbloqueos/{motivobloqueo}/edit', [ris_motivosbloqueosController::class, 'edit'])->name('rismotivosbloqueos.edit');
+Route::put('motivosbloqueos/{motivobloqueo}', [ris_motivosbloqueosController::class, 'update'])->name('rismotivosbloqueos.update');
+Route::delete('motivosbloqueos/{motivobloqueo}', [ris_motivosbloqueosController::class, 'destroy'])->name('rismotivosbloqueos.destroy');
+
+Route::get('/plantillas', [ris_plantillasController::class, 'index'])->name('risplantillas.index');
+Route::get('/plantillas/create', [ris_plantillasController::class, 'create'])->name('risplantillas.create');
+Route::post('/plantillas', [ris_plantillasController::class, 'store'])->name('risplantillas.store');
+Route::get('plantillas/{plantilla}/edit', [ris_plantillasController::class, 'edit'])->name('risplantillas.edit');
+Route::put('plantillas/{plantilla}', [ris_plantillasController::class, 'update'])->name('risplantillas.update');
+Route::delete('plantillas/{plantilla}', [ris_plantillasController::class, 'destroy'])->name('risplantillas.destroy');
+
+
+
+Route::get('/pacientes', [ris_pacientesController::class, 'index'])->name('rispacientes.index');
+Route::get('/pacientes/create', [ris_pacientesController::class, 'create'])->name('rispacientes.create');
+Route::post('/pacientes', [ris_pacientesController::class, 'store'])->name('rispacientes.store');
+Route::get('pacientes/{paciente}/edit', [ris_pacientesController::class, 'edit'])->name('rispacientes.edit');
+Route::put('pacientes/{paciente}', [ris_pacientesController::class, 'update'])->name('rispacientes.update');
+Route::delete('pacientes/{paciente}', [ris_pacientesController::class, 'destroy'])->name('rispacientes.destroy');

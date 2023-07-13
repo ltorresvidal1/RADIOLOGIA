@@ -32641,3 +32641,8 @@ body .note-modal-backdrop {
     --bs-app-top-nav-menu-link-active-color: #FFFFFF;
     --bs-app-top-nav-menu-submenu-bg: #273349
 }
+
+
+.obligatorio {
+    color: red;
+}

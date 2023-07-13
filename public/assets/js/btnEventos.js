@@ -117,6 +117,141 @@ function EliminarMedico(idmedico){
    
   }
 
+  function EliminarPaciente(idpaciente){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idpaciente).submit()
+            }
+        });
+
+   
+  }
+  
+  function EliminarSede(idsede){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idsede).submit()
+            }
+        });
+
+   
+  }
+  
+  function EliminarSala(idsala){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idsala).submit()
+            }
+        });
+
+   
+  }
+  
+  function EliminarMotivocancelacion(idotivocancelacion){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idotivocancelacion).submit()
+            }
+        });
+
+   
+  }
+  
+  
+  function EliminarMotivobloqueo(idotivobloqueo){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idotivobloqueo).submit()
+            }
+        });
+
+   
+  }
+
+
+  function EliminarPlantilla(idplantilla){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                
+                document.getElementById('delete-'+idplantilla).submit();
+             
+            }
+        });
+
+   
+  }
 
   function EliminarLectura(idlectura){
 

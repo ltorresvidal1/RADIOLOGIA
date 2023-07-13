@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\lecturas;
 
 use notify;
-use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Barryvdh\DomPDF\PDF;
 use App\Models\pacs\series;
 use App\Models\pacs\patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\lecturas\lecturas;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

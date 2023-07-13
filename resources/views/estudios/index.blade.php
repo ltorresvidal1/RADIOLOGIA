@@ -263,7 +263,7 @@
 
 
 @push('scripts')
-
+@vite('resources/js/app.js')
 <script src="/assets/js/btnEventos.js"></script>
 
 <script src="/assets/js/plugins/datatables/js/jquery.dataTables.min.js"></script>

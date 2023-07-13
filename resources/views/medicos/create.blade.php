@@ -13,7 +13,7 @@
 @section('tituloformulario','Radiologos')
 @section('principalformulario','RADIOLOGOS')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nuevo Cliente')
+@section('descripcionformulario','Crear Nuevo Radiologo')
 @section('classformulario','card')
 
 

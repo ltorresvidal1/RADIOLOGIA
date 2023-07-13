@@ -7,22 +7,23 @@
 @endpush
 
 @extends('layouts.plantillaFormularios')
-@section('title','Plantillas')
+@section('title','Motivos De Bloqueos')
 
-@section('nombrevista','Plantillas')
+@section('nombrevista','Motivos De Bloqueos')
 @section('hrefformulario')
-{{route('medicos.index')}}
+{{route('rismotivosbloqueos.index')}}
 @endsection
 @section('botonesformulario')
 <div class="ms-auto">
-    <a href="{{route('medicos.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear Radiologo</a>
+    <a href="{{route('rismotivosbloqueos.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear Moticos De Bloqueos</a>
 </div>
 @endsection
-@section('tituloformulario','Plantillas')
-@section('principalformulario','PLANTILLAS')
-@section('accionformulario','TODOS')
-@section('descripcionformulario','Listado De Plantillas Creadas')
+@section('tituloformulario','Motivos De Bloqueos')
+@section('principalformulario','MOTIVOS DE BLOQUEOS')
+@section('accionformulario','TODOS')@section('descripcionformulario','Listado Motivos De Bloqueos Creados')
 @section('classformulario','')
+
+
 
 
 @section('content')
@@ -30,31 +31,28 @@
 <table id="datatableDefault" class="table text-nowrap w-100">
     <thead>
         <tr>
-            <th>Documento</th>
             <th>Nombre</th>
-            <th>Registro Medico</th>
             <th>Estado</th>
             <th></th>                                                     
         </tr>
     </thead>
     <tbody>
-        @foreach ($medicos as $medico)
+        @foreach ($motivosbloqueos as $motivobloqueo)
         <tr>
-            <td>{{$medico->documento}}</td>
-            <td>{{$medico->nombre}}</td>
-            <td>{{$medico->registromedico}}</td>
-            <td>{{$medico->estado}} </td>
+            <td>{{$motivobloqueo->nombre}}</td>
+            <td>{{$motivobloqueo->estado}} </td>
             <td>
              
                 <div class="dropdown text-center">
                     <a href="#" data-bs-toggle="dropdown" class="text-decoration-none"><i class="fa fa-ellipsis-v fa-fw fa-lg"></i> </a>
                     <div class="dropdown-menu">
-                        <a href="{{ route('medicos.edit', $medico->id) }}" class="dropdown-item"><i class="far fa-edit fa-fw fa-lg"></i> Editar</a>
-                        <form id="delete-{{$medico->id}}" action="{{route('medicos.destroy',$medico)}}" method="POST">
+                       
+                        <a href="{{ route('rismotivosbloqueos.edit', $motivobloqueo->id) }}" class="dropdown-item"><i class="far fa-edit fa-fw fa-lg"></i> Editar</a>
+                        <form id="delete-{{$motivobloqueo->id}}" action="{{route('rismotivosbloqueos.destroy',$motivobloqueo)}}" method="POST">
                             @csrf
                             @method('DELETE')
                         </form>
-                        <a href="#" class="dropdown-item"  onclick="EliminarMedico('{{ $medico->id }}')"><i class="far fa-trash-alt fa-fw fa-lg"></i> Eliminar</a>
+                        <a href="#" class="dropdown-item"  onclick="EliminarMotivobloqueo('{{ $motivobloqueo->id }}')"><i class="far fa-trash-alt fa-fw fa-lg"></i> Eliminar</a>
                     </div>
                 </div>
 
