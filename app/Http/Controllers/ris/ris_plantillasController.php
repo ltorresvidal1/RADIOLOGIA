@@ -59,7 +59,7 @@ class ris_plantillasController extends Controller
 
 
         notify()->success('Plantilla Creada', 'Confirmacion');
-        return redirect()->route('plantillas.create');
+        return redirect()->route('risplantillas.create');
     }
 
 
@@ -67,7 +67,7 @@ class ris_plantillasController extends Controller
     {
 
         $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-        return view('ris.plantilla.edit', compact('plantilla', 'estados'));
+        return view('ris.plantillas.edit', compact('plantilla', 'estados'));
     }
     public function update(Storeris_plantillas $request, ris_plantillas $plantilla)
     {

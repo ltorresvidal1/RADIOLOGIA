@@ -110,7 +110,7 @@ echo '<div class="menu-header"><span class="menu-text">Administrador</span></div
                         </a>
                         <div class="menu-submenu" style="box-sizing: border-box; display: none;">
                             <div class="menu-item">
-                                <a href="crearagendas" class="menu-link">
+                                <a href="/crearagendas" class="menu-link">
                                 <span class="menu-text">Crear Agenda</span>
                                 </a>
                             </div>

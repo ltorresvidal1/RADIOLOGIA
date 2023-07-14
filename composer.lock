@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a46b56478b7fd55328531360d56d6d6b",
+    "content-hash": "59f06c4952ea3dd73d2c6db434f2adfd",
     "packages": [
         {
             "name": "aranyasen/hl7",

@@ -120,7 +120,7 @@
                                                             <input type="hidden" class="form-control"  id="temperfil" name="temperfil" value="{{old('temperfil')}}" />
                                                             <div>
                                                                
-                                                                <select class="select2 form-control" id="idperfil" name="idperfil" >
+                                                                <select class="select2 form-select" id="idperfil" name="idperfil" >
                                                                       @foreach($perfiles as $perfil)                                                     
                                                                         <option value="{{ $perfil->id }}">{{ $perfil->nombre }}</option>
                                                                     @endforeach
@@ -132,7 +132,7 @@
                                                         </div>
                                                     <div class="form-group col-2 m-0">
                                                         <label class="form-label" for="idestado">Estado</label>
-                                                        <select class="form-control" id="idestado" name="idestado">
+                                                        <select class="form-select" id="idestado" name="idestado">
                                                             @foreach ($desplegables as $desplegable)
                                                             <option value="{{$desplegable->id}}" {{$desplegable->id == $medico->idestado ? 'selected' : ''}}>{{$desplegable->nombre}}</option>
                                                             @endforeach

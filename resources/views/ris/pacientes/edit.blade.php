@@ -32,7 +32,7 @@
                                                         
                                                     <div class="form-group col-3 m-0">
                                                         <label class="form-label" for="idtipoid">Tipo Id</label><label class="obligatorio">*</label> 
-                                                        <select class="form-control @error('idtipoid') is-invalid @enderror" id="idtipoid" name="idtipoid">
+                                                        <select class="form-select @error('idtipoid') is-invalid @enderror" id="idtipoid" name="idtipoid">
                                                             <option value="0">Seleccionar</option>
                                                             @foreach ($tipoid as $tipo)
                                                             <option value="{{$tipo->id}}" {{$tipo->id == $paciente->idtipoid ? 'selected' : ''}}>{{$tipo->nombre}}</option>
@@ -109,7 +109,7 @@
 
                                                         <div class="form-group col-3 m-0">
                                                             <label class="form-label" for="idsexo">Sexo</label><label class="obligatorio">*</label> 
-                                                            <select class="form-control  @error('idsexo') is-invalid @enderror" id="idsexo" name="idsexo">
+                                                            <select class="form-select  @error('idsexo') is-invalid @enderror" id="idsexo" name="idsexo">
                                                                 <option value="0">Seleccionar</option>
                                                                 @foreach ($sexos as $sexo)
                                                                 <option value="{{$sexo->id}}" {{$sexo->id == $paciente->idsexo ? 'selected' : ''}}>{{$sexo->nombre}}</option>

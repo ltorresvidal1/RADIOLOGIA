@@ -14,6 +14,7 @@ use App\Http\Controllers\lecturas\lecturasController;
 use App\Http\Controllers\usuarios\UsuariosController;
 use App\Http\Controllers\datatable\DatatableController;
 use App\Http\Controllers\principal\PrincipalController;
+use App\Http\Controllers\ris\ris_agendasController;
 use App\Http\Controllers\ris\ris_motivosbloqueosController;
 use App\Http\Controllers\ris\ris_motivoscancelacionesController;
 use App\Http\Controllers\ris\ris_pacientesController;
@@ -192,6 +193,12 @@ Route::get('plantillas/{plantilla}/edit', [ris_plantillasController::class, 'edi
 Route::put('plantillas/{plantilla}', [ris_plantillasController::class, 'update'])->name('risplantillas.update');
 Route::delete('plantillas/{plantilla}', [ris_plantillasController::class, 'destroy'])->name('risplantillas.destroy');
 
+Route::get('/crearagendas', [ris_agendasController::class, 'index'])->name('risagendas.index');
+Route::get('/crearagendas/create', [ris_agendasController::class, 'create'])->name('risagendas.create');
+Route::post('/crearagendas', [ris_agendasController::class, 'store'])->name('risagendas.store');
+Route::get('crearagendas/{agenda}/edit', [ris_agendasController::class, 'edit'])->name('risagendas.edit');
+Route::put('crearagendas/{agenda}', [ris_agendasController::class, 'update'])->name('risagendas.update');
+Route::delete('crearagendas/{agenda}', [ris_agendasController::class, 'destroy'])->name('risagendas.destroy');
 
 
 Route::get('/pacientes', [ris_pacientesController::class, 'index'])->name('rispacientes.index');

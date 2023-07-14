@@ -38,7 +38,7 @@
                                                             </div>
                                                             <div class="form-group col-4 m-0">
                                                                 <label class="form-label" for="sede_id">Sedes</label>
-                                                                <select class="form-control  @error('sede_id') is-invalid @enderror" id="sede_id" name="sede_id">
+                                                                <select class="form-select  @error('sede_id') is-invalid @enderror" id="sede_id" name="sede_id">
                                                                     <option value="0">Seleccionar</option>
                                                                     @foreach ($sedes as $sede)
                                                                     <option value="{{$sede->id}}">{{$sede->nombre}}</option>
@@ -48,7 +48,7 @@
 
                                                             <div class="form-group col-4 m-0">
                                                                 <label class="form-label" for="idestado">Estado</label>
-                                                                <select class="form-control" id="idestado" name="idestado">
+                                                                <select class="form-select" id="idestado" name="idestado">
                                                                     @foreach ($estados as $estado)
                                                                     <option value="{{$estado->id}}">{{$estado->nombre}}</option>
                                                                     @endforeach

@@ -2,18 +2,19 @@
 
 @push('css')
 
+<link href="/assets/js/plugins/summernote/css/summernote-lite.css" rel="stylesheet" />
 @endpush
-@section('title','Editar Sedes')
+@section('title','Editar Plantillas')
 
-@section('nombrevista','Sedes')
+@section('nombrevista','Plantillas')
 @section('hrefformulario')
-{{route('rissedes.index')}}
+{{route('risplantillas.index')}}
 @endsection
 
-@section('tituloformulario','Sedes')
-@section('principalformulario','SEDES')
+@section('tituloformulario','Plantillas')
+@section('principalformulario','PLANTILLAS')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Sedes')
+@section('descripcionformulario','Editar Plantillas')
 @section('classformulario','card')
 
 
@@ -22,7 +23,7 @@
 
 
 
-											<form action="{{route('rissedes.update',$sede)}}" method="POST">
+											<form action="{{route('risplantillas.update',$plantilla)}}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                     
@@ -31,7 +32,7 @@
                                                 <div class="row">	
                                                     <div class="form-group col-8 m-0">
                                                         <label class="form-label" for="nombre">Nombre</label><label class="obligatorio">*</label> 
-                                                        <input type="text" class="form-control @error('nombre') is-invalid @enderror"  id="nombre" name="nombre"  value="{{old('nombre',$sede->nombre)}}" />
+                                                        <input type="text" class="form-control @error('nombre') is-invalid @enderror"  id="nombre" name="nombre"  value="{{old('nombre',$plantilla->nombre)}}" />
                                                             @error('nombre')
                                                             <br>
                                                             <small>*{{$message}}</small>
@@ -40,22 +41,29 @@
                                                     </div>
                                                     <div class="form-group col-4 m-0">
                                                         <label class="form-label" for="idestado">Estado</label>
-                                                        <select class="form-control" id="idestado" name="idestado">
+                                                        <select class="form-select" id="idestado" name="idestado">
                                                             @foreach ($estados as $estado)
-                                                            <option value="{{$estado->id}}" {{$estado->id == $sede->idestado ? 'selected' : ''}}>{{$estado->nombre}}</option>
+                                                            <option value="{{$estado->id}}" {{$estado->id == $plantilla->idestado ? 'selected' : ''}}>{{$estado->nombre}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
-
-                                                       
+                                                <br>
+                                                <div class="row">			
+                                                    <textarea name="plantilla" id='plantilla' class="summernote form-control  @error('plantilla') is-invalid @enderror" >{{old('plantilla',$plantilla->plantilla)}}</textarea> 
+                                                    @error('plantilla')
+                                                                                            <br>
+                                                                                            <small>*{{$message}}</small>
+                                                                                            <br>
+                                                                                        @enderror
+                                                 </div>
                                             
                                                  
                                                     <div class="row">    
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Sede</button>
+                                                            <button type="submit" class="btn btn-primary">Editar Plantilla</button>
                                                         </div>
                                                     </div>
 
@@ -66,6 +74,45 @@
 
 @push('scripts')
 
+<script src="/assets/js/plugins/summernote/js/summernote-lite.min.js"></script>
+<script src="/assets/js/plugins/summernote/js/summernote-es-ES.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+	handleRenderSummernote1();
+});
+
+var handleRenderSummernote1 = function() {
+
+    var totalHeight = ($(window).height() /2)-70;
+
+    $('#plantilla').summernote({
+        lang: 'es-ES' ,
+        height: totalHeight,
+        disableDragAndDrop: true,           
+        placeholder:"Digite la plantilla",
+        toolbar: [
+            ['font', ['bold', 'italic',  'underline', 'clear']],
+            ['para', ['ul', 'ol','paragraph']],
+            ['table', ['table']],
+            ['view', ['fullscreen']],
+        ],
+        callbacks: {
+        onPaste: function (e) {
+        
+        var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+        e.preventDefault();
+        document.execCommand('insertText', false, bufferText);
+    }
+    }
+    });
+    
+
+
+
+};
+
+</script>
 
 @endpush
 

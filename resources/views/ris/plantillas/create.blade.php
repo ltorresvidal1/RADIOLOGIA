@@ -38,7 +38,7 @@
                                                             </div>
                                                             <div class="form-group col-4 m-0">
                                                                 <label class="form-label" for="idestado">Estado</label>
-                                                                <select class="form-control" id="idestado" name="idestado">
+                                                                <select class="form-select" id="idestado" name="idestado">
                                                                     @foreach ($estados as $estado)
                                                                     <option value="{{$estado->id}}">{{$estado->nombre}}</option>
                                                                     @endforeach
@@ -47,8 +47,7 @@
                                                         </div>
 <br>
                                                         <div class="row">			
-                                                            
-                                                            <textarea name="plantilla" id='plantilla' class="summernote" >{{old('plantilla')}}</textarea> 
+                                                            <textarea name="plantilla" id='plantilla' class="summernote form-control  @error('plantilla') is-invalid @enderror" >{{old('plantilla')}}</textarea> 
                                                             @error('plantilla')
                                                                                                     <br>
                                                                                                     <small>*{{$message}}</small>
@@ -79,26 +78,13 @@
 
 <script>
     $(document).ready(function() {
-	
-        $('#plantilla').summernote();
-       /* $('#plantilla').summernote({
-        lang: 'es-ES' ,
-		height: 590,
-        disableDragAndDrop: true,           
-        placeholder:"Digite la plantilla",
-        toolbar: [
-            ['font', ['bold', 'underline', 'clear']],
-            ['para', ['ul', 'ol','paragraph']],
-            ['view', ['fullscreen']],
-        ]
-	});
-    */
+	handleRenderSummernote1();
 });
 
 var handleRenderSummernote1 = function() {
 
     var totalHeight = ($(window).height() /2)-70;
-/*
+
     $('#plantilla').summernote({
         lang: 'es-ES' ,
         height: totalHeight,
@@ -107,6 +93,7 @@ var handleRenderSummernote1 = function() {
         toolbar: [
             ['font', ['bold', 'italic',  'underline', 'clear']],
             ['para', ['ul', 'ol','paragraph']],
+            ['table', ['table']],
             ['view', ['fullscreen']],
         ],
         callbacks: {
@@ -118,7 +105,7 @@ var handleRenderSummernote1 = function() {
     }
     }
     });
-    */
+    
 
 
 

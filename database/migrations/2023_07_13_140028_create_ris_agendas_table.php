@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ris_salas', function (Blueprint $table) {
+        Schema::create('ris_agendas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('cliente_id');
             $table->foreignUuid('sede_id');
-            $table->string('nombre');
+            $table->foreignUuid('sala_id');
+            $table->date('fechainicial');
+            $table->time('horainicial');
+            $table->date('fechafinal');
+            $table->time('horafinal');
+            $table->json('dias')->nullable();
             $table->integer('idestado');
             $table->timestamps();
         });
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ris_salas');
+        Schema::dropIfExists('ris_agendas');
     }
 };

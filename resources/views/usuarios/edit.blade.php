@@ -90,7 +90,7 @@
                                                     </div>
                                                     <div class="form-group col-3 m-0">
                                                         <label class="form-label" for="idestado">Estado</label>
-                                                        <select class="form-control" id="idestado" name="idestado">
+                                                        <select class="form-select" id="idestado" name="idestado">
                                                             @foreach ($desplegables as $desplegable)
                                                             <option value="{{$desplegable->id}}" {{$desplegable->id == $usuario->idestado ? 'selected' : ''}}>{{$desplegable->nombre}}</option>
                                                             @endforeach
