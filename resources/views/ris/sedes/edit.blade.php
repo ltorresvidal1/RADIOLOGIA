@@ -3,7 +3,7 @@
 @push('css')
 
 @endpush
-@section('title','Editar Sedes')
+@section('title','Editar sedes')
 
 @section('nombrevista','Sedes')
 @section('hrefformulario')
@@ -13,7 +13,7 @@
 @section('tituloformulario','Sedes')
 @section('principalformulario','SEDES')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Sedes')
+@section('descripcionformulario','Editar sedes')
 @section('classformulario','card')
 
 
@@ -55,7 +55,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Sede</button>
+                                                            <button type="submit" class="btn btn-primary">Editar sede</button>
                                                         </div>
                                                     </div>
 

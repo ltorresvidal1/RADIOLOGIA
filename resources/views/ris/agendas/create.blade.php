@@ -2,7 +2,7 @@
 
 @push('css')
 <link href="/assets/js/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-@livewireStyles
+
 @endpush
 @section('title','Crear Agendas')
 
@@ -35,7 +35,7 @@
 
 <script>
     $('#horainicial').timepicker({
-        minuteStep:1,
+        minuteStep:10,
         showMeridian:false,
         icons:  {
             up: 'fa fa-angle-up',
@@ -44,16 +44,21 @@
     });
 
     $('#horafinal').timepicker({
-        minuteStep:1,
+        minuteStep:10,
         showMeridian:false,
         icons:  {
             up: 'fa fa-angle-up',
             down: 'fa fa-angle-down'
         }
     });
+
+
+
+
+
+
   </script>
 
-@livewireScripts
 @endpush
 
 

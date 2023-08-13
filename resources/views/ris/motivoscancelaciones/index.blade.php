@@ -15,13 +15,13 @@
 @endsection
 @section('botonesformulario')
 <div class="ms-auto">
-    <a href="{{route('rismotivoscancelaciones.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear Motivos De Cancelaciones</a>
+    <a href="{{route('rismotivoscancelaciones.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear motivos de cancelaciones</a>
 </div>
 @endsection
-@section('tituloformulario','Motivos De Cancelaciones')
+@section('tituloformulario','Motivos de cancelaciones')
 @section('principalformulario','MOTIVOS DE CANCELACIONES')
 @section('accionformulario','TODOS')
-@section('descripcionformulario','Listado Motivos De Cancelaciones Creadas')
+@section('descripcionformulario','Listado motivos de cancelaciones creadas')
 @section('classformulario','')
 
 
@@ -87,6 +87,10 @@
 
   <script>
   $('#datatableDefault').DataTable({
+    language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
+    paging:false,
     dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
     responsive: true,
     buttons: [ {title: 'Clientes', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 

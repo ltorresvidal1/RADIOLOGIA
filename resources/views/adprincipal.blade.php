@@ -9,7 +9,7 @@
 @section('tituloformulario','Tablero de Control')
 
 
-
+<?php  $anoactual=date("Y"); ?> 
 
 @section('content') 
 
@@ -17,7 +17,7 @@
         <div id="chartJsLineChart" class="mb-5">
             <div class="card">
                 <div class="card-body">
-                <h6>ESTUDIOS REALIZADOS POR MES AÑO 2022</h6>
+                <h6>ESTUDIOS REALIZADOS POR MES AÑO <?php echo  $anoactual; ?></h6>
                 
                 <canvas id="lineChart" height="120"></canvas>
              

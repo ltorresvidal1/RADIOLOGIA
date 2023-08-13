@@ -253,6 +253,32 @@ function EliminarMedico(idmedico){
    
   }
 
+
+
+
+
+  function EliminarRelplantillasradiologo(idrelacion){
+
+    
+    swal({
+        title: "Desea eliminar este registro?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: {
+            confirm: { text: "OK", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "Cancel", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+                document.getElementById('delete-'+idrelacion).submit()
+            }
+        });
+
+   
+  }
+
   function EliminarLectura(idlectura){
 
     
@@ -348,11 +374,11 @@ datatableLecturas.ajax.reload(null,false);
 
 
   function RealizarLecturas(idestudio){
-    window.open("estudio/"+idestudio);
+  window.open("lecturas/"+idestudio);
   }
 
   function ImprimirLecturas(idestudio){
-    window.open("descargarlectura/"+idestudio);
+    window.open("imprimirlectura/"+idestudio);
   }
 
    

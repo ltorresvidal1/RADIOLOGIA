@@ -119,4 +119,13 @@ class ris_agendasController extends Controller
         return redirect()->route('rissalas.index');
     }
     */
+
+    public function asignarcita()
+    {
+        return view('ris.citas.index');
+    }
+
+    public function cargaragenda()
+    {
+    }
 }

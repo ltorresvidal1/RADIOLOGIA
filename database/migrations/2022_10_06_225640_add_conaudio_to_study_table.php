@@ -28,8 +28,6 @@ return new class extends Migration
     {
         Schema::table('study', function (Blueprint $table) {
             $table->dropColumn('conaudio');
-            $table->dropColumn('created_at');
-            $table->dropColumn('updated_at');
         });
     }
 };

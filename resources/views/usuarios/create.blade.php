@@ -3,7 +3,7 @@
 
      
 
-@section('title','Crear Usuarios')
+@section('title','Crear usuarios')
 
 @section('nombrevista','Usuarios')
 @section('hrefformulario')
@@ -13,7 +13,7 @@
 @section('tituloformulario','Usuarios')
 @section('principalformulario','USUARIOS')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nuevo Usuario')
+@section('descripcionformulario','Crear nuevo usuario')
 @section('classformulario','card')
 
 
@@ -54,6 +54,7 @@
                                                             @enderror
 														</div>
                                                 </div>
+                                                <br>
                                                 <div class="row">													                                                    
                                                     <div class="form-group col-3 m-0">
                                                         <label class="form-label" for="password">Contraseña</label>
@@ -76,7 +77,7 @@
                                                     <div class="form-group col-3 m-0">
                                                         <label class="form-label" for="idperfil">Perfil</label>
                                                         <input type="hidden" class="form-control"  id="temperfil" name="temperfil" value="{{old('temperfil')}}" />
-                                                        <div wire:ignore>
+                                                        <div>
                                                             <div class="form-control  @error('idperfil') is-invalid @enderror" >
                                                             <select class="select2 form-control" id="idperfil" name="idperfil" >
                                                      
@@ -113,7 +114,7 @@
                                                 <br>
                                                 <div class="row">    
                                                     <div class="form-group col-3 m-0">                                                        
-                                                        <button type="submit" class="btn btn-primary">Crear Usuario</button>
+                                                        <button type="submit" class="btn btn-primary">Crear usuario</button>
                                                     </div>
                                                 </div>	
 											</form>

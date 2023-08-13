@@ -13,7 +13,7 @@
 @section('tituloformulario','Plantillas')
 @section('principalformulario','PLANTILLAS')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nueva Plantilla')
+@section('descripcionformulario','Crear nueva plantilla')
 @section('classformulario','card')
 
 
@@ -59,7 +59,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Crear Plantilla</button>
+                                                            <button type="submit" class="btn btn-primary">Crear plantilla</button>
                                                         </div>
                                                     </div>
 

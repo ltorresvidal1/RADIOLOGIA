@@ -63,7 +63,7 @@ class HL7Controller extends Controller
     {
 
         //$ip = '192.168.1.73';
-        $ip = '172.190.68.187';
+        $ip = '192.168.1.73';
         $port = '2575';
 
         $hl7String = 'MSH|^~\&|SIOS|SYSNET|HUNAD|HUNAD|202306111512||ORM^O01|459536|P|2.3.1||||||
@@ -75,7 +75,8 @@ NTE|1|26715|COOSALUD ENTIDAD PROMOTORA DE SALUD S.A';
 
         $message = new Message($hl7String);
         $message->toString(true);
-        $OBR2 =  $message->getFirstSegmentInstance('OBR');
+
+        //   $OBR2 =  $message->getFirstSegmentInstance('OBR');
 
 
 
@@ -105,9 +106,9 @@ OBR||130010162601^806016225^CENTRO MEDICO BUENOS AIRES S.A.S||873204^Radiografia
 NTE|1|26715|COOSALUD ENTIDAD PROMOTORA DE SALUD S.A';
 */
 
-        //$connection = new Connection($ip, $port);
-        //$response = $connection->send($message);
-        //dd($response->toString(true));
+        $connection = new Connection($ip, $port);
+        $response = $connection->send($message);
+        dd($response->toString(true));
 
 
 

@@ -57,42 +57,14 @@
   color: #FEC35E;
 }
 
-/*
-    .music_player{
-    position:relative;
-    margin: 0 auto;
-    height:1rem;
-    width:21rem;
-    }
 
-
-    .controllers{
-      background:#29374f;
-      height:2.5rem;
-      width:21.4rem;
-      position:absolute;
-      right:0;
-      bottom:0;
-      font-family:FontAwesome;
-      text-align:center;
-      color:#ffffff;
-    }
-    .controllers i{
-        position:relative;
-        bottom:-0.7rem;
-        padding:0 15px 0 15px;
-      }
-    
-      .controllers i{
-    cursor :pointer;
-    }
- 
-
-    #btnLeft:focus {
-    color:#FEC35E;
-    }
-
-    */
+.centrado-microfono {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
        </style>
 @endpush
 
@@ -105,9 +77,7 @@
 @section('content')
 
 <div id="content" class="app-content p-0">
-  <!-- BEGIN mailbox -->
   <div class="mailbox">
-      <!-- BEGIN mailbox-toolbar -->
 
  
       <div class="mailbox-toolbar">
@@ -120,14 +90,12 @@
             </ul>
          
       </div>
-      <!-- END mailbox-toolbar -->
-      <!-- BEGIN mailbox-body -->
 
 <div class="tab-content">
       <div class="tab-pane fade active show" id="AddLectura" role="tabpanel">
 
       <div class="mailbox-body">
-          <!-- BEGIN mailbox-sidebar -->
+       
           <div class="mailbox-sidebar d-none d-lg-block">
               <div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
                  
@@ -155,10 +123,10 @@
                           <div class="text-decoration"><small><strong>Visor Web</strong></small></div>
                                                      
                           <div class="d-flex align-items-center mb-3">
-                              <a href="#"><img src="/assets/img/usuarios/logo.jpg" alt="" width="50" class="rounded-circle"></a>
+                              <a href="http://192.168.1.73:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank"  ><img src="/assets/img/usuarios/logo.jpg" alt="" width="50" class="rounded-circle"></a>
                              
                               <div class="flex-fill ps-2">
-                              <div class="fw-600"><a href="#" class="text-decoration-none">Ver Estudio</a></div>
+                              <div class="fw-600"><a href="http://192.168.1.73:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank" class="text-decoration-none">Ver Estudio</a></div>
                               <input type="hidden" class="form-control" id="codigo_Estudio" autocomplete="off" value="{{$idestudio}}">
                               <div class="text-decoration-600 fs-13px">04/10/2022</div>
                               </div>
@@ -188,18 +156,8 @@
                                           <button class="save" id="subir_servidor" title="Guardar"><i class="fa fa-save" aria-hidden="true" ></i></button>
                                         </div>
                                       </div>
-                               <!--     <div class="music_player">
-                                    
-                                        <div class="controllers">
-                                       
-                                            <a id="btnLeft"> <i class="fa fa-play" aria-hidden="true" title="Grabar / Pausar"></i> </a>
-                                            <a> <i class="fa fa-redo" aria-hidden="true" id="reanudar" title="Continuar"></i> </a>
-                                            <a> <i class="fa fa-stop" aria-hidden="true" title="Detener"></i> </a>
-                                            <a> <i class="fa fa-save" aria-hidden="true" title="Guardar"></i> </a>
-                                        </div>
-                                    </div> 
-
-                                -->
+                          
+                                      
                                 </div>
                                 <div class="form-check form-switch">
                                     <input type="checkbox" class="form-check-input" id="autoplay" checked="">
@@ -226,21 +184,26 @@
                   </div>
               </div>
           </div>
-          <!-- END mailbox-sidebar -->
-          <!-- BEGIN mailbox-content -->
+          
           <div class="mailbox-content">
+            <div class="form-group col-3 m-1">
+            <select class="form-select" id="idplantilla" name="idplantilla" >
+                <option value="">Selecionar plantilla</option>
+                @foreach ($plantillas as $plantillas)
+                <option value="{{$plantillas->id}}">{{$plantillas->nombre}}</option>
+                @endforeach
+            </select>
+            </div>
               <!-- BEGIN scrollbar -->
               <div data-scrollbar="true" data-height="100%" data-skip-mobile="true">
                   <!-- BEGIN mailbox-detail -->
                   <div class="mailbox-detail">                           
-                      
-                      <!-- BEGIN mailbox-detail-content -->
-                       <div class="mailbox-detail-content">
+
                               <form id="AddForm" action="{{route('lectura.store')}}" method="POST">
                                   @csrf
                       
                                   <div class="row">	
-          
+                                   
                                       <div class="col-md-8">
                                         <input type="hidden" id="idestudio" name="idestudio" value="{{$idestudio}}">
                                       <div class="row mb-2">
@@ -271,7 +234,9 @@
                                       </div>
                                   </div>
                                   </div>
-                                  <div class="row">			
+                                  <div class="row">	
+                              
+                                    
                                   <textarea name="informe" id='informe' class="summernote form-control  @error('informe') is-invalid @enderror" >{{old('informe')}}</textarea> 
                                   @error('informe')
                                                                           <br>
@@ -280,7 +245,13 @@
                                                                       @enderror
                                   </div>
                                   <br>
-                              
+                                  <div class="row">	
+                                  <div class="form-check form-switch">
+                                    <input  name="validado" id='validado'  type="checkbox" class="form-check-input" checked>
+                                    <label class="form-check-label" for="validado">Continuara en validacion</label>
+                                   </div>
+                                  </div>
+                                  
                                       <div class='text-right'>
                                       <button type="submit" id="boton_ok" class="btn btn-primary">Aceptar</button>
                                       </div>
@@ -288,12 +259,7 @@
                               </form>
                       </div>
                       
-                                    
-
-                          
-                          <!-- END mailbox-detail-body -->
-                      </div>
-                      <!-- END mailbox-detail-content -->
+                                
                   </div>
                   <!-- END mailbox-detail -->
               </div>
@@ -305,52 +271,6 @@
 
       <div class="tab-pane fade" id="VerLecturas" role="tabpanel">
 
-      <!--  
-        <div class="row p-4">    
-        <table id="datatableLecturas" class="table text-nowrap w-100">
-            <thead>
-                <tr>
-                    <th>IdLectura</th>
-                    <th>Estudio</th>
-                    <th>Informe</th>  
-                    <th>Informe_html</th>              
-                    <th>Fecha</th>
-                    <th>Acciones</th>                                                    
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($lecturas as $lectura)
-                <tr>
-                    <td>{{$lectura->id}}</td>
-                    <td>{{$lectura->estudio}}</td>
-                    <td>{{$lectura->informe}}</td>
-                    <td>{{$lectura->informe}}</td>
-                    <td>{{$lectura->fechaestudio}} </td>
-                    <td>
-        
-                        <div class="dropdown text-center">
-                            <a href="#" data-bs-toggle="dropdown" class="text-dark text-decoration-none"><i class="fa fa-ellipsis-v fa-fw fa-lg"></i> </a>
-                            <div class="dropdown-menu">
-                                <a onclick="EditarLectura()" class="dropdown-item"><i class="far fa-edit fa-fw fa-lg"></i> Editar</a>
-                                <form id="delete-{{$lectura->id}}" action="{{route('lectura.destroy',$lectura)}}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                                <a href="#" class="dropdown-item"  onclick="EliminarLectura2({{ $lectura->id }})"><i class="far fa-trash-alt fa-fw fa-lg"></i> Eliminar</a>
-                            </div>
-                        </div>
-        
-               
-                    </td>
-                 </tr>
-                
-                @endforeach
-              
-            
-            </tbody>
-        </table>       
-    </div> 
-     -->
         <div class="row p-4">    
             <div class="table-responsive">
                 <table id="datatableLecturas"  class="table table-hover">
@@ -375,61 +295,6 @@
       </div> 
    
       <div class="tab-pane fade" id="EditLectura" role="tabpanel">
-<!---
-        <div class="row p-4">            
-            <form id="EditForm" method="POST">
-                @csrf
-                            
-                <div class="row">	
-
-                    <div class="col-md-8">
-                      <input type="hidden" id="idestudio2" name="idestudio2" value="{{old('idestudio2')}}">
-                    <div class="row mb-2">
-                        <label class="col-form-label w-80px px-2 fw-500">Estudio :</label>
-                        <div class="col">
-                            <input type="text"   class="form-control @error('estudio2') is-invalid  @enderror"
-                            class="form-control"  id="estudio2" name="estudio2"  value="{{old('estudio2')}}"/>
-                            @error('estudio2')
-                            <br>
-                            <small>*{{$message}}</small>
-                            <br>
-                        @enderror	
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row mb-2">
-                        <label class="col-form-label w-70px px-2 fw-500">Fecha :</label>
-                        <div class="col">
-                            <input type="date" class="form-control  @error('fechaestudio2') is-invalid @enderror"  id="fechaestudio2" name="fechaestudio2" value="{{old('fechaestudio2')}}" />
-                                                    @error('fechaestudio2')
-                                                        <br>
-                                                        <small>*{{$message}}</small>
-                                                        <br>
-                                                    @enderror
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="row">			
-                <textarea name="informe2" id='informe2' class="summernote2 form-control  @error('informe2') is-invalid @enderror" >{{old('informe2')}}</textarea> 
-                @error('informe2')
-                                                        <br>
-                                                        <small>*{{$message}}</small>
-                                                        <br>
-                                                    @enderror
-                </div>
-                <br>
-            
-                    <div class='text-right'>
-                    <button   type="button" id="boton_ok2" class="btn btn-primary">Aceptar</button>
-                    </div>
-            </form>
-
-        </div>
-
-        --->
-                
         
         <div class="row p-4">            
             <form id="EditForm" >
@@ -491,6 +356,7 @@
 @push('scripts')
 
 <script src="/assets/js/btnEventos.js"></script>
+<script src="/assets/js/convertiraudio.js"></script>
 <script src="/assets/js/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assets/js/plugins/datatables/js/dataTables.buttons.min.js"></script>
@@ -504,6 +370,11 @@
 <script src="/assets/js/plugins/summernote/js/summernote-es-ES.min.js"></script>
 
 <script>
+
+$(document).ready(function() {
+	handleRenderSummernote1();
+});
+
 
 
 $(document).ready(function () {
@@ -657,7 +528,6 @@ if (navigator.mediaDevices) {
                     type: 'GET',
                     data: {
                         _token: $("input[name=_token]").val(),
-                        //idestudio: $('#codigo_Estudio').val()
                     },
                     success: function (respuesta) {
                     }
@@ -711,8 +581,22 @@ if (navigator.mediaDevices) {
      
     });
 
+function ValidarLectura(){
+
+const idestudio = @json($idestudio);
+$.ajax({
+url: "/update_validado/"+idestudio,
+type: 'GET',
+data: {
+    _token: $("input[name=_token]").val(),
+},
+success: function (respuesta) {
+}
+});
 
 
+}
+    
 function EditarLectura(){
 
         document.getElementById("AddLectura").setAttribute("class","tab-pane fade");
@@ -730,13 +614,20 @@ function EditarLectura(){
         document.getElementById("m3").setAttribute("class","mailbox-toolbar-link active");
      
 }
+function ImprimirLectura(){
 
+    const idestudio = @json($idestudio);
+    var host = window.location.origin;
+    window.open(host+"/imprimirlectura/"+idestudio,"_blank")
+
+}
 
  var handleRenderSummernote1 = function() {
 
     var totalHeight = ($(window).height() /2)-70;
 
-    $('#informe').summernote({
+    
+   var editor = $('#informe').summernote({
         lang: 'es-ES' ,
 		height: totalHeight,
         disableDragAndDrop: true,           
@@ -745,7 +636,12 @@ function EditarLectura(){
             ['font', ['bold', 'italic',  'underline', 'clear']],
             ['para', ['ul', 'ol','paragraph']],
             ['view', ['fullscreen']],
+            ['mybutton', ['dictado']],
+            
         ],
+        buttons: {
+            dictado: DictadoButton
+        },
         callbacks: {
         onPaste: function (e) {
         
@@ -755,6 +651,27 @@ function EditarLectura(){
     }
 }
 	});
+
+    $("#idplantilla").change(function () {
+    var idplantilla = $("#idplantilla").val();
+    if(idplantilla!==''){
+        $.ajax(
+                    {
+                        url: "/plantillascargar/"+idplantilla,
+                        type: 'GET',
+                        data: {
+                            _token : $("input[name=_token]").val(),
+                        },
+                        success: function (respuesta){                           
+                           editor.summernote('code',respuesta);
+                        }
+                    });
+    }else{
+        editor.summernote('code',"");
+    }
+});
+
+  
 
     $('#informe2').summernote({
         lang: 'es-ES' ,
@@ -775,10 +692,18 @@ function EditarLectura(){
 
 
 
-$(document).ready(function() {
-	handleRenderSummernote1();
-});
 
+var DictadoButton = function (context) {
+    var ui = $.summernote.ui;
+    
+    var button = ui.button({
+        contents: '<i id="iinforme" class="fa fa-microphone fa-fw"/>',
+        click: function () {
+             GrabadorInforme();
+        }
+    });
+    return button.render();   // return button as jquery object
+    }   
 
 ////////con ajax
 var idestudio = $("#idestudio").val();
@@ -787,7 +712,9 @@ const institucion = @json($institucion->ruta);
 
 
 datatableLecturas=$('#datatableLecturas').DataTable({
-  
+    language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
   dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
   responsive: true,
   paging:false,
@@ -811,248 +738,6 @@ datatableLecturas=$('#datatableLecturas').DataTable({
   info:false,
   buttons: [ {title: 'Lecturas', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
   exportOptions: {columns: [1,2,3] }}],
-  "language": {
-"processing": "Procesando...",
-"lengthMenu": "Mostrar _MENU_ registros",
-"zeroRecords": "No se encontraron resultados",
-"emptyTable": "Ningún dato disponible en esta tabla",
-"infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-"infoFiltered": "(filtrado de un total de _MAX_ registros)",
-"search": "Buscar:",
-"infoThousands": ",",
-"loadingRecords": "Cargando...",
-"paginate": {
-    "first": "Primero",
-    "last": "Último",
-    "next": "Siguiente",
-    "previous": "Anterior"
-},
-"aria": {
-    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-    "sortDescending": ": Activar para ordenar la columna de manera descendente"
-},
-"buttons": {
-    "copy": "Copiar",
-    "colvis": "Visibilidad",
-    "collection": "Colección",
-    "colvisRestore": "Restaurar visibilidad",
-    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-    "copySuccess": {
-        "1": "Copiada 1 fila al portapapeles",
-        "_": "Copiadas %ds fila al portapapeles"
-    },
-    "copyTitle": "Copiar al portapapeles",
-    "csv": "CSV",
-    "excel": "Excel",
-    "pageLength": {
-        "-1": "Mostrar todas las filas",
-        "_": "Mostrar %d filas"
-    },
-    "pdf": "PDF",
-    "print": "Imprimir",
-    "renameState": "Cambiar nombre",
-    "updateState": "Actualizar",
-    "createState": "Crear Estado",
-    "removeAllStates": "Remover Estados",
-    "removeState": "Remover",
-    "savedStates": "Estados Guardados",
-    "stateRestore": "Estado %d"
-},
-"autoFill": {
-    "cancel": "Cancelar",
-    "fill": "Rellene todas las celdas con <i>%d<\/i>",
-    "fillHorizontal": "Rellenar celdas horizontalmente",
-    "fillVertical": "Rellenar celdas verticalmentemente"
-},
-"decimal": ",",
-"searchBuilder": {
-    "add": "Añadir condición",
-    "button": {
-        "0": "Constructor de búsqueda",
-        "_": "Constructor de búsqueda (%d)"
-    },
-    "clearAll": "Borrar todo",
-    "condition": "Condición",
-    "conditions": {
-        "date": {
-            "after": "Despues",
-            "before": "Antes",
-            "between": "Entre",
-            "empty": "Vacío",
-            "equals": "Igual a",
-            "notBetween": "No entre",
-            "notEmpty": "No Vacio",
-            "not": "Diferente de"
-        },
-        "number": {
-            "between": "Entre",
-            "empty": "Vacio",
-            "equals": "Igual a",
-            "gt": "Mayor a",
-            "gte": "Mayor o igual a",
-            "lt": "Menor que",
-            "lte": "Menor o igual que",
-            "notBetween": "No entre",
-            "notEmpty": "No vacío",
-            "not": "Diferente de"
-        },
-        "string": {
-            "contains": "Contiene",
-            "empty": "Vacío",
-            "endsWith": "Termina en",
-            "equals": "Igual a",
-            "notEmpty": "No Vacio",
-            "startsWith": "Empieza con",
-            "not": "Diferente de",
-            "notContains": "No Contiene",
-            "notStartsWith": "No empieza con",
-            "notEndsWith": "No termina con"
-        },
-        "array": {
-            "not": "Diferente de",
-            "equals": "Igual",
-            "empty": "Vacío",
-            "contains": "Contiene",
-            "notEmpty": "No Vacío",
-            "without": "Sin"
-        }
-    },
-    "data": "Data",
-    "deleteTitle": "Eliminar regla de filtrado",
-    "leftTitle": "Criterios anulados",
-    "logicAnd": "Y",
-    "logicOr": "O",
-    "rightTitle": "Criterios de sangría",
-    "title": {
-        "0": "Constructor de búsqueda",
-        "_": "Constructor de búsqueda (%d)"
-    },
-    "value": "Valor"
-},
-"searchPanes": {
-    "clearMessage": "Borrar todo",
-    "collapse": {
-        "0": "Paneles de búsqueda",
-        "_": "Paneles de búsqueda (%d)"
-    },
-    "count": "{total}",
-    "countFiltered": "{shown} ({total})",
-    "emptyPanes": "Sin paneles de búsqueda",
-    "loadMessage": "Cargando paneles de búsqueda",
-    "title": "Filtros Activos - %d",
-    "showMessage": "Mostrar Todo",
-    "collapseMessage": "Colapsar Todo"
-},
-"select": {
-    "cells": {
-        "1": "1 celda seleccionada",
-        "_": "%d celdas seleccionadas"
-    },
-    "columns": {
-        "1": "1 columna seleccionada",
-        "_": "%d columnas seleccionadas"
-    },
-    "rows": {
-        "1": "1 fila seleccionada",
-        "_": "%d filas seleccionadas"
-    }
-},
-"thousands": ".",
-"datetime": {
-    "previous": "Anterior",
-    "next": "Proximo",
-    "hours": "Horas",
-    "minutes": "Minutos",
-    "seconds": "Segundos",
-    "unknown": "-",
-    "amPm": [
-        "AM",
-        "PM"
-    ],
-    "months": {
-        "0": "Enero",
-        "1": "Febrero",
-        "10": "Noviembre",
-        "11": "Diciembre",
-        "2": "Marzo",
-        "3": "Abril",
-        "4": "Mayo",
-        "5": "Junio",
-        "6": "Julio",
-        "7": "Agosto",
-        "8": "Septiembre",
-        "9": "Octubre"
-    },
-    "weekdays": [
-        "Dom",
-        "Lun",
-        "Mar",
-        "Mie",
-        "Jue",
-        "Vie",
-        "Sab"
-    ]
-},
-"editor": {
-    "close": "Cerrar",
-    "create": {
-        "button": "Nuevo",
-        "title": "Crear Nuevo Registro",
-        "submit": "Crear"
-    },
-    "edit": {
-        "button": "Editar",
-        "title": "Editar Registro",
-        "submit": "Actualizar"
-    },
-    "remove": {
-        "button": "Eliminar",
-        "title": "Eliminar Registro",
-        "submit": "Eliminar",
-        "confirm": {
-            "_": "¿Está seguro que desea eliminar %d filas?",
-            "1": "¿Está seguro que desea eliminar 1 fila?"
-        }
-    },
-    "error": {
-        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-    },
-    "multi": {
-        "title": "Múltiples Valores",
-        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-        "restore": "Deshacer Cambios",
-        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-    }
-},
-"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-"stateRestore": {
-    "creationModal": {
-        "button": "Crear",
-        "name": "Nombre:",
-        "order": "Clasificación",
-        "paging": "Paginación",
-        "search": "Busqueda",
-        "select": "Seleccionar",
-        "columns": {
-            "search": "Búsqueda de Columna",
-            "visible": "Visibilidad de Columna"
-        },
-        "title": "Crear Nuevo Estado",
-        "toggleLabel": "Incluir:"
-    },
-    "emptyError": "El nombre no puede estar vacio",
-    "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-    "removeError": "Error al eliminar el registro",
-    "removeJoiner": "y",
-    "removeSubmit": "Eliminar",
-    "renameButton": "Cambiar Nombre",
-    "renameLabel": "Nuevo nombre para %s",
-    "duplicateError": "Ya existe un Estado con este nombre.",
-    "emptyStates": "No hay Estados guardados",
-    "removeTitle": "Remover Estado",
-    "renameTitle": "Cambiar Nombre Estado"
-}
-} 
 });  
 
 
@@ -1131,8 +816,7 @@ datatableLecturas.on('select', function (e, dt, type, indexes) {
                             if(value=="El campo informe2 es obligatorio."){
                                 document.getElementById("error_informe2").removeAttribute("style");
                             }
-                  	//		jQuery('.alert-danger').show();
-                  	//		jQuery('.alert-danger').append('<p>'+value+'</p>');
+                            
                   	        	});
                             datatableLecturas.ajax.reload(null,false);
                           
@@ -1145,369 +829,8 @@ datatableLecturas.on('select', function (e, dt, type, indexes) {
 
 
 
-
-
-
-
-
-
-          //document.getElementById("idestudio2").value = Tabla_Htm_EstudiosPorSerie.row(row).data().idlectura;
-          //document.getElementById("estudio2").value = datatableLecturas.row(row).data().estudio;
-         // document.getElementById("fechaestudio2").value = Tabla_Htm_EstudiosPorSerie.row(row).data().fechaestudio;
-          //document.getElementById("informe2").value = Tabla_Htm_EstudiosPorSerie.row(row).data().informe;
-
-
-/*
-    $("#EditForm").submit(function(e){
-        e.preventDefault();
-        alert("yes");
-    });
-*/
-    /*
-          for (var i=0; i < informe_html.length; i++) {
-            informe_html[i] = informe_html[i].toString()
-                        .replace(/&gt;/g, '>')
-                        .replace(/&lt;/g, '<')
-                        .replace(/&amp;/g, '&')
-                        .replace(/&quot;/g, '"')
-                        .replace(/&#163;/g, '£')
-                        .replace(/&#39;/g, '\'')
-                        .replace(/&#10;/g, '\n');
-        }
-       
-
-        */
-    
-        //$("#boton_ok2").on("click",function(){
-        //    event.preventDefault();
-       //    alert("mejorando");
-       //function sendForm() {
-     //   event.preventDefault();
-      //  const idlectura= document.getElementById("idestudio2").value;
-      //  ActualizarLectura(idlectura);
-      
- /*  var valido = false; //DEBERIAS REALIZAR LAS VALIDACIONES
-
-  if (valido) {
-    document.getElementById("EditForm").submit();
-  } else {
-    alert("VALIDA LOS CAMPOS");
-    return false;
-  }
   
   
-  
-  
-  
-  
-
-
-/*** sin ajax
-datatableLecturas=$('#datatableLecturas').DataTable({
-  
-  dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
-  responsive: true,
-  paging:false,
-  autoWidth: false,
-  order: [[0, 'desc']],
-  select:true,
-  "columnDefs": [
-    { "visible": false, "targets": 0 },
-    { "visible": false, "targets": 3 }
-  ], columns: [
-        { name: 'lecturas_id' },
-        { name: 'estudio' },
-        { name: 'position' },
-        { name: 'informe_html' },
-        { name: 'fechaestudio' },
-        { name: 'action' },
-    ],
-  info:false,
-  buttons: [ {title: 'Lecturas', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
-  exportOptions: {columns: [1,2,3] }}],
-  "language": {
-"processing": "Procesando...",
-"lengthMenu": "Mostrar _MENU_ registros",
-"zeroRecords": "No se encontraron resultados",
-"emptyTable": "Ningún dato disponible en esta tabla",
-"infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-"infoFiltered": "(filtrado de un total de _MAX_ registros)",
-"search": "Buscar:",
-"infoThousands": ",",
-"loadingRecords": "Cargando...",
-"paginate": {
-    "first": "Primero",
-    "last": "Último",
-    "next": "Siguiente",
-    "previous": "Anterior"
-},
-"aria": {
-    "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-    "sortDescending": ": Activar para ordenar la columna de manera descendente"
-},
-"buttons": {
-    "copy": "Copiar",
-    "colvis": "Visibilidad",
-    "collection": "Colección",
-    "colvisRestore": "Restaurar visibilidad",
-    "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br \/> <br \/> Para cancelar, haga clic en este mensaje o presione escape.",
-    "copySuccess": {
-        "1": "Copiada 1 fila al portapapeles",
-        "_": "Copiadas %ds fila al portapapeles"
-    },
-    "copyTitle": "Copiar al portapapeles",
-    "csv": "CSV",
-    "excel": "Excel",
-    "pageLength": {
-        "-1": "Mostrar todas las filas",
-        "_": "Mostrar %d filas"
-    },
-    "pdf": "PDF",
-    "print": "Imprimir",
-    "renameState": "Cambiar nombre",
-    "updateState": "Actualizar",
-    "createState": "Crear Estado",
-    "removeAllStates": "Remover Estados",
-    "removeState": "Remover",
-    "savedStates": "Estados Guardados",
-    "stateRestore": "Estado %d"
-},
-"autoFill": {
-    "cancel": "Cancelar",
-    "fill": "Rellene todas las celdas con <i>%d<\/i>",
-    "fillHorizontal": "Rellenar celdas horizontalmente",
-    "fillVertical": "Rellenar celdas verticalmentemente"
-},
-"decimal": ",",
-"searchBuilder": {
-    "add": "Añadir condición",
-    "button": {
-        "0": "Constructor de búsqueda",
-        "_": "Constructor de búsqueda (%d)"
-    },
-    "clearAll": "Borrar todo",
-    "condition": "Condición",
-    "conditions": {
-        "date": {
-            "after": "Despues",
-            "before": "Antes",
-            "between": "Entre",
-            "empty": "Vacío",
-            "equals": "Igual a",
-            "notBetween": "No entre",
-            "notEmpty": "No Vacio",
-            "not": "Diferente de"
-        },
-        "number": {
-            "between": "Entre",
-            "empty": "Vacio",
-            "equals": "Igual a",
-            "gt": "Mayor a",
-            "gte": "Mayor o igual a",
-            "lt": "Menor que",
-            "lte": "Menor o igual que",
-            "notBetween": "No entre",
-            "notEmpty": "No vacío",
-            "not": "Diferente de"
-        },
-        "string": {
-            "contains": "Contiene",
-            "empty": "Vacío",
-            "endsWith": "Termina en",
-            "equals": "Igual a",
-            "notEmpty": "No Vacio",
-            "startsWith": "Empieza con",
-            "not": "Diferente de",
-            "notContains": "No Contiene",
-            "notStartsWith": "No empieza con",
-            "notEndsWith": "No termina con"
-        },
-        "array": {
-            "not": "Diferente de",
-            "equals": "Igual",
-            "empty": "Vacío",
-            "contains": "Contiene",
-            "notEmpty": "No Vacío",
-            "without": "Sin"
-        }
-    },
-    "data": "Data",
-    "deleteTitle": "Eliminar regla de filtrado",
-    "leftTitle": "Criterios anulados",
-    "logicAnd": "Y",
-    "logicOr": "O",
-    "rightTitle": "Criterios de sangría",
-    "title": {
-        "0": "Constructor de búsqueda",
-        "_": "Constructor de búsqueda (%d)"
-    },
-    "value": "Valor"
-},
-"searchPanes": {
-    "clearMessage": "Borrar todo",
-    "collapse": {
-        "0": "Paneles de búsqueda",
-        "_": "Paneles de búsqueda (%d)"
-    },
-    "count": "{total}",
-    "countFiltered": "{shown} ({total})",
-    "emptyPanes": "Sin paneles de búsqueda",
-    "loadMessage": "Cargando paneles de búsqueda",
-    "title": "Filtros Activos - %d",
-    "showMessage": "Mostrar Todo",
-    "collapseMessage": "Colapsar Todo"
-},
-"select": {
-    "cells": {
-        "1": "1 celda seleccionada",
-        "_": "%d celdas seleccionadas"
-    },
-    "columns": {
-        "1": "1 columna seleccionada",
-        "_": "%d columnas seleccionadas"
-    },
-    "rows": {
-        "1": "1 fila seleccionada",
-        "_": "%d filas seleccionadas"
-    }
-},
-"thousands": ".",
-"datetime": {
-    "previous": "Anterior",
-    "next": "Proximo",
-    "hours": "Horas",
-    "minutes": "Minutos",
-    "seconds": "Segundos",
-    "unknown": "-",
-    "amPm": [
-        "AM",
-        "PM"
-    ],
-    "months": {
-        "0": "Enero",
-        "1": "Febrero",
-        "10": "Noviembre",
-        "11": "Diciembre",
-        "2": "Marzo",
-        "3": "Abril",
-        "4": "Mayo",
-        "5": "Junio",
-        "6": "Julio",
-        "7": "Agosto",
-        "8": "Septiembre",
-        "9": "Octubre"
-    },
-    "weekdays": [
-        "Dom",
-        "Lun",
-        "Mar",
-        "Mie",
-        "Jue",
-        "Vie",
-        "Sab"
-    ]
-},
-"editor": {
-    "close": "Cerrar",
-    "create": {
-        "button": "Nuevo",
-        "title": "Crear Nuevo Registro",
-        "submit": "Crear"
-    },
-    "edit": {
-        "button": "Editar",
-        "title": "Editar Registro",
-        "submit": "Actualizar"
-    },
-    "remove": {
-        "button": "Eliminar",
-        "title": "Eliminar Registro",
-        "submit": "Eliminar",
-        "confirm": {
-            "_": "¿Está seguro que desea eliminar %d filas?",
-            "1": "¿Está seguro que desea eliminar 1 fila?"
-        }
-    },
-    "error": {
-        "system": "Ha ocurrido un error en el sistema (<a target=\"\\\" rel=\"\\ nofollow\" href=\"\\\">Más información&lt;\\\/a&gt;).<\/a>"
-    },
-    "multi": {
-        "title": "Múltiples Valores",
-        "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, hacer click o tap aquí, de lo contrario conservarán sus valores individuales.",
-        "restore": "Deshacer Cambios",
-        "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo."
-    }
-},
-"info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-"stateRestore": {
-    "creationModal": {
-        "button": "Crear",
-        "name": "Nombre:",
-        "order": "Clasificación",
-        "paging": "Paginación",
-        "search": "Busqueda",
-        "select": "Seleccionar",
-        "columns": {
-            "search": "Búsqueda de Columna",
-            "visible": "Visibilidad de Columna"
-        },
-        "title": "Crear Nuevo Estado",
-        "toggleLabel": "Incluir:"
-    },
-    "emptyError": "El nombre no puede estar vacio",
-    "removeConfirm": "¿Seguro que quiere eliminar este %s?",
-    "removeError": "Error al eliminar el registro",
-    "removeJoiner": "y",
-    "removeSubmit": "Eliminar",
-    "renameButton": "Cambiar Nombre",
-    "renameLabel": "Nuevo nombre para %s",
-    "duplicateError": "Ya existe un Estado con este nombre.",
-    "emptyStates": "No hay Estados guardados",
-    "removeTitle": "Remover Estado",
-    "renameTitle": "Cambiar Nombre Estado"
-}
-} 
-});  
-
-
-datatableLecturas.on('select', function (e, dt, type, indexes) {
-  
-        if ( type === 'row' ) {
-          
-         
-            document.getElementById("idestudio2").value = datatableLecturas.rows(indexes).data().pluck(0).toArray();
-            document.getElementById("estudio2").value = datatableLecturas.rows(indexes).data().pluck(1).toArray();
-            document.getElementById("fechaestudio2").value = datatableLecturas.rows(indexes).data().pluck(4).toArray();
-            var  informe_html= datatableLecturas.rows(indexes).data().pluck(3).toArray();
-
-            $('#informe2').summernote('reset');
-            $('#informe2').summernote('pasteHTML', ConvetidorHtml(informe_html));
-  
-           }
-         
-  
-    });
-*///
-
-/*
-    $("#boton_ok2").on("click",function(event){
-    event.preventDefault();
-    document.getElementById("EditForm").submit();
-  console.log("resulta");
- });
-
- */
-
-  
-  
-  
-
-
-
-
-
-
-//});
   </script>
 
 

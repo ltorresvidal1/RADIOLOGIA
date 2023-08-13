@@ -3,7 +3,7 @@
 @push('css')
 
 @endpush
-@section('title','Crear Salas')
+@section('title','Crear salas')
 
 @section('nombrevista','Salas')
 @section('hrefformulario')
@@ -13,7 +13,7 @@
 @section('tituloformulario','Salas')
 @section('principalformulario','SALAS')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nueva Sala')
+@section('descripcionformulario','Crear nueva sala')
 @section('classformulario','card')
 
 
@@ -45,6 +45,9 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
+                                                        </div>
+                                                        <br>
+                                                            <div class="row">    
 
                                                             <div class="form-group col-4 m-0">
                                                                 <label class="form-label" for="idestado">Estado</label>
@@ -62,7 +65,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Crear Sala</button>
+                                                            <button type="submit" class="btn btn-primary">Crear sala</button>
                                                         </div>
                                                     </div>
 

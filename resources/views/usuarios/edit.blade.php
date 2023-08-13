@@ -3,7 +3,7 @@
 
      
 
-@section('title','Editar Usuarios')
+@section('title','Editar usuarios')
 
 @section('nombrevista','Usuarios')
 @section('hrefformulario')
@@ -13,7 +13,7 @@
 @section('tituloformulario','Usuarios')
 @section('principalformulario','USUARIOS')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Usuario')
+@section('descripcionformulario','Editar usuario')
 @section('classformulario','card')
 
 
@@ -54,6 +54,7 @@
                                                             @enderror
 														</div>
                                                 </div>
+                                                <br>
                                                 <div class="row">													                                                    
                                                     <div class="form-group col-3 m-0">
                                                         <label class="form-label" for="password">Contraseña</label>
@@ -103,7 +104,7 @@
                                                 <br>
                                                 <div class="row">    
                                                     <div class="form-group col-3 m-0">                                                        
-                                                        <button type="submit" class="btn btn-primary">Editar Usuario</button>
+                                                        <button type="submit" class="btn btn-primary">Editar usuario</button>
                                                     </div>
                                                 </div>	
 											</form>

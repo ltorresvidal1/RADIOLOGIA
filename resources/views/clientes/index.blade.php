@@ -89,7 +89,6 @@
 <script src="/assets/js/plugins/datatables/js/dataTables.responsive.min.js"></script>
 <script src="/assets/js/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 
-
   <script>
   $('#datatableDefault').DataTable({
     dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",

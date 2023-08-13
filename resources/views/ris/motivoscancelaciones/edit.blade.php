@@ -3,17 +3,17 @@
 @push('css')
 
 @endpush
-@section('title','Editar Motivos De Cancelaciones')
+@section('title','Editar motivos de cancelaciones')
 
-@section('nombrevista','Motivos De Cancelaciones')
+@section('nombrevista','Motivos de cancelaciones')
 @section('hrefformulario')
 {{route('rismotivoscancelaciones.index')}}
 @endsection
 
-@section('tituloformulario','Motivos De Cancelaciones')
+@section('tituloformulario','Motivos de cancelaciones')
 @section('principalformulario','MOTIVOS DE CANCELACIONES')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Motivos De Cancelaciones')
+@section('descripcionformulario','Editar motivos de Cancelaciones')
 @section('classformulario','card')
 
 
@@ -55,7 +55,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Motivo Cancelacion</button>
+                                                            <button type="submit" class="btn btn-primary">Editar motivo cancelacion</button>
                                                         </div>
                                                     </div>
 

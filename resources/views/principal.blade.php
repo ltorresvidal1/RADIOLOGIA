@@ -8,8 +8,7 @@
 @section('title','RADIOLOGIA')
 @section('tituloformulario','Tablero de Control')
 
-
-
+<?php  $anoactual=date("Y"); ?> 
 
 @section('content') 
 
@@ -17,7 +16,7 @@
         <div id="chartJsLineChart" class="mb-5">
             <div class="card">
                 <div class="card-body">
-                <h6>ESTUDIOS REALIZADOS POR MES AÑO {{date("Y")}}</h6>
+                <h6>ESTUDIOS REALIZADOS POR MES AÑO <?php echo  $anoactual; ?></h6>
                 
                 <canvas id="lineChart" height="120"></canvas>
              
@@ -111,7 +110,7 @@
     Chart.defaults.plugins.legend.display = false;
 
     const valores = @json($valeresmeses);
-    
+ 
 
     var ctx = document.getElementById('lineChart');
     var lineChart = new Chart(ctx, {
@@ -137,6 +136,7 @@
             pointHoverBorderColor: '#00AAFF',
             pointHoverBorderWidth: 2,
             data: valores
+            
         }],
     
      

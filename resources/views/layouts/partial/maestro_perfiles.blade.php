@@ -125,7 +125,7 @@ echo '<div class="menu-header"><span class="menu-text">Administrador</span></div
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a href="#" class="menu-link">
+                                <a href="asignarcita" class="menu-link">
                                 <span class="menu-text">Asignacion de Citas</span>
                                 </a>
                             </div>
@@ -162,7 +162,7 @@ if(auth()->user()->perfile_id==3) {
                         </a>
                     </div>
                     <div class="menu-item  ">
-                        <a href="/estudios" class="menu-link">
+                        <a href="/estudiosportrascribir" class="menu-link">
                             <span class="menu-icon"><i class="fa fa-tasks"></i></span>
                             <span class="menu-text">Estudios</span>
                         </a>

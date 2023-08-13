@@ -16,7 +16,8 @@ class lecturas extends Model
         'medico_id',
         'estudio',
         'informe',
-        'fechaestudio'
+        'fechaestudio',
+        'validado'
     ];
 
     protected $casts = [

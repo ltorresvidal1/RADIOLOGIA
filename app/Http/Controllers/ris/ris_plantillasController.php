@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\ris;
 
 use Illuminate\Http\Request;
+use App\Models\medicos\Medicos;
+use App\Models\ris\ris_plantillas;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ris\Storeris_plantillas;
 use Illuminate\Support\Facades\Auth;
 use App\Models\desplegables\Desplegables;
-use App\Models\ris\ris_plantillas;
+use App\Models\ris\ris_relplantillaradiologo;
+use App\Http\Requests\ris\Storeris_plantillas;
 use App\Models\usuariosclientes\Usuariosclientes;
 
 class ris_plantillasController extends Controller
@@ -19,7 +21,7 @@ class ris_plantillasController extends Controller
 
     public function index()
     {
-
+        /*
         $user = Auth::user();
         $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
             ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
@@ -31,6 +33,8 @@ class ris_plantillasController extends Controller
             ->paginate();
 
         return view('ris.plantillas.index', compact('plantillas'));
+*/
+        return view('ris.plantillas.index');
     }
 
     public function create()
@@ -91,5 +95,13 @@ class ris_plantillasController extends Controller
 
         notify()->success('Plantilla Eliminada', 'Confirmacion');
         return redirect()->route('risplantillas.index');
+    }
+
+
+    public function plantillascargar($idplantilla)
+    {
+
+        $plantillas = ris_plantillas::where('id', '=', $idplantilla)->first();
+        return $plantillas->plantilla;
     }
 }

@@ -3,7 +3,7 @@
 @push('css')
 <link rel="stylesheet" href="/assets/js/plugins/dropzone/dropzone.min.css" type="text/css" />
 @endpush
-@section('title','Crear Radiologos')
+@section('title','Crear radiologos')
 
 @section('nombrevista','Radiologos')
 @section('hrefformulario')
@@ -13,7 +13,7 @@
 @section('tituloformulario','Radiologos')
 @section('principalformulario','RADIOLOGOS')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nuevo Radiologo')
+@section('descripcionformulario','Crear nuevo radiologo')
 @section('classformulario','card')
 
 
@@ -99,7 +99,7 @@
                                                             </div>
                                                            
                                                     </div>
-                                                    
+                                                    <br>
                                                     <div class="row">													                                                    
                                                         <div class="form-group col-4 m-0">
                                                             <label class="form-label" for="password">Contraseña</label>
@@ -159,7 +159,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Crear Radiologo</button>
+                                                            <button type="submit" class="btn btn-primary">Crear radiologo</button>
                                                         </div>
                                                     </div>
 

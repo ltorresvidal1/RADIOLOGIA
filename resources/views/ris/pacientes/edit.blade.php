@@ -13,7 +13,7 @@
 @section('tituloformulario','Pacientes')
 @section('principalformulario','PACIENTES')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Pacientes')
+@section('descripcionformulario','Editar pacientes')
 @section('classformulario','card')
 
 
@@ -50,7 +50,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
+                                                        <br>
                                                         <div class="row">	
                                                         <div class="form-group col-3 m-0">
                                                             <label class="form-label" for="primernombre">Primer Nombre</label><label class="obligatorio">*</label> 
@@ -83,7 +83,7 @@
                                                         </div>
                                                     </div>
                                                 
-                                                    
+                                                    <br>
                                                         <div class="row">	
                                                         <div class="form-group col-3 m-0">
                                                             <label class="form-label" for="fechanacimiento">Fecha Naciemiento </label><label class="obligatorio">*</label> 
@@ -97,15 +97,6 @@
                                                             </div>
                                                             
                                                         </div>
-                                                        <div class="form-group col-3 m-0">
-                                                            <label class="form-label" for="edad">Edad</label>
-                                                            <input type="text" class="form-control"  id="edad" name="edad"  value="{{old('edad')}}" />
-                                                           
-                                                            
-                                                        </div>
-
-                                
-
 
                                                         <div class="form-group col-3 m-0">
                                                             <label class="form-label" for="idsexo">Sexo</label><label class="obligatorio">*</label> 
@@ -116,22 +107,26 @@
                                                                 @endforeach
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-3 m-0">
+                                                        <div class="form-group col-6 m-0">
                                                                 <label class="form-label" for="correo">Correo </label>
                                                                 <input type="text" class="form-control"  id="correo" name="correo"  value="{{old('correo',$paciente->correo)}}" />
                                                         </div>
                                                        
                                                     </div>
-                                               
+                                               <br>
                                                     <div class="row">	
-                                                        <div class="form-group col-3 m-0">
+                                                        <div class="form-group col-6 m-0">
                                                             <label class="form-label" for="direccion">Direccion </label>
                                                             <input type="text" class="form-control"  id="direccion" name="direccion"  value="{{old('direccion',$paciente->direccion)}}" />
                                                         </div>
-                                                        <div class="form-group col-3 m-0">
+                                                        <div class="form-group col-6 m-0">
                                                             <label class="form-label" for="barrio">Barrio </label>
                                                             <input type="text" class="form-control"  id="barrio" name="barrio"  value="{{old('barrio',$paciente->barrio)}}" />
                                                         </div>
+                                                                    
+                                                    </div>
+                                                    <br>
+                                                         <div class="row">	
                                                         <div class="form-group col-3 m-0">
                                                             <label class="form-label" for="celular">Celular </label><label class="obligatorio">*</label> 
                                                             <input type="text" class="form-control @error('celular') is-invalid @enderror"  id="celular" name="celular"  value="{{old('celular',$paciente->celular)}}" />
@@ -162,7 +157,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Paciente</button>
+                                                            <button type="submit" class="btn btn-primary">Editar paciente</button>
                                                         </div>
                                                     </div>
 

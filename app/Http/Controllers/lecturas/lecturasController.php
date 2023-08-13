@@ -14,10 +14,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Flasher\Toastr\Prime\ToastrFactory;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Requests\lecturas\Storelecturas;
 use App\Http\Requests\lecturas\Storelecturas2;
+use App\Models\ris\ris_plantillas;
 use App\Models\usuariosclientes\Usuariosclientes;
 
 class lecturasController extends Controller
@@ -43,34 +45,38 @@ class lecturasController extends Controller
 
 
     $estudio = series::where('institution', '=', "$institucion->ruta")
-      ->where('study.pk', '=', "$idestudio")
+      ->where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->distinct()->count('study.pk');
 
 
     $datospaciente = series::where('institution', '=', "$institucion->ruta")
-      ->where('study.pk', '=', "$idestudio")
+      ->where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->join('patient_id', 'patient_id.pk', '=', 'patient.patient_id_fk')
       ->join('person_name', 'person_name.pk', '=', 'patient.pat_name_fk')
-      ->selectRaw("concat(family_name,' ',given_name,' ',middle_name,' ',name_prefix) as nombrepaciente,
+      ->selectRaw("replace (alphabetic_name,'^',' ') as nombrepaciente,
       patient_id.pat_id as documento,
       case when pat_sex='M' then 'Masculino' when pat_sex='F' then 'Femenimo'  ELSE 'Sin Diligenciar' END  sexo,
       case when pat_birthdate='*' then 0  ELSE date_part('year',age( CAST (pat_birthdate AS date ))) end as edad_a,
       case when pat_birthdate='*' then 0  ELSE date_part('month',age( CAST (pat_birthdate AS date ))) end as edad_m,
-      case when pat_birthdate='*' then 0  ELSE date_part('day',age( CAST (pat_birthdate AS date ))) end as edad_d
+      case when pat_birthdate='*' then 0  ELSE date_part('day',age( CAST (pat_birthdate AS date ))) end as edad_d,
+      study_iuid as studyinstanceuids
       ")->first();
 
-    //dd($datospaciente);
+    $plantillas = ris_plantillas::where('ris_plantillas.idestado', '=', '1')
+      ->where('ris_relplantillasradiologos.medico_id', '=', $user->id)
+      ->selectRaw("ris_plantillas.id,ris_plantillas.nombre")
+      ->join('ris_relplantillasradiologos', 'ris_relplantillasradiologos.plantilla_id', '=', 'ris_plantillas.id')->get();
 
     $lecturas = lecturas::where('study_id', '=', "$idestudio")->get();
 
 
 
     if ($estudio == 1) {
-      return view('lectura.index', compact('institucion', 'FechaActual', 'idestudio', 'lecturas', 'datospaciente'));
+      return view('lectura.index', compact('institucion', 'FechaActual', 'idestudio', 'lecturas', 'plantillas', 'datospaciente'));
     } else {
       return redirect()->back();
     }
@@ -78,13 +84,16 @@ class lecturasController extends Controller
 
   public function store(Storelecturas $request)
   {
-    $FechaActual = Carbon::now()->setTimezone('America/Bogota');
-    $idestudio = $request->estudio;
 
     $user = Auth::user();
-
+    $validar = 1;
     if ($user->perfile_id == "3") {
 
+      if ($request->validado == 'on') {
+        $validar = 0;
+      } else {
+        $validar = 1;
+      }
 
       lecturas::create([
         'study_id' => $request->idestudio,
@@ -92,10 +101,13 @@ class lecturasController extends Controller
         'estudio' => $request->estudio,
         'informe' => $request->informe,
         'fechaestudio' => $request->fechaestudio,
+        'validado' => $validar,
       ]);
+
       notify()->success('', 'Lectura Guardada');
       return redirect()->back();
     } else {
+
       notify()->error('', 'Usted No Es Radiologo');
       return redirect()->back();
     }
@@ -121,7 +133,13 @@ class lecturasController extends Controller
     $lectura->informe = $request->informe2;
     $lectura->fechaestudio = $request->fechaestudio2;
     $lectura->save();
-    return redirect()->back()->with('actualizo', 'ok');;
+
+
+    //    Alert::alert('Title', 'Message', 'Type');
+    // notify()->success('', 'Lectura Guardada');
+    //return redirect()->back();
+
+    //return redirect()->back()->with('actualizo', 'ok');
   }
   public function destroy($idlectura)
   {
@@ -133,7 +151,7 @@ class lecturasController extends Controller
 
   }
 
-  public function descargarlectura(string $idestudio)
+  public function imprimirlectura(string $idestudio)
   {
     // $idestudio = '1661';
 
@@ -146,22 +164,23 @@ class lecturasController extends Controller
       ->first();
 
     $datospaciente = series::where('institution', '=', "$cliente->ruta")
-      ->where('study.pk', '=', "$idestudio")
+      ->where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->join('patient_id', 'patient_id.pk', '=', 'patient.patient_id_fk')
       ->join('person_name', 'person_name.pk', '=', 'patient.pat_name_fk')
-      ->selectRaw("concat(family_name,' ',given_name,' ',middle_name,' ',name_prefix) as nombrepaciente,
+      ->selectRaw("replace (alphabetic_name,'^',' ') as nombrepaciente,
       patient_id.pat_id as documento,
       case when pat_sex='M' then 'Masculino' when pat_sex='F' then 'Femenimo'  ELSE 'Sin Diligenciar' END  sexo,
       case when pat_birthdate='*' then 0  ELSE date_part('year',age( CAST (pat_birthdate AS date ))) end as edad_a,
       case when pat_birthdate='*' then 0  ELSE date_part('month',age( CAST (pat_birthdate AS date ))) end as edad_m,
       case when pat_birthdate='*' then 0  ELSE date_part('day',age( CAST (pat_birthdate AS date ))) end as edad_d,
-      concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5))  as fechaestudio
+      concat( SUBSTRING(study.study_date, 7, 2) ,'/',SUBSTRING(study.study_date, 5, 2) ,'/',SUBSTRING(study.study_date, 0, 5))  as fechaestudio,
+      study_iuid as studyinstanceuids
       ")->first();
 
 
-    $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate('http://200.116.234.203:86/viewer.html?patientID=15682394&studyUID=1.2.392.200036.9125.2.6082130796278.6538842092.265247&serverName=DCM4CHEE'));
+    $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate("http://192.168.1.73:3000/viewer?StudyInstanceUIDs=$datospaciente->studyinstanceuids"));
 
 
 

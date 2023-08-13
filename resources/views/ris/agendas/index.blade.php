@@ -109,6 +109,10 @@
 
   <script>
   $('#datatableDefault').DataTable({
+    language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
+    pageLength: 25,
     dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
     responsive: true,
     buttons: [ {title: 'Clientes', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 

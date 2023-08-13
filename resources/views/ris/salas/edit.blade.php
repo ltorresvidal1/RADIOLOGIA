@@ -13,7 +13,7 @@
 @section('tituloformulario','Salas')
 @section('principalformulario','SALAS')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Salas')
+@section('descripcionformulario','Editar salas')
 @section('classformulario','card')
 
 
@@ -48,6 +48,9 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <br>
+                                                    <div class="row">   
 
                                                     <div class="form-group col-4 m-0">
                                                         <label class="form-label" for="idestado">Estado</label>
@@ -59,14 +62,13 @@
                                                     </div>
                                                 </div>
 
-                                                       
                                             
                                                  
                                                     <div class="row">    
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Sede</button>
+                                                            <button type="submit" class="btn btn-primary">Editar sede</button>
                                                         </div>
                                                     </div>
 

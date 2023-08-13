@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-   
+    <link rel="shortcut icon" href="/uploads/logos/hunab_icono.png">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Resultado</title>
 
@@ -54,16 +54,16 @@
         float: left;
         font-family: SourceSansPro !important;
       }
-      
-    
+
        
       #logo {
         float: left;
-        margin-top: -60px;
+        margin-top: -40px;
       }
       
       #logo img {
-        height: 160px;
+        width: 120px;
+        height: 120px;
       }
       
 
@@ -123,8 +123,11 @@
       height: 200%;
     }
  
-
+    p {
+      line-height: 0.1cm; 
+    }
   
+    
     </style>      
 
 
@@ -158,7 +161,7 @@
         </div>
       </div>
 
-      <div>{!! $lecturas->informe !!}</div>
+      <p>{!! $lecturas->informe !!}</p>
 
 
   
@@ -228,35 +231,7 @@
             </tr>
           </thead>
           </table>
-        <!--
-      <table border="1" width="500">
-        <tbody>
-            <tr>
-                <td  style="text-align: center;" width="50%"> <div>Informe firmado electrónicamente por:</div></td>
-                <td style="text-align: center;"  rowspan="4">
-                  <img src="data:image/png;base64, {!! $qrcode !!}">
-                </td>
-            </tr>
-            <tr>
-                <td width="50%"><div>LUIS GABRIEL TORRES VIDAL</div></td>
-            </tr>
-            <tr>
-              <td width="50%"><div>RADIOLOGO</div></td>
-            </tr>
-            <tr>
-              <td width="50%"><div>N° REGISTRO: 2344234/342</div></td>
-            </tr>  
-            <tr>
-              <td width="50%"><div>Fecha y hora de firma: 23-09-2021 08:00</div></td>
-              <td width="50%"> 
-                <div id="notices">
-                  <div class="notice"> <strong> Nota:</strong> Consulte su imagen escaneando el codigo.</div>
-                </div></td>
-            </tr>
-        </tbody>
-       
-    </table>
-  -->
+   
 
     </footer>
 
@@ -265,15 +240,17 @@
   
     
 	<script type="text/php">
-       
+    
         
         if ( isset($pdf) ) {
             date_default_timezone_set('America/Bogota');
             $pdf->page_script('
             
                 $hoy = date("Y-m-d H:i:s"); 
+                $ano = date("Y"); 
+
                 $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal");
-                $pdf->text(20, 815, "Radiology.ggiab Desarrollador por: Luis Gabriel Torres Vidal. Cel:3215794352 ", $font, 6);
+                $pdf->text(20, 815, "copyright © $ano Hunab tecnologia S.A.S", $font, 6);
                 $pdf->text(270, 820, "Pág $PAGE_NUM/$PAGE_COUNT", $font, 8);
                 $pdf->text(410, 820, "Fecha/Hora de impresion $hoy", $font, 6);
             ');

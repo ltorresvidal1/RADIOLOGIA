@@ -4,7 +4,7 @@
 
 <link href="/assets/js/plugins/summernote/css/summernote-lite.css" rel="stylesheet" />
 @endpush
-@section('title','Editar Plantillas')
+@section('title','Editar plantillas')
 
 @section('nombrevista','Plantillas')
 @section('hrefformulario')
@@ -14,7 +14,7 @@
 @section('tituloformulario','Plantillas')
 @section('principalformulario','PLANTILLAS')
 @section('accionformulario','EDITAR')
-@section('descripcionformulario','Editar Plantillas')
+@section('descripcionformulario','Editar plantillas')
 @section('classformulario','card')
 
 
@@ -63,7 +63,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Editar Plantilla</button>
+                                                            <button type="submit" class="btn btn-primary">Editar plantilla</button>
                                                         </div>
                                                     </div>
 

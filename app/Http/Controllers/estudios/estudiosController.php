@@ -32,8 +32,88 @@ class estudiosController extends Controller
 
     return view('estudios.index', compact('institucion', 'FechaInicial', 'FechaFinal'));
   }
+
+
+  public function estudiosagendados()
+  {
+
+    $user = Auth::user();
+    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
+      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
+      ->select('clientes.ruta')
+      ->first();
+
+
+    return view('estudios.estudiosagendados', compact('institucion'));
+  }
+
+  public function estudioscompletados()
+  {
+
+    $user = Auth::user();
+    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
+      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
+      ->select('clientes.ruta')
+      ->first();
+
+    $FechaInicial = Carbon::now()->setTimezone('America/Bogota');
+    $FechaFinal = Carbon::now()->setTimezone('America/Bogota');
+
+
+    return view('estudios.index', compact('institucion', 'FechaInicial', 'FechaFinal'));
+  }
+
+  public function estudiosenproceso()
+  {
+
+    $user = Auth::user();
+    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
+      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
+      ->select('clientes.ruta')
+      ->first();
+
+
+
+    return view('estudios.estudiosenproceso', compact('institucion'));
+  }
+
+  public function estudiosdeturno()
+  {
+
+    $user = Auth::user();
+    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
+      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
+      ->select('clientes.ruta')
+      ->first();
+
+
+    return view('estudios.estudiosdeturno', compact('institucion'));
+  }
+
+  public function estudiosporvalidar()
+  {
+
+    $user = Auth::user();
+    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
+      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
+      ->select('clientes.ruta')
+      ->first();
+
+
+    return view('estudios.estudiosporvalidar', compact('institucion'));
+  }
+
+
+
+
+  public function update_validado($idestudio)
+  {
+    lecturas::where('study_id', '=', $idestudio)->update(['validado' => 1]);
+  }
+
   public function update_audio($idestudio)
   {
-    study::where('pk', '=', $idestudio)->update(['conaudio' => 1]);
+    $user = Auth::user();
+    study::where('study_iuid', '=', $idestudio)->update(['conaudio' => 1, 'medico_id' => $user->id]);
   }
 }

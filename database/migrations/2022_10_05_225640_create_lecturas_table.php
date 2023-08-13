@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lecturas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('study_id');
+            $table->string('study_id', 100);
             $table->foreignUuid('medico_id');
             $table->string('estudio');
             $table->text('informe');

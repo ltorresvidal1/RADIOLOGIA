@@ -4,7 +4,7 @@
         @include('layouts.partial.head')
     </head>
 <body>
-         <div id="app" class="app app-content-full-width">
+         <div id="app" class="app app-with-top-nav app-without-sidebar">
          @include('layouts.partial.headerlectura')                  
          @include('layouts.partial.lectura')
          @include('layouts.partial.scripts')

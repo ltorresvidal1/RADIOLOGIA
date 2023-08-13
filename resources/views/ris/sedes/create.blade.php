@@ -13,7 +13,7 @@
 @section('tituloformulario','Sedes')
 @section('principalformulario','SEDES')
 @section('accionformulario','CREAR')
-@section('descripcionformulario','Crear Nueva Sede')
+@section('descripcionformulario','Crear nueva sede')
 @section('classformulario','card')
 
 
@@ -52,7 +52,7 @@
                                                         
                                                         <div class="form-group col-3 m-0">   
                                                             <br>                                                     
-                                                            <button type="submit" class="btn btn-primary">Crear Sede</button>
+                                                            <button type="submit" class="btn btn-primary">Crear sede</button>
                                                         </div>
                                                     </div>
 

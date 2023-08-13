@@ -79,18 +79,26 @@ Route::get('/medicos/create', [MedicosController::class, 'create'])->name('medic
 Route::post('/medicos', [MedicosController::class, 'store'])->name('medicos.store');
 Route::get('medicos/{medico}/edit', [MedicosController::class, 'edit'])->name('medicos.edit');
 Route::put('medicos/{medico}', [MedicosController::class, 'update'])->name('medicos.update');
-
 Route::put('restablecermedico/{medico}', [MedicosController::class, 'restablecer'])->name('medicos.restablecer');
 Route::delete('medicos/{medico}', [MedicosController::class, 'destroy'])->name('medicos.destroy');
 
 
 
-Route::get('/estudios', [estudiosController::class, 'index'])->name('estudios.index');
-Route::get('/update_audio/{idestudio}', [estudiosController::class, 'update_audio'])->name('estudios.audio');
+//Route::get('/estudios', [estudiosController::class, 'index'])->name('estudios.index');
+Route::get('/estudiosagendados', [estudiosController::class, 'estudiosagendados'])->name('estudios.estudiosagendados');
 
-Route::get('/datatable/estudiosportranscribir/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosportranscribir'])->name('datatable.estudiosportranscribir');
-Route::get('/datatable/estudiosenproceso/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosenproceso'])->name('datatable.estudiosenproceso');
-Route::get('/datatable/estudiosporvalidar/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudiosporvalidar'])->name('datatable.estudiosporvalidar');
+Route::get('/estudioscompletados', [estudiosController::class, 'estudioscompletados'])->name('estudios.estudioscompletados');
+Route::get('/estudiosenproceso', [estudiosController::class, 'estudiosenproceso'])->name('estudios.estudiosenproceso');
+Route::get('/estudiosdeturno', [estudiosController::class, 'estudiosdeturno'])->name('estudios.estudiosdeturno');
+Route::get('/estudiosporvalidar', [estudiosController::class, 'estudiosporvalidar'])->name('estudios.estudiosporvalidar');
+
+
+Route::get('/update_audio/{idestudio}', [estudiosController::class, 'update_audio'])->name('estudios.audio');
+Route::get('/update_validado/{idestudio}', [estudiosController::class, 'update_validado'])->name('estudios.validado');
+
+Route::get('/datatable/estudiosportranscribir/{institucion}', [DatatableController::class, 'estudiosportranscribir'])->name('datatable.estudiosportranscribir');
+Route::get('/datatable/estudiosenproceso/{institucion}', [DatatableController::class, 'estudiosenproceso'])->name('datatable.estudiosenproceso');
+Route::get('/datatable/estudiosporvalidar/{institucion}', [DatatableController::class, 'estudiosporvalidar'])->name('datatable.estudiosporvalidar');
 Route::get('/datatable/estudioscompetados/{institucion}/{fechainicial}/{fechafinal}', [DatatableController::class, 'estudioscompetados'])->name('datatable.estudioscompetados');
 Route::get('/datatable/estudiosclientes/{institucion}/{idestudio}', [DatatableController::class, 'lecturasestudiosclientes'])->name('datatable.lecturasestudiosclientes');
 
@@ -98,23 +106,23 @@ Route::get('/datatable/estudiosclientes/{institucion}/{idestudio}', [DatatableCo
 
 
 
-Route::get('/estudio/{idestudio}', [lecturasController::class, 'index'])->name('lectura.index');
-Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
+Route::get('/lecturas/{idestudio}', [lecturasController::class, 'index'])->name('lectura.index');
+//Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
 Route::post('/lectura', [lecturasController::class, 'store'])->name('lectura.store');
 Route::get('/lectura', [lecturasController::class, 'update'])->name('lectura.update');
 Route::delete('/lectura/{idlectura}', [lecturasController::class, 'destroy'])->name('lectura.destroy');
 
-Route::get('/descargarlectura/{idestudio}', [lecturasController::class, 'descargarlectura'])->name('descargarlectura');
+Route::get('/imprimirlectura/{idestudio}', [lecturasController::class, 'imprimirlectura'])->name('imprimirlectura');
 
 
 Route::get('/descargar_cd', [DescargarCdController::class, "downloadZip"]);
 
 
 
-Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
-//Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
+//Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
+Route::get('/hl7', [HL7Controller::class, 'envioMWL'])->name('hl7.envioMWL');
 
-
+Route::get('/visor', [PrincipalController::class, 'visor'])->name('visor');
 /*
 
 
@@ -152,6 +160,7 @@ Route::delete('clientes/{cliente}', [ClientesController::class, 'destroy'])->nam
 
 
 
+/***** RIS *****/
 
 
 Route::get('/sedes', [ris_sedesController::class, 'index'])->name('rissedes.index');
@@ -193,12 +202,22 @@ Route::get('plantillas/{plantilla}/edit', [ris_plantillasController::class, 'edi
 Route::put('plantillas/{plantilla}', [ris_plantillasController::class, 'update'])->name('risplantillas.update');
 Route::delete('plantillas/{plantilla}', [ris_plantillasController::class, 'destroy'])->name('risplantillas.destroy');
 
+Route::get('plantillascargar/{idplantilla}', [ris_plantillasController::class, 'plantillascargar'])->name('risplantillas.plantillascargar');
+
+
+
 Route::get('/crearagendas', [ris_agendasController::class, 'index'])->name('risagendas.index');
 Route::get('/crearagendas/create', [ris_agendasController::class, 'create'])->name('risagendas.create');
 Route::post('/crearagendas', [ris_agendasController::class, 'store'])->name('risagendas.store');
 Route::get('crearagendas/{agenda}/edit', [ris_agendasController::class, 'edit'])->name('risagendas.edit');
 Route::put('crearagendas/{agenda}', [ris_agendasController::class, 'update'])->name('risagendas.update');
 Route::delete('crearagendas/{agenda}', [ris_agendasController::class, 'destroy'])->name('risagendas.destroy');
+
+//Route::get('/cargaragenda/{idcliente}/{idsede}/{idsala}', [ris_agendasController::class, 'cargaragenda'])->name('risagendas.cargaragenda');
+
+Route::get('/asignarcita', [ris_agendasController::class, 'asignarcita'])->name('risagendas.asignarcita');
+
+
 
 
 Route::get('/pacientes', [ris_pacientesController::class, 'index'])->name('rispacientes.index');

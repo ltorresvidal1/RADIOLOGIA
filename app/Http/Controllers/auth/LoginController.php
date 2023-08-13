@@ -24,7 +24,6 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             notify()->success('Hola Sr ' . auth()->user()->nombre, 'Bienvenido');
-
             return redirect()->route('principal');
         } else {
             notify()->error('Usuario o contreseña invalido');

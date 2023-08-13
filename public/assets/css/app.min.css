@@ -2884,6 +2884,26 @@ textarea.form-control-lg {
     appearance: none
 }
 
+.form-select-sinborde {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%233c4e71' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    display: block;
+    width: 100%;
+    padding: .375rem 2.25rem .375rem .75rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-component-bg);
+    background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+    background-repeat: no-repeat;
+    background-position: right .75rem center;
+    background-size: 16px 12px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
 @media (prefers-reduced-motion:reduce) {
     .form-select {
         transition: none
@@ -26062,8 +26082,8 @@ fieldset:disabled .btn {
 }
 
 .app-header .brand img {
-    max-height: 100%;
-    max-width: 100%
+    max-height: 300%;
+    max-width: 300%
 }
 
 .app-header .brand .brand-logo {
@@ -26316,11 +26336,12 @@ fieldset:disabled .btn {
 }
 
 .app-content {
-    padding: 1.875rem 3.125rem;
+    padding: 1.875rem 1.125rem;
     position: relative;
     min-height: 100%;
     margin-left: 15rem
 }
+
 
 @media (max-width:991.98px) {
     .app-content {
@@ -27490,13 +27511,14 @@ body .apexcharts-canvas .apexcharts-legend .apexcharts-legend-series .apexcharts
     color: rgba(var(--bs-body-color-rgb), .5)
 }
 
+/*
 .datepicker .next,
 .datepicker .prev {
     overflow: hidden;
     text-indent: -100px;
     max-width: 2.5rem
 }
-
+*/
 .datepicker .next:before,
 .datepicker .prev:before {
     font-family: Font Awesome\ 6 Free, Font Awesome\ 6 Pro, FontAwesome !important;
@@ -27510,6 +27532,7 @@ body .apexcharts-canvas .apexcharts-legend .apexcharts-legend-series .apexcharts
     margin-top: .125rem
 }
 
+/*
 .datepicker .next:before {
     content: "\f061";
     right: 0
@@ -27519,7 +27542,7 @@ body .apexcharts-canvas .apexcharts-legend .apexcharts-legend-series .apexcharts
     content: "\f060";
     left: 0
 }
-
+*/
 .datepicker .datepicker-switch {
     font-weight: 500;
     font-size: 1rem;
@@ -30211,7 +30234,7 @@ body .note-modal-backdrop {
 }
 
 .mailbox .mailbox-detail {
-    padding: 1.875rem
+    padding: 0.875rem
 }
 
 @media (max-width:991.98px) {

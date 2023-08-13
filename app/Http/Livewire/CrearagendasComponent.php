@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\crearprogramacion;
 use Livewire\Component;
 use App\Models\ris\ris_salas;
 use App\Models\ris\ris_sedes;
@@ -9,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Models\desplegables\Desplegables;
 use App\Models\ris\ris_agendas;
+use App\Models\ris\ris_citas;
 use Illuminate\Console\View\Components\Alert;
 use App\Models\usuariosclientes\Usuariosclientes;
 
@@ -59,13 +61,9 @@ class CrearagendasComponent extends Component
 
         $this->validate();
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
-
         ris_agendas::create([
 
-            'cliente_id' => $cu->cliente_id,
+            'cliente_id' =>  $this->idcliente,
             'sede_id' => $this->sede,
             'sala_id' => $this->sala,
             'fechainicial' => $this->fechainicial,
@@ -76,6 +74,10 @@ class CrearagendasComponent extends Component
             'idestado' =>  $this->estado,
 
         ]);
+
+
+
+        crearprogramacion::dispatch($this->idcliente, $this->sede, $this->sala, $this->fechainicial,  $this->horainicial, $this->fechafinal, $this->horafinal, $this->dias);
 
         notify()->success('Agenda Creada', 'Confirmacion');
         return redirect()->route('risagendas.create');

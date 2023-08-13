@@ -15,13 +15,13 @@
 @endsection
 @section('botonesformulario')
 <div class="ms-auto">
-    <a href="{{route('medicos.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear Radiologo</a>
+    <a href="{{route('medicos.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle fa-fw me-1"></i> Crear radiologo</a>
 </div>
 @endsection
 @section('tituloformulario','Radiologos')
 @section('principalformulario','RADIOLOGOS')
 @section('accionformulario','TODOS')
-@section('descripcionformulario','Listado De Radiologos Creados')
+@section('descripcionformulario','Listado de radiologos creados')
 @section('classformulario','')
 
 
@@ -97,6 +97,10 @@
 
   <script>
   $('#datatableDefault').DataTable({
+    language: {
+    url: '/assets/js/plugins/datatables/es-ES.json',
+    },
+    paging:false,
     dom: "<'row mb-3'<'col-sm-4'l><'col-sm-8 text-end'<'d-flex justify-content-end'fB>>>t<'d-flex align-items-center'<'me-auto'i><'mb-0'p>>",
     responsive: true,
     buttons: [ {title: 'Clientes', text: '<i class="fas fa-file-excel"></i>',  titleAttr: 'Exportar a Excel',extend: 'excelHtml5', className: 'btn btn-success', 
