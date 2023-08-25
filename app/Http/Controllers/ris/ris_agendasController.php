@@ -25,14 +25,7 @@ class ris_agendasController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
-
-        $agendas = ris_agendas::where('ris_agendas.cliente_id', '=', $idcliente->id)
-            ->join('ris_sedes', 'ris_sedes.id', 'ris_agendas.sede_id')
+        $agendas = ris_agendas::join('ris_sedes', 'ris_sedes.id', 'ris_agendas.sede_id')
             ->join('ris_salas', 'ris_salas.id', 'ris_agendas.sala_id')
             ->selectRaw("ris_agendas.id,
             ris_sedes.nombre as sede,
@@ -47,15 +40,9 @@ class ris_agendasController extends Controller
     public function create()
     {
         $fechaactual = Carbon::now()->setTimezone('America/Bogota');
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
-
         $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-        //  $salas = ris_salas::where('cliente_id', '=', $idcliente->id)->where('idestado', '1')->get();
-        $salas = ris_salas::where('cliente_id', '=', $idcliente->id)->where('idestado', '1')->get();
+
+        $salas = ris_salas::where('idestado', '1')->get();
         return view('ris.agendas.create', compact('estados', 'salas', 'fechaactual'));
     }
 

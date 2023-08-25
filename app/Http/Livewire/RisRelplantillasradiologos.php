@@ -12,7 +12,7 @@ use App\Models\usuariosclientes\Usuariosclientes;
 class RisRelplantillasradiologos extends Component
 {
     protected $listeners = ['elimarregistro', 'addradiologo'];
-    public $idcliente, $idplantilla, $idradiologo;
+    public $idplantilla, $idradiologo;
     public $radiologos = [];
     public $plantillas = [];
     public $relplantillas = [];
@@ -25,14 +25,9 @@ class RisRelplantillasradiologos extends Component
     }
     public function mount()
     {
-        $user = Auth::user();
-        $cu = Usuariosclientes::where('user_id', '=', $user->id)->first();
-        $this->idcliente = $cu->cliente_id;
-        $this->plantillas =  ris_plantillas::where('cliente_id', '=', $cu->cliente_id)
-            ->selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
-            ->get();
 
-        //$this->actuaizarcombo();
+        $this->plantillas =  ris_plantillas::selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
+            ->get();
     }
 
     public function elimarregistro(string $relplantilla)
@@ -56,7 +51,6 @@ class RisRelplantillasradiologos extends Component
 
         $this->validate();
         ris_relplantillaradiologo::create([
-            'cliente_id' => $this->idcliente,
             'plantilla_id' => $this->idplantilla,
             'medico_id' => $this->idradiologo
         ]);
@@ -79,8 +73,7 @@ class RisRelplantillasradiologos extends Component
 
     public function actuaizarcombo()
     {
-        $this->radiologos = Medicos::where('cliente_id', '=',  $this->idcliente)
-            ->selectRaw('medicos.id as id,medicos.nombre as nombre')
+        $this->radiologos = Medicos::selectRaw('medicos.id as id,medicos.nombre as nombre')
             ->whereNotIn('medicos.id', function ($query) {
                 $query->select('ris_relplantillasradiologos.medico_id')->from('ris_relplantillasradiologos');
             })->get();

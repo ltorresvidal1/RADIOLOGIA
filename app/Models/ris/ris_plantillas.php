@@ -14,7 +14,6 @@ class ris_plantillas extends Model
     protected $table = "ris_plantillas";
 
     protected $fillable = [
-        'cliente_id',
         'nombre',
         'plantilla',
         'idestado'
@@ -22,7 +21,6 @@ class ris_plantillas extends Model
 
 
     protected $casts = [
-        'id' => 'string',
-        'cliente_id' => 'string'
+        'id' => 'string'
     ];
 }

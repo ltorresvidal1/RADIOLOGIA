@@ -14,7 +14,6 @@ class ris_pacientes extends Model
     protected $table = "ris_pacientes";
 
     protected $fillable = [
-        'cliente_id',
         'idtipoid',
         'documento',
         'primernombre',
@@ -36,6 +35,5 @@ class ris_pacientes extends Model
 
     protected $casts = [
         'id' => 'string',
-        'cliente_id' => 'string'
     ];
 }

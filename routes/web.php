@@ -108,7 +108,6 @@ Route::get('/datatable/estudiosclientes/{idestudio}', [DatatableController::clas
 
 
 Route::get('/lecturas/{idestudio}', [lecturasController::class, 'index'])->name('lectura.index');
-//Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
 Route::post('/lectura', [lecturasController::class, 'store'])->name('lectura.store');
 Route::get('/lectura', [lecturasController::class, 'update'])->name('lectura.update');
 Route::delete('/lectura/{idlectura}', [lecturasController::class, 'destroy'])->name('lectura.destroy');
@@ -178,7 +177,6 @@ Route::get('crearagendas/{agenda}/edit', [ris_agendasController::class, 'edit'])
 Route::put('crearagendas/{agenda}', [ris_agendasController::class, 'update'])->name('risagendas.update');
 Route::delete('crearagendas/{agenda}', [ris_agendasController::class, 'destroy'])->name('risagendas.destroy');
 
-//Route::get('/cargaragenda/{idcliente}/{idsede}/{idsala}', [ris_agendasController::class, 'cargaragenda'])->name('risagendas.cargaragenda');
 
 Route::get('/asignarcita', [ris_agendasController::class, 'asignarcita'])->name('risagendas.asignarcita');
 
@@ -195,6 +193,10 @@ Route::delete('pacientes/{paciente}', [ris_pacientesController::class, 'destroy'
 
 
 /*
+Route::get('/cargaragenda/{idcliente}/{idsede}/{idsala}', [ris_agendasController::class, 'cargaragenda'])->name('risagendas.cargaragenda');
+
+Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
+
 
 Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
 Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');

@@ -20,14 +20,8 @@ class ris_motivosbloqueosController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $motivosbloqueos = ris_motivosbloqueos::where('cliente_id', '=', $idcliente->id)
-            ->selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
+        $motivosbloqueos = ris_motivosbloqueos::selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
             ->paginate();
 
         return view('ris.motivosbloqueos.index', compact('motivosbloqueos'));
@@ -44,18 +38,11 @@ class ris_motivosbloqueosController extends Controller
     public function store(Storeris_motivosbloqueos $request)
     {
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
-
-
         ris_motivosbloqueos::create([
-            'cliente_id' => $cu->cliente_id,
             'nombre' => $request->nombre,
             'idestado' => $request->idestado
 
         ]);
-
 
         notify()->success('Motivo Bloqueo Creado', 'Confirmacion');
         return redirect()->route('rismotivosbloqueos.create');
@@ -70,24 +57,17 @@ class ris_motivosbloqueosController extends Controller
     }
     public function update(Storeris_motivosbloqueos $request, ris_motivosbloqueos $motivobloqueo)
     {
-
-
-
         $motivobloqueo->update($request->all());
-
-        $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
         notify()->success('Motivo Bloqueo Actualizado', 'Confirmacion');
 
-        return redirect()->route('rismotivosbloqueos.edit', compact('motivobloqueo',  'estados'));
+        return redirect()->route('rismotivosbloqueos.edit', compact('motivobloqueo'));
     }
 
 
     public function destroy(ris_motivosbloqueos $motivobloqueo)
     {
 
-
         $motivobloqueo->delete();
-
         notify()->success('Motivo Bloqueo Eliminado', 'Confirmacion');
         return redirect()->route('rismotivosbloqueos.index');
     }

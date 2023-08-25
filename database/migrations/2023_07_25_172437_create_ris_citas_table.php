@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('ris_citas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
             $table->foreignUuid('sede_id');
             $table->foreignUuid('sala_id');
             $table->foreignUuid('medico_id')->nullable();

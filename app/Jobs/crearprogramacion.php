@@ -14,13 +14,13 @@ class crearprogramacion implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $idcliente, $idsede, $idsala, $fechainicial, $horainicial, $fechafinal, $horafinal, $dias;
+    protected  $idsede, $idsala, $fechainicial, $horainicial, $fechafinal, $horafinal, $dias;
     /**
      * Create a new job instance.
      */
-    public function __construct($idcliente, $idsede, $idsala, $fechainicial, $horainicial, $fechafinal, $horafinal, $dias)
+    public function __construct($idsede, $idsala, $fechainicial, $horainicial, $fechafinal, $horafinal, $dias)
     {
-        $this->idcliente = $idcliente;
+
         $this->idsede = $idsede;
         $this->idsala = $idsala;
         $this->fechainicial = $fechainicial;
@@ -66,7 +66,6 @@ class crearprogramacion implements ShouldQueue
 
                         ris_citas::create([
 
-                            'cliente_id' =>  $this->idcliente,
                             'sede_id' => $this->idsede,
                             'sala_id' => $this->idsala,
                             'fecha' => $fecha,

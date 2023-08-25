@@ -13,7 +13,6 @@ class ris_citas extends Model
 
 
     protected $fillable = [
-        'cliente_id',
         'sede_id',
         'sala_id',
         'medico_id',
@@ -29,7 +28,6 @@ class ris_citas extends Model
 
     protected $casts = [
         'id' => 'string',
-        'cliente_id' => 'string',
         'sede_id' => 'string',
         'sala_id' => 'string',
         'medico_id' => 'string',

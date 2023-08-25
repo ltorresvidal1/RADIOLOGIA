@@ -14,14 +14,12 @@ class ris_motivosbloqueos extends Model
     protected $table = "ris_motivosbloqueos";
 
     protected $fillable = [
-        'cliente_id',
         'nombre',
         'idestado'
     ];
 
 
     protected $casts = [
-        'id' => 'string',
-        'cliente_id' => 'string'
+        'id' => 'string'
     ];
 }

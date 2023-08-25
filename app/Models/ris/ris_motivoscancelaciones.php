@@ -14,14 +14,12 @@ class ris_motivoscancelaciones extends Model
     protected $table = "ris_motivoscancelaciones";
 
     protected $fillable = [
-        'cliente_id',
         'nombre',
         'idestado'
     ];
 
 
     protected $casts = [
-        'id' => 'string',
-        'cliente_id' => 'string'
+        'id' => 'string'
     ];
 }

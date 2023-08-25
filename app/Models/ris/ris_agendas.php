@@ -12,7 +12,6 @@ class ris_agendas extends Model
     use HasUuids;
 
     protected $fillable = [
-        'cliente_id',
         'sede_id',
         'sala_id',
         'fechainicial',
@@ -26,7 +25,6 @@ class ris_agendas extends Model
 
     protected $casts = [
         'id' => 'string',
-        'cliente_id' => 'string',
         'sede_id' => 'string',
         'sala_id' => 'string'
     ];

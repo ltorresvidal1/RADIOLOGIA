@@ -23,14 +23,8 @@ class ris_pacientesController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $pacientes = ris_pacientes::where('ris_pacientes.cliente_id', '=', $idcliente->id)
-            ->selectRaw("ris_pacientes.id,documento,
+        $pacientes = ris_pacientes::selectRaw("ris_pacientes.id,documento,
             concat(primernombre,' ',segundonombre,' ',primerapellido,' ',segundoapellido)as nombre,
             fechanacimiento,
             concat(date_part('year',age( CAST (fechanacimiento AS date ))),' años ',
@@ -57,13 +51,7 @@ class ris_pacientesController extends Controller
     public function store(Storeris_pacientes $request)
     {
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
-
-
         ris_pacientes::create([
-            'cliente_id' => $cu->cliente_id,
             'idtipoid' => $request->idtipoid,
             'documento' => $request->documento,
             'primernombre' => $request->primernombre,
@@ -100,13 +88,9 @@ class ris_pacientesController extends Controller
 
         $paciente->update($request->all());
 
-        $fechaactual = Carbon::now()->setTimezone('America/Bogota');
-        $tipoid = Desplegables::where('ventana', 'tipodocumento')->where('estado', '1')->get();
-        $sexos = Desplegables::where('ventana', 'genero')->where('estado', '1')->get();
-
         notify()->success('Paciente Actualizado', 'Confirmacion');
 
-        return redirect()->route('rispacientes.edit', compact('paciente', 'tipoid', 'sexos', 'fechaactual'));
+        return redirect()->route('rispacientes.edit', compact('paciente'));
     }
 
     public function destroy(ris_pacientes $paciente)

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('ris_plantillas', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
             $table->string('nombre');
             $table->longText('plantilla');
             $table->integer('idestado');

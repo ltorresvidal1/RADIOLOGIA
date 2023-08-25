@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('ris_relplantillasradiologos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
             $table->foreignUuid('plantilla_id');
             $table->foreignUuid('medico_id');
             $table->timestamps();

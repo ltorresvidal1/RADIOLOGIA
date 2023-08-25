@@ -21,19 +21,7 @@ class ris_plantillasController extends Controller
 
     public function index()
     {
-        /*
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $plantillas = ris_plantillas::where('cliente_id', '=', $idcliente->id)
-            ->selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
-            ->paginate();
-
-        return view('ris.plantillas.index', compact('plantillas'));
-*/
         return view('ris.plantillas.index');
     }
 
@@ -54,7 +42,6 @@ class ris_plantillasController extends Controller
 
 
         ris_plantillas::create([
-            'cliente_id' => $cu->cliente_id,
             'nombre' => $request->nombre,
             'plantilla' => $request->plantilla,
             'idestado' => $request->idestado
@@ -80,10 +67,9 @@ class ris_plantillasController extends Controller
 
         $plantilla->update($request->all());
 
-        $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-        notify()->success('Plantilla Actualizada', 'Confirmacion');
 
-        return redirect()->route('risplantillas.edit', compact('plantilla',  'estados'));
+        notify()->success('Plantilla Actualizada', 'Confirmacion');
+        return redirect()->route('risplantillas.edit', compact('plantilla'));
     }
 
 

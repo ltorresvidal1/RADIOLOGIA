@@ -20,14 +20,8 @@ class ris_motivoscancelacionesController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $motivoscancelaciones = ris_motivoscancelaciones::where('cliente_id', '=', $idcliente->id)
-            ->selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
+        $motivoscancelaciones = ris_motivoscancelaciones::selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
             ->paginate();
 
         return view('ris.motivoscancelaciones.index', compact('motivoscancelaciones'));
@@ -44,16 +38,9 @@ class ris_motivoscancelacionesController extends Controller
     public function store(Storeris_motivoscancelaciones $request)
     {
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
-
-
         ris_motivoscancelaciones::create([
-            'cliente_id' => $cu->cliente_id,
             'nombre' => $request->nombre,
             'idestado' => $request->idestado
-
         ]);
 
 
@@ -71,14 +58,9 @@ class ris_motivoscancelacionesController extends Controller
     public function update(Storeris_motivoscancelaciones $request, ris_motivoscancelaciones $motivocancelacion)
     {
 
-
-
         $motivocancelacion->update($request->all());
-
-        $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
         notify()->success('Motivo Cancelacion Actualizado', 'Confirmacion');
-
-        return redirect()->route('rismotivoscancelaciones.edit', compact('motivocancelacion',  'estados'));
+        return redirect()->route('rismotivoscancelaciones.edit', compact('motivocancelacion'));
     }
 
 

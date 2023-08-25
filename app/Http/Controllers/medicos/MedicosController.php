@@ -25,22 +25,13 @@ class MedicosController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
 
-        $medicos = Medicos::where('medicos.cliente_id', '=', $idcliente->id)
-            ->where('usuariosclientes.cliente_id', '=', $idcliente->id)
-            ->join('users', 'users.documento', 'medicos.documento')
+        $medicos = Medicos::join('users', 'users.documento', 'medicos.documento')
             ->join('usuariosclientes', 'usuariosclientes.user_id', '=', 'users.id')
             ->selectRaw("users.usuario,medicos.id,medicos.documento,medicos.nombre,medicos.registromedico,
             '' especialidad,case when medicos.idestado='2' then 'Inactivo' when medicos.idestado='1' then 'Activo' end estado")
             ->paginate();
-
-
 
 
         return view('medicos.index', compact('medicos'));
@@ -66,7 +57,6 @@ class MedicosController extends Controller
             'nombre' => Str::upper($request->nombre),
             'registromedico' => Str::upper($request->registro),
             'firma' => $request->logo,
-            'cliente_id' => $cu->cliente_id,
             'idestado' => $request->idestado
         ]);
 
@@ -97,7 +87,6 @@ class MedicosController extends Controller
     {
         $perfiles = Perfiles::where('id', '=', '3')->get();
         $usuario = User::where('documento', '=', $medico->documento)
-            ->where('usuariosclientes.cliente_id', '=', $medico->cliente_id)
             ->join('usuariosclientes', 'usuariosclientes.user_id', '=', 'users.id')
             ->select('users.usuario')
             ->first();
@@ -115,24 +104,11 @@ class MedicosController extends Controller
 
         $medico->update($request->all());
 
-        $perfiles = Perfiles::where('id', '=', '3')->get();
-
-        $usuario = User::where('documento', '=',  $request->documento)
-            ->where('usuariosclientes.cliente_id', '=', $medico->cliente_id)
-            ->join('usuariosclientes', 'usuariosclientes.user_id', '=', 'users.id')
-            ->select('users.usuario')
-            ->first();
-
-        $desplegables = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-
         notify()->success('Radiologo Actualizado', 'Confirmacion');
-
-        return view('medicos.edit', compact('usuario', 'medico', 'desplegables', 'perfiles'));
+        return redirect()->route('medicos.edit', compact('medico'));
     }
     public function destroy(Medicos $medico)
     {
-
-
 
         $medico->delete();
         notify()->success('Radiologo Eliminado', 'Confirmacion');

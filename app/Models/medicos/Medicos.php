@@ -16,12 +16,10 @@ class Medicos extends Model
         'nombre',
         'registromedico',
         'firma',
-        'cliente_id',
         'idestado'
     ];
 
     protected $casts = [
-        'id' => 'string',
-        'cliente_id' => 'string'
+        'id' => 'string'
     ];
 }

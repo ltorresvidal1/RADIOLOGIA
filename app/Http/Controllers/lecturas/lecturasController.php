@@ -158,7 +158,7 @@ class lecturasController extends Controller
 
   public function imprimirlectura(string $idestudio)
   {
-    // $idestudio = '1661';
+
 
     $user = Auth::user();
 

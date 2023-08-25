@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('ris_pacientes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
             $table->integer('idtipoid');
             $table->string('documento');
             $table->string('primernombre');

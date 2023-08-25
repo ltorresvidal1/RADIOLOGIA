@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('documento');
             $table->string('nombre');
             $table->string('registromedico');
-            $table->foreignUuid('cliente_id');
             $table->string('firma')->nullable();
             $table->integer('idestado');
             $table->timestamps();

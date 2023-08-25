@@ -13,7 +13,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 
 class RisCitas extends Component
 {
-    public $idcliente, $sede, $sala;
+    public  $sede, $sala;
     public $sedes = [], $salas = [], $estados = [], $eventos;
     protected $listeners = ['buscaragenda'];
 
@@ -43,10 +43,7 @@ class RisCitas extends Component
 
     public function mount()
     {
-        $user = Auth::user();
-        $cu = Usuariosclientes::where('user_id', '=', $user->id)->first();
-        $this->idcliente = $cu->cliente_id;
-        $this->sedes = ris_sedes::where('cliente_id', '=', $cu->cliente_id)->get();
+        $this->sedes = ris_sedes::get();
         $this->salas = collect();
         //$this->estados =  Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
         //$this->fechaactual = Carbon::now()->setTimezone('America/Bogota');
