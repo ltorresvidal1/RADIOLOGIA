@@ -10,16 +10,19 @@ use App\Models\pacs\patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\lecturas\lecturas;
+use App\Models\ris\ris_plantillas;
+use App\Events\estudiodeturnoEvent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use App\Events\estudioenprocesoEvent;
+use App\Events\estudioporvalidarEvent;
 use Flasher\Toastr\Prime\ToastrFactory;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Requests\lecturas\Storelecturas;
 use App\Http\Requests\lecturas\Storelecturas2;
-use App\Models\ris\ris_plantillas;
 use App\Models\usuariosclientes\Usuariosclientes;
 
 class lecturasController extends Controller
@@ -38,32 +41,29 @@ class lecturasController extends Controller
 
 
     $user = Auth::user();
-    $institucion = Usuariosclientes::where('user_id', '=', $user->id)
-      ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-      ->select('clientes.ruta')
-      ->first();
 
 
-    $estudio = series::where('institution', '=', "$institucion->ruta")
-      ->where('study.study_iuid', '=', "$idestudio")
+    $estudio = series::where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->distinct()->count('study.pk');
 
 
-    $datospaciente = series::where('institution', '=', "$institucion->ruta")
-      ->where('study.study_iuid', '=', "$idestudio")
+    $datospaciente = series::where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->join('patient_id', 'patient_id.pk', '=', 'patient.patient_id_fk')
       ->join('person_name', 'person_name.pk', '=', 'patient.pat_name_fk')
+      ->join('mwl_item', 'mwl_item.study_iuid', '=', 'study.study_iuid')
+      ->join('ris_hl7recibidos', 'ris_hl7recibidos.numero_orden', '=', 'mwl_item.accession_no')
+
       ->selectRaw("replace (alphabetic_name,'^',' ') as nombrepaciente,
       patient_id.pat_id as documento,
       case when pat_sex='M' then 'Masculino' when pat_sex='F' then 'Femenimo'  ELSE 'Sin Diligenciar' END  sexo,
       case when pat_birthdate='*' then 0  ELSE date_part('year',age( CAST (pat_birthdate AS date ))) end as edad_a,
       case when pat_birthdate='*' then 0  ELSE date_part('month',age( CAST (pat_birthdate AS date ))) end as edad_m,
       case when pat_birthdate='*' then 0  ELSE date_part('day',age( CAST (pat_birthdate AS date ))) end as edad_d,
-      study_iuid as studyinstanceuids
+      study.study_iuid as studyinstanceuids,ris_hl7recibidos.nombre_cups as estudio
       ")->first();
 
     $plantillas = ris_plantillas::where('ris_plantillas.idestado', '=', '1')
@@ -76,7 +76,7 @@ class lecturasController extends Controller
 
 
     if ($estudio == 1) {
-      return view('lectura.index', compact('institucion', 'FechaActual', 'idestudio', 'lecturas', 'plantillas', 'datospaciente'));
+      return view('lectura.index', compact('FechaActual', 'idestudio', 'lecturas', 'plantillas', 'datospaciente'));
     } else {
       return redirect()->back();
     }
@@ -105,6 +105,11 @@ class lecturasController extends Controller
       ]);
 
       notify()->success('', 'Lectura Guardada');
+
+      estudioenprocesoEvent::dispatch("actualizar");
+      estudioporvalidarEvent::dispatch("actualizar");
+      estudiodeturnoEvent::dispatch("actualizar");
+
       return redirect()->back();
     } else {
 
@@ -163,8 +168,7 @@ class lecturasController extends Controller
       ->select('clientes.*')
       ->first();
 
-    $datospaciente = series::where('institution', '=', "$cliente->ruta")
-      ->where('study.study_iuid', '=', "$idestudio")
+    $datospaciente = series::where('study.study_iuid', '=', "$idestudio")
       ->join('study', 'study.pk', '=', 'series.study_fk')
       ->join('patient', 'patient.pk', '=', 'study.patient_fk')
       ->join('patient_id', 'patient_id.pk', '=', 'patient.patient_id_fk')
@@ -180,7 +184,7 @@ class lecturasController extends Controller
       ")->first();
 
 
-    $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate("http://192.168.1.73:3000/viewer?StudyInstanceUIDs=$datospaciente->studyinstanceuids"));
+    $qrcode = base64_encode(QrCode::format('svg')->size(120)->errorCorrection('H')->generate("http://82.180.161.233:3000/viewer?StudyInstanceUIDs=$datospaciente->studyinstanceuids"));
 
 
 

@@ -6,6 +6,8 @@
         <link href="/assets/js/plugins/datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
   
 <style>
+
+
 /*
 
   .popper,
@@ -157,9 +159,7 @@
       });
 
       */
-$(document).ready(function() {
-	//handleRenderFullcalendar();
-});
+
 
 
 </script>

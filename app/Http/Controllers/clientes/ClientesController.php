@@ -43,7 +43,6 @@ class ClientesController extends Controller
       'logo' => $request->logo,
       'fechainicial' => $request->fechainicial,
       'fechafinal' => $request->fechafinal,
-      'ruta' => $request->ruta,
       'idestado' => $request->idestado
     ]);
 

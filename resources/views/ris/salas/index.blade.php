@@ -30,8 +30,10 @@
 <table id="datatableDefault" class="table text-nowrap w-100">
     <thead>
         <tr>
+            <th>Codigo</th>
             <th>Nombre</th>
             <th>Sede</th>
+            <th>Modalidad</th>
             <th>Estado</th>
             <th></th>                                                     
         </tr>
@@ -39,8 +41,10 @@
     <tbody>
         @foreach ($salas as $sala)
         <tr>
+            <td>{{$sala->codigo}}</td>
             <td>{{$sala->nombre}}</td>
             <td>{{$sala->sede}}</td>
+            <td>{{$sala->modalidad}}</td>
             <td>{{$sala->estado}} </td>
             <td>
              

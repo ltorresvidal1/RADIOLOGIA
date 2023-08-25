@@ -15,10 +15,8 @@
             
         </div>
 
-        <a href="#" class="brand-logo">
-
-            <img src="/uploads/logos/simbolo.png" alt="" height="30" /> 
-            <img src="/uploads/logos/hunab.png" alt="" height="30" />
+        <a href="#" class="brand-logo"> 
+            <img src="/uploads/logos/hunab.png" alt="" width="150" height="30" />
         </a>
     </div>
     <!-- END brand -->

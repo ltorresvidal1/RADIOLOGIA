@@ -27,6 +27,15 @@
                                                 
                                                     
                                                             <div class="row">	
+                                                                <div class="form-group col-2 m-0">
+                                                                    <label class="form-label" for="codigo">Codigo</label><label class="obligatorio">*</label> 
+                                                                    <input type="text" class="form-control @error('codigo') is-invalid @enderror"  id="codigo" name="codigo"  value="{{old('codigo')}}" />
+                                                                        @error('codigo')
+                                                                        <br>
+                                                                        <small>*{{$message}}</small>
+                                                                        <br>
+                                                                    @enderror
+                                                                </div>
                                                             <div class="form-group col-8 m-0">
                                                                 <label class="form-label" for="nombre">Nombre</label><label class="obligatorio">*</label> 
                                                                 <input type="text" class="form-control @error('nombre') is-invalid @enderror"  id="nombre" name="nombre"  value="{{old('nombre')}}" />
@@ -36,7 +45,7 @@
                                                                     <br>
                                                                 @enderror
                                                             </div>
-                                                            <div class="form-group col-4 m-0">
+                                                            <div class="form-group col-2 m-0">
                                                                 <label class="form-label" for="idestado">Estado</label>
                                                                 <select class="form-control" id="idestado" name="idestado">
                                                                     @foreach ($estados as $estado)

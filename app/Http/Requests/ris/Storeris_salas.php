@@ -22,8 +22,11 @@ class Storeris_salas extends FormRequest
     public function rules(): array
     {
         return [
+            'codigo' => ['required'],
             'nombre' => ['required'],
             'sede_id' => ['required', 'not_in:0'],
+            'modalidad_id' => ['required', 'not_in:0'],
+
 
         ];
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ris\Storeris_salas;
 use Illuminate\Support\Facades\Auth;
 use App\Models\desplegables\Desplegables;
+use App\Models\ris\ris_modalidades;
 use App\Models\ris\ris_salas;
 use App\Models\ris\ris_sedes;
 use App\Models\usuariosclientes\Usuariosclientes;
@@ -22,15 +23,10 @@ class ris_salasController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $salas = ris_salas::where('ris_salas.cliente_id', '=', $idcliente->id)
-            ->join('ris_sedes', 'ris_sedes.id', 'ris_salas.sede_id')
-            ->selectRaw("ris_salas.id,ris_salas.nombre,ris_sedes.nombre as sede,case when ris_salas.idestado='2' then 'Inactivo' when ris_salas.idestado='1' then 'Activo' end estado")
+        $salas = ris_salas::join('ris_sedes', 'ris_sedes.id', 'ris_salas.sede_id')
+            ->join('ris_modalidades', 'ris_modalidades.id', 'ris_salas.modalidad_id')
+            ->selectRaw("ris_salas.id,ris_salas.codigo,ris_salas.nombre,ris_sedes.nombre as sede,ris_modalidades.codigo as modalidad,case when ris_salas.idestado='2' then 'Inactivo' when ris_salas.idestado='1' then 'Activo' end estado")
             ->paginate();
 
         return view('ris.salas.index', compact('salas'));
@@ -38,30 +34,28 @@ class ris_salasController extends Controller
 
     public function create()
     {
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
+
 
         $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-        $sedes = ris_sedes::where('cliente_id', '=', $idcliente->id)->where('idestado', '1')->get();
-        return view('ris.salas.create', compact('estados', 'sedes'));
+        $modalidades = ris_modalidades::where('idestado', '1')->get();
+        $sedes = ris_sedes::where('idestado', '1')->get();
+
+
+        return view('ris.salas.create', compact('estados', 'sedes', 'modalidades'));
     }
 
 
     public function store(Storeris_salas $request)
     {
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
 
 
         ris_salas::create([
-            'cliente_id' => $cu->cliente_id,
             'sede_id' => $request->sede_id,
+            'codigo' => $request->codigo,
             'nombre' => $request->nombre,
+            'modalidad_id' => $request->modalidad_id,
+            'aetitle' => $request->aetitle,
             'idestado' => $request->idestado
         ]);
 
@@ -73,29 +67,19 @@ class ris_salasController extends Controller
 
     public function edit(ris_salas $sala)
     {
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
-
 
         $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
-        $sedes = ris_sedes::where('cliente_id', '=', $idcliente->id)->where('idestado', '1')->get();
+        $sedes = ris_sedes::where('idestado', '1')->get();
+        $modalidades = ris_modalidades::get();
 
-
-        return view('ris.salas.edit', compact('sala', 'sedes', 'estados'));
+        return view('ris.salas.edit', compact('sala', 'sedes', 'estados', 'modalidades'));
     }
     public function update(Storeris_salas $request, ris_salas $sala)
     {
 
-
-
         $sala->update($request->all());
-
-        $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
         notify()->success('Sala Actualizada', 'Confirmacion');
-        return redirect()->route('rissalas.edit', compact('sala',  'estados'));
+        return redirect()->route('rissalas.edit', compact('sala'));
     }
 
 

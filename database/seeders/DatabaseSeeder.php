@@ -13,12 +13,10 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {  
+    {
         $this->call(DesplegableSeeder::class);
+        $this->call(PrioridadesSeeder::class);
         $this->call(PerfileSeeder::class);
         $this->call(UserSeeder::class);
     }
 }
-
-
-

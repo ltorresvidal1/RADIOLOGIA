@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('estudio');
             $table->text('informe');
             $table->date('fechaestudio');
+            $table->integer('validado')->default(0);
             $table->timestamps();
         });
     }

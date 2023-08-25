@@ -14,8 +14,10 @@ class ris_salas extends Model
     protected $table = "ris_salas";
 
     protected $fillable = [
-        'cliente_id',
+        'codigo',
         'sede_id',
+        'modalidad_id',
+        'aetitle',
         'nombre',
         'idestado'
 
@@ -25,7 +27,7 @@ class ris_salas extends Model
 
     protected $casts = [
         'id' => 'string',
-        'cliente_id' => 'string',
-        'sede_id' => 'string'
+        'sede_id' => 'string',
+        'modalidad_id' => 'string'
     ];
 }

@@ -135,15 +135,12 @@
                                                         @enderror
                                                         </div>
                                                         <div class="form-group col-4 m-0">
-                                                            <label class="form-label" for="ruta">Ruta</label>
-                                                            <input type="text"   @error('ruta') class="form-control is-invalid"  
-                                                            @enderror
-                                                            class="form-control"  id="ruta" name="ruta"  value="{{old('ruta')}}"/>
-                                                            @error('ruta')
-                                                            <br>
-                                                            <small>*{{$message}}</small>
-                                                            <br>
-                                                        @enderror
+                                                            <label class="form-label" for="idestado">Estado</label>
+															<select class="form-select" id="idestado" name="idestado">
+                                                                @foreach ($desplegables as $desplegable)
+                                                                <option value="{{$desplegable->id}}">{{$desplegable->nombre}}</option>
+                                                                @endforeach
+															</select>
                                                         </div>
                                                     </div>
                                                     
@@ -155,23 +152,6 @@
                                                         
                                                         </div>
                                                         
-                                                    </div>
-                                                    <div class="row">													                                                    
-                                                        <div class="form-group col-4 m-0">
-                                                         
-                                                            
-                                                        </div>
-                                                        <div class="form-group col-4 m-0">
-                                                           
-                                                        </div>
-                                                        <div class="form-group col-4 m-0">
-                                                            <label class="form-label" for="idestado">Estado</label>
-															<select class="form-select" id="idestado" name="idestado">
-                                                                @foreach ($desplegables as $desplegable)
-                                                                <option value="{{$desplegable->id}}">{{$desplegable->nombre}}</option>
-                                                                @endforeach
-															</select>
-                                                        </div>
                                                     </div>
                                                     <div class="row">    
                                                         

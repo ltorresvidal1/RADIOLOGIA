@@ -97,7 +97,7 @@
 
 @push('scripts')
 
-
+@vite('resources/js/app.js')
 <script src="/assets/js/btnEventos.js"></script>
 
 <script src="/assets/js/plugins/datatables/js/jquery.dataTables.min.js"></script>
@@ -111,13 +111,11 @@
 <script src="/assets/js/plugins/summernote/js/summernote-lite.min.js"></script>
 <script src="/assets/js/plugins/summernote/js/summernote-es-ES.min.js"></script>
 
+
+
 <script>
-
-    const institucion = @json($institucion->ruta);
-
-console.log(institucion);
-  /****************** @ vite('resources/js/app.js')**************************************************************/
-
+    
+/*
   var fechainicial = $("#fechainicial").val();
     fechainicial = fechainicial.replaceAll('-', '');
 
@@ -132,7 +130,7 @@ console.log(institucion);
       responsive: true,
       paging:false,
       autoWidth: false,
-      ajax:"{{route('datatable.estudioscompetados',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal,
+      ajax:"{{route('datatable.estudioscompetados',['',''])}}"+"/"+fechainicial+"/"+fechafinal,
       order: [[0, 'desc']],
       
       "columnDefs": [
@@ -202,15 +200,44 @@ console.log(institucion);
     var fechafinal = $("#fechafinal").val();
     fechafinal = fechafinal.replaceAll('-', '');
   
-    const institucion = @json($institucion->ruta);
 
-    $('#tabletab1').DataTable().ajax.url("{{route('datatable.estudioscompetados',['','',''])}}"+"/"+institucion+"/"+fechainicial+"/"+fechafinal).load();
+    $('#tabletab1').DataTable().ajax.url("{{route('datatable.estudioscompetados',['',''])}}"+"/"+fechainicial+"/"+fechafinal).load();
 
   }
   
   $("#fechainicial").change(function () {actualizador(); });
   $("#fechafinal").change(function () {actualizador(); });
 
+ */
 </script>
 
+
+
+
+<script type="module">
+      /*
+     Echo.channel('luis').listen('MessageSent',(e) => {
+       console.log(e);
+    });
+    */
+    console.log('Mensaje recibido desde Laravel:', event);
+    window.Echo.channel('mensaje').listen('MessageChannelEvent', (event) => {
+    // event contiene el mensaje recibido desde el servidor
+    console.log('Mensaje recibido desde Laravel:', event);
+});
+/*
+    window.Echo.channel('Stm')
+    .listen('WebSocketMessageReceived', (event) => {
+        console.log('Mensaje recibido:', event.message);
+        // Aquí puedes procesar el mensaje recibido en el frontend
+    });*/
+
+       /**
+        * nebvU8-gotjuj-hogwij
+        *luis
+App\Events\MessageSent
+{"message":"hola"}
+        * 7KTMHT2GWLN33QUBCHZP6KZ6736GHPK3
+       */
+   </script>
 @endpush

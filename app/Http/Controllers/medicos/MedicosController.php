@@ -43,8 +43,6 @@ class MedicosController extends Controller
 
 
 
-
-
         return view('medicos.index', compact('medicos'));
     }
 
@@ -72,10 +70,6 @@ class MedicosController extends Controller
             'idestado' => $request->idestado
         ]);
 
-
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
         User::create([
             'id' => $codigounico,
             'documento' => $request->documento,
@@ -85,14 +79,13 @@ class MedicosController extends Controller
             'perfile_id' => $request->idperfil,
             'idestado' => $request->idestado
         ]);
-        $IdUsuario = User::latest('id')->first();
+
+
 
         Usuariosclientes::create([
-            'user_id' => $IdUsuario->id,
+            'user_id' => $codigounico,
             'cliente_id' => $cu->cliente_id,
         ]);
-
-
 
 
 
@@ -142,8 +135,6 @@ class MedicosController extends Controller
 
 
         $medico->delete();
-        // User::where('documento', '=', $medico->documento)->delete(['documento' => $medico->documento]);
-        //Usuariosclientes::where('documento', '=', $medico->documento)->delete(['documento' => $medico->documento]);
         notify()->success('Radiologo Eliminado', 'Confirmacion');
         return redirect()->route('medicos.index');
     }

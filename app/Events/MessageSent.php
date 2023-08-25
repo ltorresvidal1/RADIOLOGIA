@@ -18,9 +18,10 @@ class MessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(string $message)
+    public function __construct()
     {
-        $this->message = $message;
+        $this->message = 'Hello friend';
+        //  $this->message = $message;
     }
 
     /**
@@ -28,13 +29,20 @@ class MessageSent implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
+
+    public function broadcastAs()
+    {
+        return 'MessageSent';
+    }
     public function broadcastOn(): array
     {
         return [
             // new PresenceChannel('chat'),
             new Channel('luis'),
-            //new PrivateChannel('luis'),
+            // new Channel("luis.{$this->message}"),
             //new PrivateChannel('channel-name'),
+
+
         ];
     }
 }

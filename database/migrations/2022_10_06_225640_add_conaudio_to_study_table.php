@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::table('study', function (Blueprint $table) {
             $table->integer('conaudio')->default(0);
+            $table->foreignUuid('medico_id')->nullable();
+            $table->integer('prioridad')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +30,8 @@ return new class extends Migration
     {
         Schema::table('study', function (Blueprint $table) {
             $table->dropColumn('conaudio');
+            $table->dropColumn('medico_id');
+            $table->dropColumn('prioridad');
         });
     }
 };

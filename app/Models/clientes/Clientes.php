@@ -19,7 +19,6 @@ class Clientes extends Model
         'telefono',
         'correo',
         'logo',
-        'ruta',
         'fechainicial',
         'fechafinal',
         'idestado'

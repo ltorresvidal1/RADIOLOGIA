@@ -136,7 +136,9 @@
     <header class="clearfix">
       
       <div id="logo">
+        @if($clientes->logo!==null )
         <img src="{{ public_path() . "/uploads/clienteslogos/". $clientes->logo }}">
+        @endif 
       </div>
    
       
@@ -175,8 +177,10 @@
       <table  width="530">
         <thead>
         <tr>
-         
-          <th ><img width="35%" height="70px" style="border: 1px" src="{{ public_path() . "/uploads/firmasradiologos/". $lecturas->firma }}"></th>
+       
+        
+        
+          <th>   @if($lecturas->firma!==null ) <img width="35%" height="70px" style="border: 1px" src="{{ public_path() . "/uploads/firmasradiologos/". $lecturas->firma }}"> @endif  </th> 
           <td  width="45%" style="text-align: center;"></td>
         </tr>
         </thead>

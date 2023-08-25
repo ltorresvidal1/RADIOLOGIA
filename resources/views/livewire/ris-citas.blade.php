@@ -25,9 +25,12 @@
                     <div class="row">
                         <div class="d-flex align-items-center">     
                             <div class="form-group row mb-2">
-                                <label for="documento" class="col-sm-4 col-form-label">Documento</label>
+                                <label for="documento" class="col-sm-4 col-form-label">Paciente</label>
                                 <div class="col-sm-8">
-                                <input type="documento" class="form-control" id="documento">
+                             
+                                <input wire:keydown.enter="buscar_p" wire:model="search" type="text" name="serch" placeholder="Documento" class="form-control"/>
+                                    
+                                
                                 </div>
                             </div>
                          </div>
@@ -81,57 +84,39 @@
 
 
 <!-- modal -->
-<div id="fsModal"
-     class="modal animated bounceIn"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="myModalLabel"
-     aria-hidden="true">
+<div id="asignarcita" class="modal fade"  style="display: none;"   wire:ignore.self>
 
   <!-- dialog -->
-  <div class="modal-dialog">
+  <div class="modal-dialog  modal-xl">
 
     <!-- content -->
     <div class="modal-content">
 
       <!-- header -->
       <div class="modal-header">
-        <h1 id="myModalLabel"
-            class="modal-title">
-          Modal title
-        </h1>
+        <h1 id="myModalLabel" class="modal-title">Asignar Cita</h1>
       </div>
       <!-- header -->
       
       <!-- body -->
       <div class="modal-body">
-        <h2>1. Modal sub-title</h2>
+        <div class="row">
 
-        <p>Liquor ipsum dolor sit amet bearded lady, grog murphy's bourbon lancer. Kamikaze vodka gimlet; old rip van winkle, lemon drop martell salty dog tom collins smoky martini ben nevis man o'war. Strathmill grand marnier sea breeze b & b mickey slim. Cactus jack aberlour seven and seven, beefeater early times beefeater kalimotxo royal arrival jack rose. Cutty sark scots whisky b & b harper's finlandia agent orange pink lady three wise men gin fizz murphy's. Chartreuse french 75 brandy daisy widow's cork 7 crown ketel one captain morgan fleischmann's, hayride, edradour godfather. Long island iced tea choking hazard black bison, greyhound harvey wallbanger, "gibbon kir royale salty dog tonic and tequila."</p>
-
-        <h2>2. Modal sub-title</h2>
-
-        <p>The last word drumguish irish flag, hurricane, brandy manhattan. Lemon drop, pulteney fleischmann's seven and seven irish flag pisco sour metaxas, hayride, bellini. French 75 wolfram christian brothers, calvert painkiller, horse's neck old bushmill's gin pahit. Monte alban glendullan, edradour redline cherry herring anisette godmother, irish flag polish martini glen spey. Abhainn dearg bloody mary amaretto sour, ti punch black cossack port charlotte tequila slammer? Rum swizzle glen keith j & b sake bomb harrogate nights 7 crown! Hairy virgin tomatin lord calvert godmother wolfschmitt brass monkey aberfeldy caribou lou. Macuá, french 75 three wise men.</p>
-
-        <h2>3. Modal sub-title</h2>
-
-        <p>Pisco sour daiquiri lejon bruichladdich mickey slim sea breeze wolfram kensington court special: pink lady white lady or delilah. Pisco sour glen spey, courvoisier j & b metaxas glenlivet tormore chupacabra, sambuca lorraine knockdhu gin and tonic margarita schenley's." Bumbo glen ord the macallan balvenie lemon split presbyterian old rip van winkle paradise gin sling. Myers black bison metaxa caridan linkwood three wise men blue hawaii wine cooler?" Talisker moonwalk cosmopolitan wolfram zurracapote glen garioch patron saketini brandy alexander, singapore sling polmos krakow golden dream. Glenglassaugh usher's wolfram mojito ramos gin fizz; cactus jack. Mai-tai leite de onça bengal; crown royal absolut allt-á-bhainne jungle juice bacardi benrinnes, bladnoch. Cointreau four horsemen aultmore, "the amarosa cocktail vodka gimlet ardbeg southern comfort salmiakki koskenkorva."</p>
-
+      <div class="form-group col-6 m-0">
+                                         
+     
+            
+      </div>
+        </div>
       </div>
       <!-- body -->
 
+
       <!-- footer -->
       <div class="modal-footer">
-        <button class="btn btn-secondary"
-                data-dismiss="modal">
-          close
-        </button>
-        <button class="btn btn-default">
-          Default
-        </button>
-        <button class="btn btn-primary">
-          Primary
-        </button>
+        <button class="btn btn-secondary" data-dismiss="modal">close </button>
+        <button class="btn btn-default"> Default </button>
+        <button class="btn btn-primary"> Primary </button>
       </div>
       <!-- footer -->
 
@@ -143,7 +128,47 @@
 
 </div>
 <!-- modal -->
+
+
+
+@push('scripts')
+
+    <script>
+
+window.addEventListener('paciente-no-encontrado', () => {
+
+  swal({
+        title: "Documento no encontrado",
+        text: "Desea crear paciente?",
+        icon: "info",
+        dangerMode: false,
+        buttons: {
+            confirm: { text: "Si", value: true, visible: true, className: "", closeModal: true },
+            cancel: { text: "No", value: null, visible: true, className: "", closeModal: true }
+        }
+    })
+        .then((willDelete) => {
+
+            if (willDelete) {
+
+
+            
+
+            }
+        });
+
+})
+
+window.addEventListener('paciente-encontrado', () => {
+
+
+
+})
+
+</script>
+@endpush
 <script>
+
 
 window.addEventListener('buscaragenda', () => {
     var  idcliente=@this.get('idcliente');
@@ -226,7 +251,7 @@ var handleRenderFullcalendar = function() {
     }
    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
    // alert('View: ' + info.view.type);
-$('#fsModal').modal('show'); // abrir
+$('#asignarcita').modal('show'); // abrir
   },
 
       loading: function(isLoading) {
@@ -285,9 +310,6 @@ $('#fsModal').modal('show'); // abrir
 
 
 
-</script>
-
-<script>
 /*
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');

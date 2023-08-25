@@ -23,7 +23,6 @@ return new class extends Migration
             $table->date('fechainicial');
             $table->date('fechafinal');
             $table->string('logo')->nullable();
-            $table->string('ruta')->nullable();
             $table->integer('idestado');
             $table->timestamps();
         });

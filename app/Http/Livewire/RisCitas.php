@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\ris\ris_citas;
+use App\Models\ris\ris_pacientes;
 use App\Models\ris\ris_salas;
 use App\Models\ris\ris_sedes;
 use Livewire\Component;
@@ -16,6 +17,29 @@ class RisCitas extends Component
     public $sedes = [], $salas = [], $estados = [], $eventos;
     protected $listeners = ['buscaragenda'];
 
+    public $search;
+    public $searchResults = [];
+    public $pacienteencontrado = 0;
+
+    public function buscar_p()
+    {
+
+
+        $this->pacienteencontrado = ris_pacientes::where('documento', 'like', '%' . $this->search . '%')->count();
+
+        if ($this->pacienteencontrado == 0) {
+            $this->dispatchBrowserEvent('paciente-no-encontrado');
+        } else {
+            $this->dispatchBrowserEvent('paciente-encontrado');
+        }
+    }
+
+    public function updatedSearch($value)
+    {
+
+
+        //  dump($this->buscadordocumentoresultado);
+    }
 
     public function mount()
     {

@@ -65,7 +65,7 @@ echo '<div class="menu-header"><span class="menu-text">Administrador</span></div
                         </a>
                         <div class="menu-submenu" style="box-sizing: border-box; display: none;">
                             <div class="menu-item">
-                                <a href="#" class="menu-link">
+                                <a href="/modalidades" class="menu-link">
                                 <span class="menu-text">Modalidades</span>
                                 </a>
                             </div>

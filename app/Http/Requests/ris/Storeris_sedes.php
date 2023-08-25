@@ -22,6 +22,7 @@ class Storeris_sedes extends FormRequest
     public function rules(): array
     {
         return [
+            'codigo' => ['required'],
             'nombre' => ['required'],
         ];
     }

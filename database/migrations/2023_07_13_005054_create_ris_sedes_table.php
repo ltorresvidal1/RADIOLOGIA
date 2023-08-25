@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ris_sedes', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
+            $table->string('codigo');
             $table->string('nombre');
             $table->integer('idestado');
             $table->timestamps();

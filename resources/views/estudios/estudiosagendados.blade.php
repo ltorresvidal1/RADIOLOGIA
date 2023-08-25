@@ -20,20 +20,6 @@
 
 @section('content')
 
-<div class="row">	
-
-    <div class="form-group col-11 m-0">	</div>	
-  
-   
-                                                                                       
-    <div class="form-group col-1 m-0">
-        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
-            <i class="fa fa-cog"></i> Filtros
-        </button>
-    </div>
-</div>
-
-<br>
 <div class="row">            
     <table id="tabletab" class="table text-nowrap w-100">
         <thead>
@@ -89,11 +75,12 @@
 <script src="/assets/js/plugins/summernote/js/summernote-lite.min.js"></script>
 <script src="/assets/js/plugins/summernote/js/summernote-es-ES.min.js"></script>
 
+
 <script>
 
-    const institucion = @json($institucion->ruta);
 
-  /****************** @ vite('resources/js/app.js')**************************************************************/
+
+  /****************** **************************************************************/
 
   /*
     $('#tabletab').DataTable({
@@ -104,7 +91,7 @@
       responsive: true,
       paging:false,
       autoWidth: false,
-      ajax:"{{route('datatable.estudiosportranscribir',[''])}}"+"/"+institucion,
+  
       order: [[0, 'desc']],
       
       "columnDefs": [
@@ -169,10 +156,8 @@
   
   function actualizadortabla(){
 
-    const institucion = @json($institucion->ruta);
 
-    $('#tabletab').DataTable().ajax.url("{{route('datatable.estudiosportranscribir',[''])}}"+"/"+institucion).load();
-
+    
   }
   
    

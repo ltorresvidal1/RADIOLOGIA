@@ -123,10 +123,10 @@
                           <div class="text-decoration"><small><strong>Visor Web</strong></small></div>
                                                      
                           <div class="d-flex align-items-center mb-3">
-                              <a href="http://192.168.1.73:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank"  ><img src="/assets/img/usuarios/logo.jpg" alt="" width="50" class="rounded-circle"></a>
+                              <a href="http://82.180.161.233:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank"  ><img src="/assets/img/usuarios/logo.jpg" alt="" width="50" class="rounded-circle"></a>
                              
                               <div class="flex-fill ps-2">
-                              <div class="fw-600"><a href="http://192.168.1.73:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank" class="text-decoration-none">Ver Estudio</a></div>
+                              <div class="fw-600"><a href="http://82.180.161.233:3000/viewer?StudyInstanceUIDs={{$datospaciente->studyinstanceuids}}" target="_blank" class="text-decoration-none">Ver Estudio</a></div>
                               <input type="hidden" class="form-control" id="codigo_Estudio" autocomplete="off" value="{{$idestudio}}">
                               <div class="text-decoration-600 fs-13px">04/10/2022</div>
                               </div>
@@ -203,7 +203,7 @@
                                   @csrf
                       
                                   <div class="row">	
-                                   
+                                  
                                       <div class="col-md-8">
                                         <input type="hidden" id="idestudio" name="idestudio" value="{{$idestudio}}">
                                       <div class="row mb-2">
@@ -211,7 +211,7 @@
                                           <div class="col">
                                               <input type="text"   @error('estudio') class="form-control is-invalid"  
                                               @enderror
-                                              class="form-control"  id="estudio" name="estudio"  value="{{old('estudio')}}"/>
+                                              class="form-control"  id="estudio" name="estudio"  value="{{old('estudio',$datospaciente->estudio)}}"/>
                                               @error('estudio')
                                               <br>
                                               <small>*{{$message}}</small>
@@ -618,6 +618,8 @@ function ImprimirLectura(){
 
     const idestudio = @json($idestudio);
     var host = window.location.origin;
+
+    
     window.open(host+"/imprimirlectura/"+idestudio,"_blank")
 
 }
@@ -707,8 +709,6 @@ var DictadoButton = function (context) {
 
 ////////con ajax
 var idestudio = $("#idestudio").val();
-const institucion = @json($institucion->ruta);
-
 
 
 datatableLecturas=$('#datatableLecturas').DataTable({
@@ -719,7 +719,7 @@ datatableLecturas=$('#datatableLecturas').DataTable({
   responsive: true,
   paging:false,
   autoWidth: false,
-  ajax:"{{route('datatable.lecturasestudiosclientes',['',''])}}"+"/"+institucion+"/"+idestudio,
+  ajax:"{{route('datatable.lecturasestudiosclientes',[''])}}"+"/"+idestudio,
   order: [[0, 'desc']],
   select:true,
   "columnDefs": [

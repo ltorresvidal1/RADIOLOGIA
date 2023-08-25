@@ -20,14 +20,9 @@ class ris_sedesController extends Controller
     public function index()
     {
 
-        $user = Auth::user();
-        $idcliente = Usuariosclientes::where('user_id', '=', $user->id)
-            ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-            ->select('clientes.id')
-            ->first();
 
-        $sedes = ris_sedes::where('cliente_id', '=', $idcliente->id)
-            ->selectRaw("id,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
+
+        $sedes = ris_sedes::selectRaw("id,codigo,nombre,case when idestado='2' then 'Inactivo' when idestado='1' then 'Activo' end estado")
             ->paginate();
 
         return view('ris.sedes.index', compact('sedes'));
@@ -44,13 +39,8 @@ class ris_sedesController extends Controller
     public function store(Storeris_sedes $request)
     {
 
-        $user = Auth::user();
-        $cu = usuariosclientes::where('user_id', '=', $user->id)->first();
-
-
-
         ris_sedes::create([
-            'cliente_id' => $cu->cliente_id,
+            'codigo' => $request->codigo,
             'nombre' => $request->nombre,
             'idestado' => $request->idestado
 
@@ -75,10 +65,10 @@ class ris_sedesController extends Controller
 
         $sede->update($request->all());
 
-        $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
+        //  $estados = Desplegables::where('ventana', 'estados')->where('estado', '1')->get();
         notify()->success('Sede Actualizada', 'Confirmacion');
 
-        return redirect()->route('rissedes.edit', compact('sede',  'estados'));
+        return redirect()->route('rissedes.edit', compact('sede'));
     }
 
 

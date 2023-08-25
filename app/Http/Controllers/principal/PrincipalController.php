@@ -95,27 +95,19 @@ class PrincipalController extends Controller
     if ($user->perfile_id == '2') {
 
 
-      $institucion = Usuariosclientes::where('user_id', '=', $user->id)
-        ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-        ->select('clientes.ruta')
-        ->first();
-
-      $consultapacientes = series::where('institution', '=', "$institucion->ruta")
-        ->join('study', 'study.pk', '=', 'series.study_fk')
+      $consultapacientes = series::join('study', 'study.pk', '=', 'series.study_fk')
         ->join('patient', 'patient.pk', '=', 'study.patient_fk')
         ->distinct()->count('patient.pk');
 
-      $consultaestudios = series::where('institution', '=', "$institucion->ruta")->count();
+      $consultaestudios = series::count();
 
-      $tamanoendisco = series::where('institution', '=', "$institucion->ruta")
-        ->join('instance', 'instance.series_fk', '=', 'series.pk')
+      $tamanoendisco = series::join('instance', 'instance.series_fk', '=', 'series.pk')
         ->join('location', 'location.instance_fk', '=', 'instance.pk')
         ->selectRaw('round((sum(object_size)/100000000000)*100,2) as total')
         ->pluck('total');
 
 
-      $consultaestudiospormes = series::where('institution', '=', "$institucion->ruta")
-        ->whereRaw('SUBSTRING (study.study_date ,1 ,4)=CAST (extract(year from now()) AS text)')
+      $consultaestudiospormes = series::whereRaw('SUBSTRING (study.study_date ,1 ,4)=CAST (extract(year from now()) AS text)')
         ->groupByRaw('SUBSTRING(study.study_date ,5 ,2 )')
         ->join('study', 'study.pk', '=', 'series.study_fk')
         ->selectRaw('count(*) as total,  SUBSTRING(study.study_date, 5, 2) as mes')->get();
@@ -166,12 +158,7 @@ class PrincipalController extends Controller
     }
     if ($user->perfile_id == '3') {
 
-      $institucion = Usuariosclientes::where('user_id', '=', $user->id)
-        ->join('clientes', 'clientes.id', '=', 'usuariosclientes.cliente_id')
-        ->select('clientes.ruta')
-        ->first();
-
-      return view('estudios.estudiosagendados', compact('institucion'));
+      return view('estudios.estudiosagendados');
     }
   }
 }

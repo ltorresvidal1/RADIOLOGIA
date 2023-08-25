@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ris_salas', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('cliente_id');
-            $table->foreignUuid('sede_id');
+        Schema::create('ris_prioridades', function (Blueprint $table) {
+            $table->id();
             $table->string('nombre');
+            $table->string('color');
             $table->integer('idestado');
             $table->timestamps();
         });
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ris_salas');
+        Schema::dropIfExists('ris_prioridades');
     }
 };

@@ -14,14 +14,13 @@ class ris_sedes extends Model
     protected $table = "ris_sedes";
 
     protected $fillable = [
-        'cliente_id',
+        'codigo',
         'nombre',
         'idestado'
     ];
 
 
     protected $casts = [
-        'id' => 'string',
-        'cliente_id' => 'string'
+        'id' => 'string'
     ];
 }

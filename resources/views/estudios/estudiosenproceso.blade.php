@@ -20,20 +20,7 @@
 
 @section('content')
 
-<div class="row">	
 
-    <div class="form-group col-11 m-0">	</div>	
-  
-   
-                                                                                       
-    <div class="form-group col-1 m-0">
-        <button type="button" class="btn btn-primary mb-1 btn-sm" data-bs-toggle="modal" data-bs-target="#modalSm">
-            <i class="fa fa-cog"></i> Filtros
-        </button>
-    </div>
-</div>
-
-<br>
 <div class="row">            
     <table id="tabletab3" class="table text-nowrap w-100">
         <thead>
@@ -54,22 +41,7 @@
     </table>       
 </div>
 
-
-<div class="modal fade" id="modalSm">
-    <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-    <div class="modal-header">
-    <h5 class="modal-title">Opciones</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-    </div>
-    <div class="modal-body">
-    ...
-    </div>
-    </div>
-    </div>
-    </div>
-    
-                                    
+@livewire('modal-filtros-component')                           
 @endsection
 
 
@@ -77,7 +49,7 @@
 
 
 <script src="/assets/js/btnEventos.js"></script>
-
+<script src="/assets/js/funcionesEstudios.js"></script>
 <script src="/assets/js/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assets/js/plugins/datatables/js/dataTables.buttons.min.js"></script>
@@ -91,9 +63,8 @@
 
 <script>
 
-    const institucion = @json($institucion->ruta);
 
-  /****************** @ vite('resources/js/app.js')**************************************************************/
+  /********************************************************************************/
 
   
     $('#tabletab3').DataTable({
@@ -104,7 +75,17 @@
       responsive: true,
       paging:false,
       autoWidth: false,
-      ajax:"{{route('datatable.estudiosenproceso',[''])}}"+"/"+institucion,
+      ajax: {
+            url: "{{route('datatable.estudiosenproceso')}}",
+            data: function (d){
+                d.sede=buscar_sedes,
+                d.sala=buscar_salas,
+                d.modalidad=buscar_modalidades,
+                d.prioridad=buscar_prioridades
+            }
+        },
+        dataType:'json',
+        type: "POST",
       order: [[0, 'desc']],
       
       "columnDefs": [
@@ -135,13 +116,13 @@
         {
        className: '',
               "render": function ( data, type, row, meta ) {
-                if(data=="0"){
+                if(data=="1"){
                 return '<span class="badge bg-info text-white rounded-sm fs-12px fw-500">Baja</span>';
                  }
-                 if(data=="1"){
+                 if(data=="2"){
                 return '<span class="badge bg-warning text-white rounded-sm fs-12px fw-500">Media</span>';
                  }
-                 if(data=="2"){
+                 if(data=="3"){
                 return '<span class="badge bg-danger text-white rounded-sm fs-12px fw-500">Alta</span>';
                  }
             },
@@ -167,19 +148,26 @@
   
   
   
-  function actualizadortabla(){
-
-    const institucion = @json($institucion->ruta);
-
-    $('#tabletab3').DataTable().ajax.url("{{route('datatable.estudiosenproceso',[''])}}"+"/"+institucion).load();
-
-  }
-  
-   
-  setInterval(function() { actualizadortabla();}, 9500);
-    
-
+ 
+function actulizar_filtros() {
+    $('#tabletab3').DataTable().ajax.reload();
+}
 
 </script>
+@vite('resources/js/app.js')
+
+<script type="module">
+
+      Echo.channel('escuchandoestudiosenproceso').listen('estudioenprocesoEvent',(e) => {
+         console.log("estudioenprocesoEvent"+e.message);
+         if(e.message=="actualizar"){
+          $('#tabletab3').DataTable().ajax.reload();
+         }
+         
+      });
+  </script>
+
+
+
 
 @endpush
