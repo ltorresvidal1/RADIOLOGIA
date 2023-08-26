@@ -163,6 +163,8 @@ function actulizar_filtros() {
 
 
 <script type="module">
+
+  console.log(window.location.hostname);
   Echo.channel('escuchandoestudiosdeturno').listen('estudiodeturnoEvent',(e) => {
     console.log("estudiodeturnoEvent"+e.message);
        if(e.message=="actualizar"){
