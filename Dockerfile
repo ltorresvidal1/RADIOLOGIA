@@ -28,22 +28,22 @@ RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear
 RUN php artisan octane:install --server="swoole"
+CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
 
-RUN npm install
-#RUN npm run dev
 
-#CMD php artisan octane:start --server="swoole" --host="0.0.0.0"
+
+#RUN npm install -lo acabo de comentar
+
+
 
 EXPOSE 8000
 
 # Instalar Supervisor
-RUN apk add --no-cache supervisor
+#RUN apk add --no-cache supervisor    lo acabo de comentar
 
 # Copiar archivo de configuración de Supervisor
-COPY supervisord.conf /etc/supervisor.conf
-
-#COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# COPY supervisord.conf /etc/supervisor.conf
 
 # Agregar comandos para ejecutar Supervisor
-#CMD supervisord -n -c /etc/supervisor/supervisord.conf
-CMD ["supervisord", "-c", "/etc/supervisor.conf"]
+#CMD supervisord -n -c /etc/supervisor/supervisord.conf   lo acabo de comentar
+#CMD ["supervisord", "-c", "/etc/supervisor.conf"] lo acabo de comentar

@@ -193,6 +193,8 @@ Route::delete('pacientes/{paciente}', [ris_pacientesController::class, 'destroy'
 
 
 /*
+rutas basuras
+
 Route::get('/cargaragenda/{idcliente}/{idsede}/{idsala}', [ris_agendasController::class, 'cargaragenda'])->name('risagendas.cargaragenda');
 Route::get('/estudio/imprimir/{idestudio}', [lecturasController::class, 'index'])->name('imprimirlectura.index');
 Route::get('/enviosocket', [HL7Controller::class, 'enviosocket'])->name('hl7.socket');
