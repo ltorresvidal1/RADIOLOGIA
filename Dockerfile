@@ -14,16 +14,16 @@ RUN apk update && apk add --no-cache --virtual .build-deps \
     npm
 
 
-#WORKDIR /app
+WORKDIR /app
 COPY . .
-RUN rm -rf /vendor
-RUN rm -rf /composer.lock
+RUN rm -rf /app/vendor
+RUN rm -rf /app/composer.lock
 
 RUN composer install
 RUN composer require laravel/octane spiral/roadrunner
 RUN docker-php-ext-install pdo pdo_pgsql
 COPY .env.example .env
-RUN mkdir -p /storage/logs
+RUN mkdir -p /app/storage/logs
 RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear

@@ -124,6 +124,7 @@ return [
          */
         'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
 
+        'verificar_peer' => false,
         /*
          * Passphrase for your local_cert file.
          */
