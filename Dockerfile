@@ -11,8 +11,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN apt-get update && apt-get install -y \
     libpq-dev \
     supervisor \
-    nginx
-    
+    nginx \
+    libzip-dev
+
+RUN apt-get update && apt-get install -y libpng-dev
+RUN docker-php-ext-configure zip
+RUN docker-php-ext-install zip
+RUN docker-php-ext-configure zip
+RUN docker-php-ext-install gd
+
 # Copiamos los archivos de la aplicación Laravel
 COPY .. /var/www/html
 # Instalamos las extensiones de PHP necesarias
