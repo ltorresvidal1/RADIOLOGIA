@@ -3,10 +3,10 @@ FROM richarvey/nginx-php-fpm
 
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    supervisor \
-    libzip-dev \
-    libpng-dev
+   # libpq-dev \
+    supervisoractualizacion dockerfile18
+    #libzip-dev \
+    #libpng-dev
 # Instala Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
