@@ -3,6 +3,7 @@
 
 use App\Events\MessageSent;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\HL7\HL7Controller;
 use App\Http\Controllers\WebSocketController;
 use App\Http\Controllers\auth\LoginController;

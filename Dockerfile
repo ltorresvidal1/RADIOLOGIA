@@ -1,24 +1,46 @@
-# Utiliza una imagen base de PHP 8 con FPM
-FROM php:8.1-fpm
+# Usamos la imagen base oficial de PHP 8.2
+FROM php:8.1.9-fpm-alpine
 
-# Instala las dependencias necesarias
+# Instalamos las dependencias de Composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+     --install-dir=/usr/local/bin --filename=composer
+
+# Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    supervisor \
     nginx \
-    && rm -rf /var/lib/apt/lists/*
+    libzip-dev \
+    libpng-dev
 
-# Configura el directorio de trabajo
-#WORKDIR /var/www/html
+# Instalamos las extensiones de PHP necesarias
+RUN docker-php-ext-install pdo pdo_pgsql zip gd
 
-# Copia los archivos de la aplicación
+# Copiamos los archivos de la aplicación Laravel
 COPY . /var/www/html
 
+# Instalamos las dependencias de Composer
+RUN cd /var/www/html && composer install
 
-# Expone el puerto 80 para NGINX
-EXPOSE 80
+# Copiamos el archivo de entorno
+COPY .env.example .env
 
-# Copia la configuración de NGINX
-#COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# Limpieza de la caché de Laravel
+RUN php artisan cache:clear
+RUN php artisan view:clear
+RUN php artisan config:clear
+
+# Copiamos la configuración de Nginx
 COPY nginx/default /etc/nginx/sites-available/default
 
-# Inicia los servicios de NGINX y PHP-FPM
-CMD service nginx start && php-fpm
+# Copiamos la configuración de Supervisor
+COPY supervisor/* /etc/supervisor/conf.d/
+
+# Asignamos los permisos adecuados
+RUN chown -R www-data:www-data /var/www/html/storage
+
+# Puerto expuesto por Nginx
+EXPOSE 80
+
+# Iniciamos los servicios de Nginx y Supervisor
+CMD service supervisor start && nginx -g 'daemon off;'
