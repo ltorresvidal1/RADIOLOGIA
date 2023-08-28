@@ -3,13 +3,9 @@ FROM php:8.1-fpm
 
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
-
-RUN apk update && apk add --no-cache --virtual .build-deps \
     libpq-dev \
     supervisor \
-    postgresql-dev \
     nginx
-
 
 # Instalamos las extensiones de PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql
@@ -27,11 +23,10 @@ COPY . /var/www/html
 # Instalamos las dependencias de Composer
 RUN curl -sS https://getcomposer.org/installer​ | php -- \
      --install-dir=/usr/local/bin --filename=composer
+RUN composer self-update
+RUN composer clear-cache
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
-
-#RUN cd /var/www/html && composer install
+RUN cd /var/www/html && composer install
 
 
 # Asignamos los permisos adecuados
