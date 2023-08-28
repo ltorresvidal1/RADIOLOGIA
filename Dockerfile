@@ -6,6 +6,7 @@ FROM php:8.1-fpm
 RUN curl -sS https://getcomposer.org/installer​ | php -- \
      --install-dir=/usr/local/bin --filename=composer
 
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
     libpq-dev \
@@ -13,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     nginx
     
 # Copiamos los archivos de la aplicación Laravel
-COPY . /var/www/html
+COPY .. /var/www/html
 # Instalamos las extensiones de PHP necesarias
 RUN rm -rf /vendor
 RUN rm -rf /composer.lock
