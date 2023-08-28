@@ -21,8 +21,14 @@ COPY supervisor/* /etc/supervisor/conf.d/
 COPY . /var/www/html
 
 # Instalamos las dependencias de Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN cd /var/www/html && composer install
+RUN curl -sS https://getcomposer.org/installer​ | php -- \
+     --install-dir=/usr/local/bin --filename=composer
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
+RUN composer install
+#RUN cd /var/www/html && composer install
+
 
 # Asignamos los permisos adecuados
 RUN chown -R www-data:www-data /var/www/html/storage
