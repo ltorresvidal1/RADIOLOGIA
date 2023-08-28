@@ -3,9 +3,13 @@ FROM php:8.1-fpm
 
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
+
+RUN apk update && apk add --no-cache --virtual .build-deps \
     libpq-dev \
     supervisor \
+    postgresql-dev \
     nginx
+
 
 # Instalamos las extensiones de PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql
