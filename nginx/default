@@ -1,12 +1,18 @@
 server {
-    listen 80;
-    server_name localhost;
-    root /var/www/html/public;
-    index index.php;
 
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        
+        root /var/www/html/public;
+         
+        index index.php;
+        
+        server_name _;
+        
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+                
+        }
 
     location ~ \.php$ {
             include snippets/fastcgi-php.conf;

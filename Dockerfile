@@ -34,7 +34,7 @@ RUN php artisan config:clear
 
 
 # Copiamos la configuración de Nginx
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default /etc/nginx/sites-available/default
 
 # Copiamos la configuración de Supervisor
 COPY supervisor/* /etc/supervisor/conf.d/
