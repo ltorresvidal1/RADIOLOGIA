@@ -5,13 +5,13 @@ FROM ubuntu:21.04
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
     php8.1-fpm \
-    composer \
     libpq-dev \
     supervisor \
     nginx \
     libzip-dev \
-    libpng-dev
-
+    libpng-dev \
+    composer
+    
 # Instalamos las extensiones de PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql zip gd
 
