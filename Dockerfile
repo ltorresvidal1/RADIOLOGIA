@@ -1,46 +1,50 @@
-# Usamos la imagen base oficial de PHP 8.2
-FROM php:8.2-fpm
+FROM php:8.1-fpm
 
-# Instalamos las dependencias de Composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-     --install-dir=/usr/local/bin --filename=composer
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json /var/www/
 
-# Instalamos las dependencias necesarias
+# Set working directory
+WORKDIR /var/www
+
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    supervisor \
-    nginx \
-    libzip-dev \
-    libpng-dev
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl \
+    libzip-dev
 
-# Instalamos las extensiones de PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql zip gd
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copiamos los archivos de la aplicación Laravel
-COPY . /var/www/html
+# Install extensions
+RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
+RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
+RUN docker-php-ext-install gd
 
-# Instalamos las dependencias de Composer
-RUN cd /var/www/html && composer install
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copiamos el archivo de entorno
-COPY .env.example .env
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
 
-# Limpieza de la caché de Laravel
-RUN php artisan cache:clear
-RUN php artisan view:clear
-RUN php artisan config:clear
+# Copy existing application directory contents
+COPY . /var/www
 
-# Copiamos la configuración de Nginx
-COPY nginx/default /etc/nginx/sites-available/default
+# Copy existing application directory permissions
+COPY --chown=www:www . /var/www
 
-# Copiamos la configuración de Supervisor
-COPY supervisor/* /etc/supervisor/conf.d/
+# Change current user to www
+USER www
 
-# Asignamos los permisos adecuados
-RUN chown -R www-data:www-data /var/www/html/storage
-
-# Puerto expuesto por Nginx
-EXPOSE 80
-
-# Iniciamos los servicios de Nginx y Supervisor
-CMD service supervisor start && nginx -g 'daemon off;'
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
