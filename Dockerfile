@@ -7,10 +7,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Configura el directorio de trabajo
-WORKDIR /var/www/html
+#WORKDIR /var/www/html
 
 # Copia los archivos de la aplicación
-COPY app/ ./
+COPY . /var/www/html
+
 
 # Expone el puerto 80 para NGINX
 EXPOSE 80
