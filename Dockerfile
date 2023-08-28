@@ -1,5 +1,5 @@
 # Usamos la imagen base oficial de PHP 8.1
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 # Instalamos las dependencias de Composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
