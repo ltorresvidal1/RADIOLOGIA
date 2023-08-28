@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
 # Copiamos los archivos de la aplicación Laravel
 COPY . /var/www/html
 # Instalamos las extensiones de PHP necesarias
+RUN rm -rf /vendor
+RUN rm -rf /composer.lock
+
 RUN composer install
 RUN docker-php-ext-install pdo pdo_pgsql
 COPY .env.example .env
