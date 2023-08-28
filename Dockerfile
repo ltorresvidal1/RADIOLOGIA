@@ -1,17 +1,18 @@
 # Usamos la imagen base oficial de PHP 8.1
-FROM ubuntu:21.04
+FROM php:8.2-fpm
 
+# Instalamos las dependencias de Composer
+RUN curl -sS https://getcomposer.org/installer | php -- \
+     --install-dir=/usr/local/bin --filename=composer
 
 # Instalamos las dependencias necesarias
 RUN apt-get update && apt-get install -y \
-    php8.1-fpm \
     libpq-dev \
     supervisor \
     nginx \
     libzip-dev \
-    libpng-dev \
-    composer
-    
+    libpng-dev
+
 # Instalamos las extensiones de PHP necesarias
 RUN docker-php-ext-install pdo pdo_pgsql zip gd
 
