@@ -1,3 +1,4 @@
+FROM richarvey/nginx-php-fpm
 # Instala supervisor
 RUN apt-get update && \
     apt-get install -y supervisor && \
