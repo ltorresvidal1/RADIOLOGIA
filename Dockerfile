@@ -26,13 +26,13 @@ RUN curl -sS https://getcomposer.org/installer​ | php -- \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY --from=spiralscout/roadrunner:2.4.2 /usr/bin/rr /usr/bin/rr
-RUN composer install
+
 #RUN cd /var/www/html && composer install
 
 
 # Asignamos los permisos adecuados
 RUN chown -R www-data:www-data /var/www/html/storage
-
+RUN composer install
 RUN php artisan cache:clear
 RUN php artisan view:clear
 RUN php artisan config:clear
