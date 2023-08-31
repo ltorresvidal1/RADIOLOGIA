@@ -1,46 +1,48 @@
-# Usamos la imagen base oficial de PHP 8.2
-FROM php:8.1.9-fpm
+FROM amd64/ubuntu:latest
 
-# Instalamos las dependencias de Composer
-RUN curl -sS https://getcomposer.org/installer | php -- \
-     --install-dir=/usr/local/bin --filename=composer
+RUN apt-get -y update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y install tzdata && \
+    ln -fs /usr/share/zoneinfo/America/Bogota /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata
 
-# Instalamos las dependencias necesarias
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    supervisor \
-    nginx \
-    libzip-dev \
-    libpng-dev
+RUN apt-get -y update && \
+    apt-get -y install nginx software-properties-common
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+    && ln -sf /dev/stderr /var/log/nginx/error.log
 
-# Instalamos las extensiones de PHP necesarias
-RUN docker-php-ext-install pdo pdo_pgsql zip gd
+RUN add-apt-repository ppa:ondrej/php
+RUN apt-get update
 
-# Copiamos los archivos de la aplicación Laravel
+RUN apt-get install -y php8.1-fpm php8.1-gd php8.1-pdo-pgsql php8.1-zip php8.1-curl php8.1-xml composer npm nano
+RUN apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+
 COPY . /var/www/html
 
-# Instalamos las dependencias de Composer
 RUN cd /var/www/html && composer install
 
-# Copiamos el archivo de entorno
-COPY .env.example .env
+
+RUN rm -f /var/www/html/.env
+RUN mv /var/www/html/.envdocker /var/www/html/.env
+
+RUN cd /var/www/html && npm install && npm run build
+
+RUN chmod -R 777 /var/www/html/bootstrap/cache
 
 # Limpieza de la caché de Laravel
-RUN php artisan cache:clear
-RUN php artisan view:clear
-RUN php artisan config:clear
+RUN cd /var/www/html php artisan cache:clear
+RUN cd /var/www/html php artisan view:clear
+RUN cd /var/www/html php artisan config:clear
 
 # Copiamos la configuración de Nginx
 COPY nginx/default /etc/nginx/sites-available/default
 
-# Copiamos la configuración de Supervisor
-COPY supervisor/* /etc/supervisor/conf.d/
 
-# Asignamos los permisos adecuados
-RUN chown -R www-data:www-data /var/www/html/storage
-
-# Puerto expuesto por Nginx
 EXPOSE 80
 
-# Iniciamos los servicios de Nginx y Supervisor
-CMD service supervisor start && nginx -g 'daemon off;'
+# Copia el archivo de configuración de Supervisor
+COPY supervisor/* /etc/supervisor/conf.d/
+RUN chown -R www-data:www-data /var/www/html/storage
+
+# Añade los comandos para iniciar los servicios de NGINX, PHP-FPM y Supervisor
+CMD service php8.1-fpm start && supervisord -n
